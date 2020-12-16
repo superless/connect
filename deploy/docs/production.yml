@@ -13,7 +13,7 @@ variables:
   BuildConfiguration: 'release'
   # nombre del archivo csproj
   name-project: "connect"
-  folder: "connect/"
+  folder: ""
 
 steps:
 - task: DotNetCoreCLI@2
