@@ -36,7 +36,8 @@
       trifenix connect es una plataforma que busca reducir el código en proyectos nativos en la nube.
     </summary>
     
-
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
+    </TargetsForTfmSpecificBuildOutput>
     <DocumentationFile>connect.xml</DocumentationFile>
   </PropertyGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
