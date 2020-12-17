@@ -42,6 +42,21 @@ steps:
       vstsFeed: '$(default-feed)'      
       versioningScheme: byBuildNumber
 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '**/test/*.csproj'
+      arguments: '--configuration $(buildConfiguration) --logger trx --results-directory $(Agent.TempDirectory)'
+      publishTestResults: false
+      testRunTitle: 'testing trifenix connect'
+  
+  - task: PublishTestResults@2    
+    inputs:
+      testResultsFormat: 'VSTest'
+      searchFolder: '$(Agent.TempDirectory)'
+      testResultsFiles: '**/*.trx'
+      testRunTitle: 'Mostrando resultados de test'
+    displayName: 'Publicando resultados de test unitarios'
 
   # genera paquete usando la versión proporcionada por gitversion
   - task: DotNetCoreCLI@2
