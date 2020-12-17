@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "trifenix.connect", "trifenix.connect.csproj", "{930BBDE1-E319-4894-9C59-AE5CF894BAA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "trifenix.connect.test", "..\test\trifenix.connect.test.csproj", "{6A9660AE-21FF-4F91-B341-4ED479A5D135}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{930BBDE1-E319-4894-9C59-AE5CF894BAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930BBDE1-E319-4894-9C59-AE5CF894BAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930BBDE1-E319-4894-9C59-AE5CF894BAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930BBDE1-E319-4894-9C59-AE5CF894BAA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9660AE-21FF-4F91-B341-4ED479A5D135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9660AE-21FF-4F91-B341-4ED479A5D135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9660AE-21FF-4F91-B341-4ED479A5D135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9660AE-21FF-4F91-B341-4ED479A5D135}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BBEB3B8-E83D-4B12-A0CB-B8AD223FC385}
+	EndGlobalSection
+EndGlobal
