@@ -10,16 +10,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>  
     <PackageIcon>logo.png</PackageIcon>
     <Company>Trifenix</Company>
-    <Product>connect</Product>
+    <Product>trifenix.connect</Product>
     <PackageTags>https://github.com/trifenix/connect/</PackageTags>
     <RootNamespace>trifenix</RootNamespace>
     <RepositoryUrl>https://github.com/trifenix/connect/</RepositoryUrl> 
     <nugetUrl>https://www.nuget.org/packages/trifenix.connect/</nugetUrl>
     <devopsUrl><![CDATA[https://dev.azure.com/trifenix-connect/base-public-components/_packaging?_a=package&feed=trifenix&package=trifenix.connect&protocolType=NuGet]]></devopsUrl>
     <releaseBadgeUrl>https://feeds.dev.azure.com/trifenix-connect/_apis/public/Packaging/Feeds/4227dc51-6e8c-42c1-97ca-a33e6615385d/Packages/2b2a691b-0198-4745-9b09-12fee3db522c/Badge</releaseBadgeUrl>
-    <id>connect</id>    
+    <id>trifenix.connect</id>    
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <title>Connect</title>
+    <title>trifenix.connect</title>
     <authors>Trifenix</authors>
     <owners>trifenix</owners>
     <projectUrl>https://connect.trifenix.io/nuget-packages/trifenix-mdm</projectUrl>
