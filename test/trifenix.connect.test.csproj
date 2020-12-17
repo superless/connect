@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="trifenix.connect" Version="0.8.53" />
     <PackageReference Include="trifenix.connect.test.mock" Version="0.8.45" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -23,6 +22,10 @@
 
   <ItemGroup>
     <Folder Include="mock\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\connect\trifenix.connect.csproj" />
   </ItemGroup>
 
 </Project>
