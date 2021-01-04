@@ -52,6 +52,7 @@ namespace trifenix.connect.test
 
             // genera el hash de las cabeceras de entitySearch
             // esto es un diccionario
+            // Beltrami estuvo aqui
             var hh = hash.HashHeader(typeof(BarrackTest));
 
             // genera un hash del objeto de base de datos.
