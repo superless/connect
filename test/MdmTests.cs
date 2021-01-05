@@ -120,8 +120,8 @@ namespace trifenix.connect.test
                     new RelatedBaseId{ id = genericId, index = (int)EntityRelated.PLOTLAND },
                     new RelatedBaseId{ id = genericId, index = (int)EntityRelated.POLLINATOR },
                     new RelatedBaseId{ id = genericId, index = (int)EntityRelated.ROOTSTOCK },
-                    new RelatedBaseId{ id = genericId, index = (int)EntityRelated.VARIETY },
-                    new RelatedBaseId{ id = genericId, index = (int)EntityRelated.SEASON },
+                    new RelatedBaseId { id = genericId, index = (int)EntityRelated.VARIETY },
+                    new RelatedBaseId { id = genericId, index = (int)EntityRelated.SEASON },
                 },
                 str = new StrBaseProperty[] { new StrBaseProperty { index = (int)StringRelated.GENERIC_NAME, value = "Barrack1",  },  new StrBaseProperty { index = (int)StringRelated.GENERIC_CORRELATIVE, value = "1" } },
                 sug = Array.Empty<StrBaseProperty>(),
@@ -194,6 +194,8 @@ namespace trifenix.connect.test
                 str = indexes.str.ToDictionary(s => s, s => dictStr[s]),
                 sug = indexes.sug.ToDictionary(s => s, s => dictStr[s])
             };
+
+
 
 
             // serializa para el hash
