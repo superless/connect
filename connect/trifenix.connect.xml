@@ -1,0 +1,900 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>trifenix.connect</name>
+    </assembly>
+    <members>
+        <member name="T:trifenix.connect.input.InputBase">
+            <summary>
+            Clase abstracta que será usado por todos los ingresos de usuario
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.input.InputBase.Id">
+            <summary>
+            identificador de un elemento input, no siempre es obligatorio.
+            </summary>
+            <value>identificador del elemento</value>
+        </member>
+        <member name="T:trifenix.connect.input.Namespace">
+            <summary>
+            Los inputs se refieren a las ingresos de usuario, en este namespace
+            se encuentras el input base donde heredarán todos los ingresos de usuario.
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.model.DocumentDb">
+            <summary>
+            Elemento base del modelo de datos de trifenix connect.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.model.DocumentDb.Id">
+            <summary>
+            Todos los elementos debene llevar un identificador
+            </summary>
+            <value>identificador de un elemento de base de datos</value>
+        </member>
+        <member name="P:trifenix.connect.model.DocumentDb.ClientId">
+            <summary>
+            Identificador que solo el usuario puede ver, esto puede ser un autonumérico.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:trifenix.connect.Model.Namespace">
+            <summary>
+            dentro de model estarán las clases abstractas del modelo de trifenix
+            Desde DocumentDb se heredarán todos los elementos del modelo.
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.search_mdl.Implements`1">
+            <summary>
+            Para generar un entitySearch desde un objeto de una clase, usamos interfaces que permitirán
+            implementar el modelo en diferentes bases de datos.
+            En el modelo existe una entidad y sus propiedades,
+            sus propiedades pueden ser de valor o de referencia,
+            los de referencia, vinculan otros entitySearch.
+            y los de valor agruparan los distintos tipos de datos que un motor de busqueda soporta (str, int, enums, etc), incluso geo.
+            por cada tipo existe una interface.
+            Dado que debemos generar un objeto de tipo IEntitySearch desde un objeto de una clase
+            es obligatorio conocer el tipo al que se convertirá cada una de las propiedades.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements`1.GeoObjetoToGeoSearch">
+            <summary>
+            Transforma o Castea el objeto geo que tendría un objeto de una clase 
+            al objeto geo que usa el modelo entitySearch.
+            el objeto geo es el único no primitivo (bool, date, string, dbl, etc).
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:trifenix.connect.search_mdl.Implements`1.GetEntitySearchImplementedType" -->
+        <member name="T:trifenix.connect.search_mdl.Implements">
+            <summary>
+            Trifenix connect genera nuevos objetos a partir de un modelo de base de datos, 
+            como Product. Para poder generar un entitySearch con todas sus propiedades se deben asignar los tipos de conversión.
+            el tener los tipos de cada uno, permitirá generar un objeto desde cero, sin que sea necesario instanciar o crear un nuevo objeto.
+            Para esto se debe definir los tipos de propiedades y clases que serán utilizadas para generar el entitySearch.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.num32">
+            <summary>
+            Tipo de una Clase que implemente INum32Property
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.dbl">
+            <summary>
+            Tipo de una Clase que implemente IDblProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.bl">
+            <summary>
+            Tipo de una Clase que implemente IBoolProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.num64">
+            <summary>
+            Tipo de una Clase que implemente INum64Property
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.dt">
+            <summary>
+            Tipo de una Clase que implemente IDtProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.enm">
+            <summary>
+            Tipo de una Clase que implemente IEnumProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.rel">
+            <summary>
+            Tipo de una Clase que implemente IRelatedProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.str">
+            <summary>
+            Tipo de una Clase que implemente IStrProperty
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.Implements.sug">
+            <summary>
+            Tipo de una Clase que implemente IStrProperty para suggest
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:trifenix.connect.search_mdl.Implements.geo" -->
+        <member name="T:trifenix.connect.search_mdl.ISearchEntity`1">
+            <summary>
+            interface para obtener un entitySearch desde un motor de base de datos
+            </summary>
+            <typeparam name="T">El modelo incluye el campo de tipo geo, la forma de este campo depende de cada tipo de base de datos</typeparam>
+        </member>
+        <member name="M:trifenix.connect.search_mdl.ISearchEntity`1.GetEntity(System.Int32,System.String)">
+            <summary>
+            obtiene una entidad desde una implementación de base de datos del modelo.
+            </summary>
+            <param name="entityKind">tipo de entidad a recuperar</param>
+            <param name="idEntity">identificar de la entidad</param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.search_mdl.JsonPreDictionaryHeaders">
+            <summary>
+            Asigna los índices para una determinada clase,
+            cuando se consulta cuales son los índices de una clase
+            este objeto será el retornado.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.index">
+            <summary>
+            Índice de la clase a consultar
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.rel">
+            <summary>
+            índice para las relaciones
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.str">
+            <summary>
+            índices de los tipos strings
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.sug">
+            <summary>
+            Índice de las sugerencias
+            </summary>        
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.enm">
+            <summary>
+            Índice de las enumeraciones
+            </summary>        
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.num32">
+            <summary>
+            Índice de num32
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.num64">
+            <summary>
+            Índice de num64
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.dbl">
+            <summary>
+            Índice de double
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.dt">
+            <summary>
+            Índice de fecha
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.bl">
+            <summary>
+            Índice de bl
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonPreDictionaryHeaders.geo">
+            <summary>
+            Índice de geo
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.search_mdl.JsonDictionaryHeaders">
+            <summary>
+            Una vez obtenido los índices de la propiedad, asignaremos los respectivos nombres
+            de esta manera podremos saber si el diccionario de un entitySearch
+            ha sido modificado.
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.index">
+            <summary>
+            Índice del elemento
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.rel">
+            <summary>
+            Índice de las relaciones y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.str">
+            <summary>
+            Índice de los str y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.sug">
+            <summary>
+            Índice de los sugerencias (suggest) y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.enm">
+            <summary>
+            Índice de las enumeraciones y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.num32">
+            <summary>
+            Índice de los num32 y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.num64">
+            <summary>
+            Índice de los num64 y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.dbl">
+            <summary>
+            Índice de los doubles y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.dt">
+            <summary>
+            Índice de las fechas y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.bl">
+            <summary>
+            Índice de los boleanos y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="P:trifenix.connect.search_mdl.JsonDictionaryHeaders.geo">
+            <summary>
+            Índice de los geos y sus correspondientes nombres en el diccionario
+            </summary>
+            <typeparam name="int">índice en el diccionario</typeparam>
+            <typeparam name="string">nombre en el diccionario</typeparam>
+            <returns>Diccionario con índice y nombre de las propiedades del elemento</returns>
+        </member>
+        <member name="T:trifenix.connect.search_mdl.Namespace">
+            <summary>
+            Operaciones sobre entity Search.
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.util.ArrayExtension">
+            <summary>
+            extensión que permite realizar operaciones de añadir y quitar elementos en un array tipado.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.ArrayExtension.Add``1(``0[],``0)">
+            <summary>
+            añade un elemento a un array y lo regresa con el elemento incluido.
+            </summary>
+            <typeparam name="T">Tipo del array</typeparam>
+            <param name="array">array de elementos al que se añadirá el nuevo elemento</param>
+            <param name="element">elemento a añadir al array</param>
+            <returns>array de elementos</returns>
+        </member>
+        <member name="M:trifenix.connect.util.ArrayExtension.Add``1(``0[],System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Añade una colección de elementos en un array y retorna el mismo con la colección incluida.
+            </summary>
+            <typeparam name="T">Tipo del array</typeparam>
+            <param name="array">array</param>
+            <param name="elements">elementos a añadir en el array.</param>
+            <returns>array con la colección incluida</returns>
+        </member>
+        <member name="M:trifenix.connect.util.ArrayExtension.Remove``1(``0[],System.Int32)">
+            <summary>
+            remueve un elemento de un array de acuerdo al indice y regresa el nuevo array.
+            </summary>
+            <typeparam name="T">Tipo</typeparam>
+            <param name="array">array</param>
+            <param name="indexToRemove">índice del elemento a eliminar.</param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.util.EnumerationExtension">
+            <summary>
+            https://stackoverflow.com/questions/37305985/enum-description-attribute-in-dotnet-core
+            Extensión para ser usada en enumeraciones.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.EnumerationExtension.Description(System.Enum)">
+            <summary>
+            Obtiene la descripción desde una enumeración.
+            </summary>
+            <param name="value">valor de la enumeración</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.EnumerationExtension.IsPrimitive(System.Type)">
+            <summary>
+            Determina si un tipo es primitivo.
+            </summary>
+            <param name="t">Tipo a evaluar</param>
+            <returns>true si es primitivo</returns>
+        </member>
+        <member name="M:trifenix.connect.util.EnumerationExtension.IsPrimitiveAndCollection(System.Type)">
+            <summary>
+            Determina si el tipo es primitivo o es una colección de prmitivos.
+            </summary>
+            <param name="t">tipo a evaluar</param>
+            <returns>true, si es un tipo primitivo o una colección de primitivos</returns>
+        </member>
+        <member name="M:trifenix.connect.util.EnumerationExtension.IsPrimitiveCollection(System.Type)">
+            <summary>
+            Determina si un tipo es una colección primitiva
+            </summary>
+            <param name="t">tipo a evaluar</param>
+            <returns>true, si es una colección primitiva</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm">
+            <summary>
+            Todos los métodos relacionados con la obtención de metadata y valores desde el modelo de clases y la conversión de esta 
+            al modelo de metada de trifenix y viceversa.
+            sus subclases son clases estáticas usadas en Reflection.
+            </summary>
+            <summary>
+            Mdm Útil
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.CreateDynamicList(System.Object)">
+            <summary>
+            Convierte un objeto individual o colección, en una colección
+            </summary>
+            <param name="Obj">bjeto a convertir</param>
+            <returns>si el objeto es una colección deveulve una colección, si no una colección con un solo valor</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetEntityFromSearch``1(trifenix.connect.mdm.entity_model.IEntitySearch{``0},System.Type,System.String,System.Func{``0,System.Object},trifenix.connect.search_mdl.ISearchEntity{``0},trifenix.connect.interfaces.hash.IHashSearchHelper)">
+            <summary>
+            Retorna un objeto desde un entitySearch, el tipo del objeto de retorno será del tipo que utilice el atributo EntityIndexAttribute .
+            para esto buscará todas las clases que tnengan el atributo EntityIndexAttribute que vincula la clase con el índice
+            del entitySearch, una vez encontrada hará lo mismo con los atributos de cada propiedad para finalmente crear un objeto tipado con todos los valores del entitySearch.
+            </summary>
+            <typeparam name="T">Las entidades tienen un tipo de dato geo, que depende de la base de datos a usar.</typeparam>        
+            <param name="entitySearch">entitySearch a convertir</param>
+            <param name="anyElementInAssembly">assembly donde buscar la clase que sea del tipo de la entidad</param>
+            <param name="nms">namespace donde se encuentra la clase que sea del tipo de entidad</param>
+            <returns>objeto de una clase que representa una entidad</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetValues``1(trifenix.connect.mdm.entity_model.IEntitySearch{``0},System.Boolean,System.Int32,System.Int32,System.Func{``0,System.Object},trifenix.connect.interfaces.hash.IHashSearchHelper,trifenix.connect.search_mdl.ISearchEntity{``0},System.Type,System.String)">
+            <summary>
+            Retorna el valor de una propiedad de un objeto, desde un entitySearch indicando cual es la propiedad.
+            </summary>
+            <see cref="T:trifenix.connect.mdm.enums.KindProperty">Tipo de propiedad de valor</see>
+            <see cref="T:trifenix.connect.mdm.enums.KindEntityProperty">Tipo de propiedad de referencia</see>
+            <typeparam name="T">Tipo de valor a entregar</typeparam>
+            <param name="entitySearch">Entidad a convertir</param>
+            <param name="isEntity">Determina si la propiedad que se desea obtener es de tipo entidad o es una propiedad primitiva (DateTime, número, etc.)</param>
+            <param name="typeRelated">identificador del tipo de valor a obtener, para el caso de las propiedades sería KindProperty y para entidades KindEntityProperty</param>
+            <param name="indexProperty">índice de la propiedad</param>
+            <param name="geoConvert">convierte el tipo geo del entitySearch a el objeto de la instancia de la clase a obtener</param>
+            <param name="anyElementInAssembly">Tipo de un objeto que se encuentre en el assembly donde está la clase con la metadata</param>
+            <param name="nms">namespace donde se encuentra la clase con la metadata</param>
+            <param name="sEntity">Interface para obtener un entitySearch desde una clase local</param>
+            <returns>valor de una propiedad</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetPropValues``1(trifenix.connect.mdm.entity_model.IProperty{``0}[],System.Int32)">
+            <summary>
+            retorna los valores desde una colección de propiedades.
+            </summary>
+            <typeparam name="T">Tipo de valor de la propiedad</typeparam>
+            <param name="props">propiedades que serán usadas para retornar los valores</param>
+            <param name="index">índice de la propiedad</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.CheckImplementsIProperty(System.Type)" -->
+        <member name="M:trifenix.connect.util.Mdm.CheckImplementsIRelatedId(System.Type)">
+            <summary>
+            Verifica si un tipo es una propiedad de tipo entidad (IRelatedId)
+            </summary>
+            <see cref="T:trifenix.connect.mdm.entity_model.IRelatedId"/>
+            <param name="typeToCheck">tipo a verificar</param>
+            <returns>true, si implementa IRelatedId</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.GetProperty``1(System.Int32,System.Object,System.Type,System.Func{System.Object,``0})" -->
+        <member name="M:trifenix.connect.util.Mdm.GetEntityProperty(System.Int32,System.Object,System.Type)">
+            <summary>
+            Un EntitySearch se compone de propiedades que relacionan otros EntitySearch
+            estas propiedades tienen el índice que identifica el tipo de entidad (Persona, Producto o cualquier tipo de agrupación) y el id que identifica un elemento dentro de una base de datos.
+            este método crea una propiedad de este tipo
+            </summary>
+            <param name="index">índice del tipo de entidad</param>
+            <param name="value">identificador de la entidad</param>
+            <param name="typeToCast">Tipo al que debe ser convertido (debe implementar IRelatedId)</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetArrayOfElements``1(System.Collections.Generic.KeyValuePair{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Type,System.Func{System.Object,``0})">
+            <summary>
+            Obtiene un array de propiedades de acuerdo al índice y tipo de dato que tenga la metadata del atributo
+            </summary>
+            <typeparam name="T">Tipo de valor de la propiedad que será retornada</typeparam>
+            <param name="attribute">tupla con el atributo de la propiedad y el valor de la instancia</param>
+            <param name="typeToCast">Tipo de dato a convertir</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetPropertiesObjects``2(trifenix.connect.mdm.enums.KindProperty,System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Func{System.Object,``0})">
+            <summary>
+            Obtiene todas las propiedades del tipo que se le indique para un objeto
+            estos tipos son de valor (str,num32, enum, geo, etc.)
+            Desde esta se especializan otro métodos
+            las propiedades conformar un entitySearch, base del modelo MDM.
+            </summary>
+            <typeparam name="T">Tipo de valor la propiedad</typeparam>
+            <param name="related">Tipo de propiedad</param>
+            <param name="elements">metadata y datos de un objeto</param>
+            <param name="castGeoToSearch">Función para convertir el elemento geo de la clase a la de la entidad de busqueda</param>
+            <returns>listado de propiedades de un tipo</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetReferences(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Type)">
+            <summary>
+            Obtiene referencias de una entidad (no locales), desde el listado de metadata y valores de un objeto.
+            si encuentra atributos de tipo related, ontendrá el índice y el valor para formar una propiedad de tipo IRelatedId
+            </summary>
+            <param name="elements">Diccionario con la metadata y valor de la propiedad</param>
+            <param name="typeToCast">Tipo a convertir que implemente IRelatedId</param>
+            <returns>array de clase indicada que implementa IRelatdId</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetNumProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo double encontradas en un objeto
+            Obtiene las propiedades de tipo entero 
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>array de clase indicada que implementa INum32Property</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetDblProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo double encontradas en un objeto
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>array de clase indicada que implementa IDblProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetDtProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo fecha encontradas en un objeto
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>array de clase indicada que implementa IDtProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetEnumProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo enum encontradas en un objeto.
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>array de clase indicada que implementa IEnumProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetBoolProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo entero
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>array de clase indicada que implementa IBoolProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetGeoProps``2(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Func{System.Object,``0})">
+            <summary>
+            Obtiene las propiedades de tipo geo base de un entitySearch encontradas en un objeto.
+            el caso de geo, depende de la base de datos, ya que cada db puede tener un formato distinto para el tipo geo.
+            por eso, este método incorpora un método de entrada, para convertir un tipo geo de la clase del objeto al que corresponda de la base de datos
+            que usa un entitySearch
+            </summary>
+            <typeparam name="T">Tipo de dato de la propiedad geo de una entidad</typeparam>
+            <param name="castGeoToSearch">Convierte el objeto geo de una instancia de una clase al entitySearch.</param>
+            <param name="values">Diccionario con la metadata y valor de la propiedad.</param>
+            <returns>retorna un array de clase indicada que implementa IBoolProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetNum64Props``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo long encontradas en un objeto
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>   
+            <returns>retorna una array de propiedades de tipo  long que implemente INum64Property</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetStrProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo string encontradas en un objeto
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>retorna una array de propiedades de tipo string que implemente IStrProperty</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetSugProps``1(System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object})">
+            <summary>
+            Obtiene las propiedades de tipo string encontradas en un objeto, pero que indiquen que la propiedad es de tipo suggest.
+            las propiedades de tipo suggest indican que tendrán mayor indexación.
+            base del entitySearch
+            </summary>
+            <param name="values">Diccionario con la metadata y valor de la propiedad</param>
+            <returns>retorna una array de propiedades de tipo string que implemente IStrProperty, de propiedades que consideren suggest en su atributo mdm</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetSimpleEntity``1(trifenix.connect.search_mdl.Implements{``0},System.Object,System.Int32,trifenix.connect.interfaces.hash.IHashSearchHelper)">
+            <summary>
+            obtiene una nueva entidad con sus propiedaes, sin asignar el id y sin referencias locales.
+            </summary>
+            <typeparam name="T">Tipo de dato de la propiedad geo de una entidad</typeparam>
+            <see cref="T:trifenix.connect.search_mdl.Implements`1"/>
+            <param name="implements">objeto que mantiene todos los tipos a los que cada propiedad debe ser convertido</param>
+            <param name="obj">objeto desde el que se obtendrán los atributos</param>        
+            <param name="index">índice de la entidad a crear, el índice se encuentra en el atributo mdm de la clase</param>
+            <returns>retorna un nuevo entitySearch desde un objeto, instancia de una clase.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.FillProps``1(trifenix.connect.search_mdl.Implements{``0},System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Type)" -->
+        <member name="M:trifenix.connect.util.Mdm.GetEntityBaseSearch``1(System.Object)">
+            <summary>
+            Obtiene un entitySearch desde un objeto, asignando las propiedades que corresponden, si el objeto no implementa las propiedades de IEntitySearch lanzará error, 
+            
+            </summary>
+            <typeparam name="T">Tipo de dato Geo, dependerá de la implementación</typeparam>
+            <param name="entity">objeto a convertir</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetIndex(System.Type)">
+            <summary>
+            obitene el índice de un tipo.
+            </summary>
+            <param name="type">tipo de una propiedad</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetEntitySearch``1(trifenix.connect.search_mdl.Implements{``0},System.Object,trifenix.connect.interfaces.hash.IHashSearchHelper,System.Collections.Generic.List{trifenix.connect.mdm.entity_model.IEntitySearch{``0}},trifenix.connect.mdm.entity_model.IEntitySearch{``0})">
+            <summary>
+            Obtiene una colección de EntitySearch desde un objeto
+            </summary>
+            <typeparam name="T">Tipo del dato geo que tiene la entidad</typeparam>
+            <param name="implements">retorna los tipos de datos para los elementos de un entity</param>
+            <param name="obj">objeto a convertir</param>
+            <param name="hash">clase que permite convertir un objeto en un hash y también convertir la cabecera de un entitySearch</param>
+            <param name="collection">usado como recursivo, para obtener los entitySearch internos </param>
+            <param name="parent">EntitySearch padre, usado para la recursividad</param>
+            <returns>Colección de entitySearch que representan un model</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.PreLoadedDictionary(System.Type)">
+            <summary>
+            Retorna todos los índices de cada una de las colecciones de propiedades para un entitySearch
+            de un tipo de dato, generalmente un objeto de base de datos.
+            si no encuentra atributos del modelo de metadatos, devolverá nulo.
+            </summary>
+            <typeparam name="T2">Clase de la que obtendrá los índices</typeparam>
+            <returns>índices agrupados por colección (como entitySearch) de una clase</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Reflection">
+            <summary>
+            mdm reflections
+            </summary>
+            <summary>
+            Colección de métodos destinados a obtener metadata desde las clases utilizando el modelo de atributos del metadata model de trifenix.
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Reflection.Attributes">
+            <summary>
+            Métodos estáticos útiles para el modelo de atributos del
+            /// Metadata-Model de trifenix.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetAttributes``1(System.Type)">
+            <summary>
+            Obtiene un array de atributos del tipo que se le indique 
+            </summary>
+            <typeparam name="T">Tipo de atributo</typeparam>
+            <param name="type">tipo de dato en el que se buscará la propiedad.</param>
+            <returns>Colección de atributos solicitados</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetAttribute``1(System.Reflection.PropertyInfo)">
+            <summary>
+            Obtiene un Atributo de una propiedad
+            </summary>
+            <typeparam name="T">Tipo de atributo a obtener</typeparam>
+            <param name="propInfo">metadata de la propiedad</param>
+            <returns>atributo</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetPropertiesByAttribute(System.Object)">
+            <summary>
+            obtiene un diccionario con propiedades que deben ser mapeadas al metadata model de trifenix.
+            Los elementos que son mapeados son agrupados con la propiedad que tiene la metadata 
+            y el valor que tiene esa propiedad en el objeto de entrada
+            </summary>
+            <param name="Obj">objeto que se le extraerá la metadata y sus valores</param>
+            <returns>diccionario que por cada propiedad de la clase que implemente el metadata model de trifenix, tendrá la metadata y su valor</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetPropertiesByAttributeWithValue(System.Object)">
+            <summary>
+            Obtiene desde un objeto, solo las propiedades y su valor que no sean nulos o en el caso de las colecciones no estén vacias.
+            </summary>
+            <param name="Obj">objeto que se le extraerá la metadata y sus valores</param>
+            <returns>diccionario que por cada propiedad de la clase que implemente el metadata model de trifenix, tendrá la metadata y su valor</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetPropertiesWithoutAttribute(System.Object)">
+            <summary>
+            Obtiene una colección de objetos de cada propiedad de ub objeto de una clase  que no tengan el atributo que origina la metadata,
+            en el modelo puede suceder que una propiedad no asigne el atributo, pero el tipo de dato de la propiedad
+            puede tener estos atributos.
+            esto aplica para para referencias locales, que son aquellas  referencias a clases que no tienen un identificador en una base documental y que el mdm si lo considera (lo considera para todas las entidades).
+            </summary>
+            <param name="Obj">objeto donde se obtendrá la colección de valores que no tienen atributos de metadata.</param>
+            <returns>colección de objetos de propiedades que no tienen asignados atributos de metadata</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetPropertiesWithoutAttributeWithValues(System.Object)">
+            <summary>
+            Obtiene una colección de objetos correspondiente a cada propiedad de una clase que no tengo asigando un atributo mdm y que no sea nulo o una colección vacia.
+            </summary>
+            <param name="Obj">objeto del que se obtendrán los valores</param>
+            <returns>colección de objetos  correspondiente a cada propiedad de una clase que no tengo asigando un atributo mdm y que no sea nulo o una colección vacia.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetAttributeList``1(System.Type,System.Collections.Generic.HashSet{System.Type})">
+            <summary>
+            Obtiene todos las propiedades de un tipo,
+            esta revisa los objetos interiores
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="type"></param>
+            <param name="visited"></param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Reflection.Collections">
+            <summary>
+            Operaciones reflection para colecciones.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CastToGenericArray(System.Type,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Convierte una lista de objetos a un array tipado (T[]) de manera dinámica,
+            asignandole el tipo y la lista de objetos a castear.
+            </summary>
+            <param name="genericParameterType">Tipo al que se convertirá</param>
+            <param name="list">listado de objetos a convertir.</param>
+            <returns>objeto que puede ser casteado a un array tipado (T[])</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CastToArray``1(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Convierte un listado de objetos a un array tipado.
+            </summary>
+            <typeparam name="T">el tipo a convertir</typeparam>
+            <param name="list">lista de objetos a convertir</param>
+            <returns>array tipado</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.Reflection.Collections.CastToGenericList(System.Type,System.Collections.Generic.IEnumerable{System.Object})" -->
+        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.Reflection.Collections.CastToList``1(System.Collections.Generic.IEnumerable{System.Object})" -->
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CreateInstance``1">
+            <summary>
+            Crea una instancia de una clase dinámicamente
+            </summary>
+            <typeparam name="T">Tipo de la instancia de objeto a crear</typeparam>
+            <returns>nueva instancia de un objeto del tipo indicado</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CreateEntityInstance(System.Type)">
+            <summary>
+            Crea una instancia tipada, indicandole el tipo, esta puede se puede convertir en el tipo indicado dinámicamente.
+            </summary>
+            <param name="genericParameterType">Tipo de la nueva instancia</param>
+            <returns>nueva instancia de un objeto del tipo indicado</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.FormatValues(System.Reflection.PropertyInfo,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Retorna un valor o colección tipada, de acuerdo a la metadata de la propiedad
+            si la propiedad no es una colección, retornará el primer valor de la lista.
+            si es una colección la casteará a un array o lista del tipo de dato que indica la metadata de la propiedad.
+            </summary>
+            <param name="prop">metadata de la propiedad</param>
+            <param name="values">valor a convertir al tipo que indica la metadata</param>
+            <returns>valor casteado al tipo que indica la metadata.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.DeleteElementInCollection``1(System.String,``0[])">
+            <summary>
+            Elimina un elemento de una colección
+            si este no existe lanzará excepción.
+            si existe lo eliminará
+            retornará la lista con el resultado
+            </summary>
+            <typeparam name="T">elemento de una base de datos</typeparam>
+            <param name="itemId">id del elemento a eliminar</param>
+            <param name="prev">lista donde se hará la operación</param>
+            <returns>lista con el elemento eliminado</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.UpsertToCollection``1(``0,``0[])">
+            <summary>
+            Añade un elemento a una colección si el elemento no existe,
+            elimina y añade un elemento a una colección, si el elemento ya existe
+            esto determinado por DocumentDb y su id.
+            </summary>
+            <typeparam name="T">Elemento de base de datos</typeparam>
+            <param name="item">item a actualizar o añadir</param>
+            <param name="prev">lista donde realizará la operación</param>
+            <returns>lista de nuevos elementos para reemplazar a prev</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.GetId(System.Object)">
+            <summary>
+            obtiene el valor de la propiedad id
+            </summary>
+            <param name="elementWithId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.GetProp(System.Object,System.String)">
+            <summary>
+            obtiene el valor de la propiedad de acuerdo al nombre de la propiedad indicado en el argumento.
+            </summary>
+            <param name="elementWithId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Reflection.Cripto">
+            <summary>
+            Operaciones reflection para criptografia.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Cripto.ComputeSha256Hash(System.String)">
+            <summary>
+            Crea un hash a partir de un string
+            </summary>
+            <param name="rawData">string que debe ser hasheado</param>
+            <returns>hash</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.InvokeDynamicGeneric(System.String,System.Type,System.Object[],System.Type)">
+            <summary>
+            Invoca método genérico dinámicamente (Los tipo de datos se determinan en tiempo de ejecución).
+            </summary>
+            <param name="ClassContainer">Clase que contiene el método genérico</param>
+            <param name="MethodName">Nombre del método genérico</param>
+            <param name="GenericType">Tipo de dato usado como genérico</param>            
+            <param name="Parameters">Conjunto de parámetros utilizados por el método genérico</param>
+            <param name="genericProp"></param>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.GetDescription(System.Enum)">
+            <summary>
+            Entrega la descripción de un item de una enumeración.  
+            </summary>
+            <param name="GenericEnum">elemento de una enumeración</param>
+            <returns>Texto en al atributo descripción</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.GetDescription(System.Type)">
+            <summary>
+            A partir de una enumeración entrega un diccionario con el indice y
+            la descripción, esta es obtenida desde el atributo description que lleva cada elemento de la enumeración.
+            si no tiene el atributo simplemente convertirá a string el elemento.
+            </summary>
+            <param name="type">Enumeración</param>
+            <returns>Diccionario con el índice y la descripción</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.HasValue(System.Object)">
+            <summary>
+            verifica que un elemento no sea nulo y si es una lista, no esté vacia.
+            </summary>
+            <param name="value">objeto a evaluar</param>
+            <returns>true, si es un valor y no es nulo o es una colección con al menos un valor.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.IsEnumerable(System.Object)">
+            <summary>
+            Verifica si un objeto es una colección (implementa IEnumerable).
+            </summary>
+            <param name="element">objeto a comprobar</param>
+            <returns>true si es una colección.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.IsEnumerableProperty(System.Reflection.PropertyInfo)">
+            <summary>
+            Comprueba si una propiedad de una clase es una enumeración.
+            </summary>
+            <param name="propertyInfo">metadata de la propiedad</param>
+            <returns>true si la propiedad es una colección.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.GetLoadableTypes(System.Reflection.Assembly)">
+            <summary>
+            Gets all types that can be loaded from an assembly.
+            Source: http://stackoverflow.com/questions/11915389/assembly-gettypes-throwing-an-exception
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.NotNull(System.Object,System.String)">
+            <summary>
+            Envía excepción si el assembly es nulo.
+            </summary>
+            <param name="obj">assembly</param>
+            <param name="argumentName">un argumento importante de mencionar en la excepción.</param>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.GetEntityType(System.Int32,System.Type,System.String)">
+            <summary>
+            obtiene el tipo de la clase de acuerdo al índice
+            el índice identifica un entitySearch.
+            por ejemplo, un entitySearch con indice 1  sería igual  a la clase Persona,
+            este vínculo se logra a través de un atributo indicado en la clase (Metadata).
+            este método busca en el assembly  y el namespace indicado, la clase que tenga el atributo BaseIndexAttribute,
+            y dentro de ese atributo tenga el índice indicado.
+            </summary>
+            <see cref="T:trifenix.connect.mdm_attributes.BaseIndexAttribute"/>
+            <param name="index">índice de una entidad del metadata model de trifenix.</param>
+            <param name="typeOfAssembly">Cualquier tipo que esté contenido en el mismo assembly en el que esta la clase que tiene el atributo que indica que es una entidad</param>
+            <param name="nms">namespace donde se encuentra la clase que corresponde a la entidad</param>
+            <returns>la clase que tiene el atributo BaseIndexAttribute y el índice indicado</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.GetEntityType(System.Int32,System.Reflection.Assembly,System.String)">
+            <summary>
+            obtiene el tipo de la clase de acuerdo al índice
+            el índice identifica un entitySearch.
+            por ejemplo, un entitySearch con indice 1  sería igual  a la clase Persona,
+            este vínculo se logra a través de un atributo indicado en la clase (Metadata).
+            este método busca en el assembly  y el namespace indicado, la clase que tenga el atributo BaseIndexAttribute,
+            y dentro de ese atributo tenga el índice indicado.
+            </summary>
+            <see cref="T:trifenix.connect.mdm_attributes.BaseIndexAttribute"/>
+            <param name="index">índice de una entidad del metadata model de trifenix.</param>
+            <param name="assembly">assembly en el que esta la clase que tiene el atributo que indica que es una entidad</param>
+            <param name="nms">namespace donde se encuentra la clase que corresponde a la entidad</param>
+            <returns>la clase que tiene el atributo BaseIndexAttribute y el índice indicado</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Reflection.Enumerations">
+            <summary>
+            Operaciones reflection para enumeraciones.
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Enumerations.GetDictionaryFromEnum``1">
+            <summary>
+            Convierte una enumeración en un dictionary
+            </summary>
+            <typeparam name="T">enumeración</typeparam>
+            <returns>dictionary</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Validation">
+            <summary>
+            Validación de módelods IMd
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Validation.CompareModel(System.Object,System.Object,System.Collections.Generic.Dictionary{System.Type,System.Func{System.Object,System.Collections.Generic.IEnumerable{System.Object}}})">
+            <summary>
+            Compara un input model con un modelo, para validar si los datos que están en el input coinciden con el del modelo.
+            </summary>
+            <param name="input">objeto input de ingreso</param>
+            <param name="model">modelo a validar</param>
+            <param name="bind">Colección de funciones, que tomar un input y devuelven una colección de posibles valores que puedan coincidir, es un prefiltro. el método los seleccionará y verá si alguno tiene los mismos valores, si la función no devuelve al menos un modelo correspondiente al input fallará</param>
+            <returns>true, si los campos coinciden</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Validation.CompareValueContainer``1(trifenix.connect.util.Mdm.ValueContainer{``0},trifenix.connect.util.Mdm.ValueContainer{``0})">
+            <summary>
+            Compara dos contenedores de valores.
+            </summary>
+            <typeparam name="T">Las colecciones serán del tipo que se indique</typeparam>
+            <param name="input">colección de propiedades y valores de un objeto input</param>
+            <param name="model">colección de propiedades y valores de un objeto model</param>
+            <returns>true, si los valores coinciden</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Namespace">
+            <summary>
+            Operaciones estáticas, donde se encuentran todas las operaciones base de trifenix connect
+            </summary>
+        </member>
+    </members>
+</doc>
