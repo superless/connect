@@ -3,8 +3,6 @@
     public enum StringRelated
     {
 
-
-
         GENERIC_NAME = 1,
 
 
@@ -15,8 +13,6 @@
 
 
         GENERIC_RUT = 4,
-
-
 
 
         GENERIC_EMAIL = 5,
@@ -41,6 +37,8 @@
 
 
         GENERIC_COMMENT = 12,
+
+
         GENERIC_CORRELATIVE = 13,
     }
 }
