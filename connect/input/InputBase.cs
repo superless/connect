@@ -5,7 +5,7 @@
 namespace trifenix.connect.input
 {
     /// <summary>
-    /// Clase abstracta que será usado por todos los ingresos de usuario
+    /// Clase abstracta que será usado por todos los ingresos de usuario.
     /// </summary>
     public abstract class InputBase
     {
