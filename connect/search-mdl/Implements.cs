@@ -8,7 +8,7 @@ namespace trifenix.connect.search_mdl
     /// implementar el modelo en diferentes bases de datos.
     /// En el modelo existe una entidad y sus propiedades,
     /// sus propiedades pueden ser de valor o de referencia,
-    /// los de referencia, vinculan otros entitySearch.
+    /// los de referencia vinculan otros entitySearch
     /// y los de valor agruparan los distintos tipos de datos que un motor de busqueda soporta (str, int, enums, etc), incluso geo.
     /// por cada tipo existe una interface.
     /// Dado que debemos generar un objeto de tipo IEntitySearch desde un objeto de una clase
@@ -20,16 +20,16 @@ namespace trifenix.connect.search_mdl
 
 
         /// <summary>
-        /// Transforma o Castea el objeto geo que tendría un objeto de una clase 
+        /// Transforma o castea el objeto geo que tendría un objeto de una clase 
         /// al objeto geo que usa el modelo entitySearch.
         /// el objeto geo es el único no primitivo (bool, date, string, dbl, etc).
         /// </summary>
         Func<object, T> GeoObjetoToGeoSearch { get;  }
 
         /// <summary>
-        /// Obtiene implementación de un IEntitySearch<T>. 
-        /// Para convertir una entidad o elemento de base de datos de persistencia.
-        /// trifenix connect crea un entitySearch, la diferencia de cada entitySearch está 
+        /// Obtiene implementación de un IEntitySearch<T> 
+        /// para convertir una entidad o elemento de base de datos de persistencia.
+        /// Trifenix connect crea un entitySearch, la diferencia de cada entitySearch está 
         /// planteada por el tipo de dato Geo, dependiente de la base de datos que se utilice.
         /// trifenix connect crea un nuevo EntitySearch, para crearlo debe tener el tipo al que se convertirá.
         /// 
