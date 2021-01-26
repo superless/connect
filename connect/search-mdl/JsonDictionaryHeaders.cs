@@ -73,7 +73,7 @@ namespace trifenix.connect.search_mdl
     }
 
     /// <summary>
-    /// Una vez obtenido los índices de la propiedad, asignaremos los respectivos nombres
+    /// Una vez obtenido los índices de la propiedad, asignaremos los respectivos nombres,
     /// de esta manera podremos saber si el diccionario de un entitySearch
     /// ha sido modificado.
     /// </summary>
