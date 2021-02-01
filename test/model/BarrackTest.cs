@@ -81,7 +81,7 @@ namespace trifenix.connect.test.model
         /// importante! 
         /// </summary>
         [Group(2, PhisicalDevice.WEB, 3)]
-        [EntityIndexRelatedProperty(Index = (int)EntityRelated.POLLINATOR, Bypass = (int)EntityRelated.VARIETY)]
+        [EntityIndexRelatedProperty(Index = (int)EntityRelated.POLLINATOR, RealIndex  = (int)EntityRelated.VARIETY)]
         public string IdPollinator { get; set; }
 
         /// <summary>
