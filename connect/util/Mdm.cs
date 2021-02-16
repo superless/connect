@@ -723,7 +723,7 @@ namespace trifenix.connect.util
             //TODO: SonarQube
             if (index == null)
             {
-                throw new Exception("Index null");
+                throw new CustomException("Index null");
             }
 
             var entities = rtn.Where(x => GetIndex(x).HasValue).ToList();
