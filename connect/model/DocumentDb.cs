@@ -17,9 +17,11 @@
         /// <value></value>
         public abstract string ClientId { get; set; }
 
-
+        /// <summary>
+        /// Indicador de estado de la entidad
+        /// </summary>
+        public abstract bool State { get; set; }
 
     }
-
 
 }

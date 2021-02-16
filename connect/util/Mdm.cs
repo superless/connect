@@ -8,6 +8,7 @@ using trifenix.connect.interfaces.hash;
 using trifenix.connect.mdm.entity_model;
 using trifenix.connect.mdm.enums;
 using trifenix.connect.mdm_attributes;
+using trifenix.connect.model;
 using trifenix.connect.search_mdl;
 
 namespace trifenix.connect.util
@@ -45,7 +46,7 @@ namespace trifenix.connect.util
         /// <returns>objeto de una clase que representa una entidad</returns>
         public static object GetEntityFromSearch<T>(IEntitySearch<T> entitySearch, Type anyElementInAssembly, string nms, Func<T, object> geoConvert, ISearchEntity<T> sEntity, IHashSearchHelper hash)
         {
-            
+
             // obtiene el tipo de clase de acuerdo al índice de la entidad.
             var type = Reflection.GetEntityType(entitySearch.index, anyElementInAssembly, nms);
 
@@ -62,7 +63,7 @@ namespace trifenix.connect.util
             type.GetProperty("Id")?.SetValue(entity, entitySearch.id);
 
 
-            
+
 
 
 
@@ -70,7 +71,7 @@ namespace trifenix.connect.util
             var props = entity.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(BaseIndexAttribute), true)).ToList();
 
 
-           
+
             // recorre las propiedades de una clase y le asigna los valores correspondientes a las propiedades del entitySearch
             props.ForEach(prop => {
 
@@ -78,7 +79,7 @@ namespace trifenix.connect.util
                 var attr = prop.GetCustomAttribute<BaseIndexAttribute>(true);
 
                 // con la metadata de la propiedad (índice, tipo de dato y si es o no entidad, obtiene el valor o la colección de valores de una propiedad.
-                var values = Reflection.Collections.FormatValues(prop, GetValues<T>(entitySearch, attr.IsEntity, attr.KindIndex, attr.Index, geoConvert, hash, sEntity, anyElementInAssembly, nms  ));
+                var values = Reflection.Collections.FormatValues(prop, GetValues<T>(entitySearch, attr.IsEntity, attr.KindIndex, attr.Index, geoConvert, hash, sEntity, anyElementInAssembly, nms));
 
                 // asigna el valor a la clase. 
                 prop.SetValue(entity, values);
@@ -87,7 +88,7 @@ namespace trifenix.connect.util
             var hashModel = hash.HashModel(entity);
             var hashHeader = hash.HashHeader(type);
 
-            
+
             if (entitySearch.hh.Equals(hashHeader) && entitySearch.hm.Equals(hashModel))
             {
                 // retorna un objeto tipado desde un entitySearch.
@@ -95,7 +96,7 @@ namespace trifenix.connect.util
             }
             throw new Exception("Hash incorrectos");
 
-            
+
         }
 
 
@@ -116,7 +117,7 @@ namespace trifenix.connect.util
         /// <param name="nms">namespace donde se encuentra la clase con la metadata</param>
         /// <param name="sEntity">Interface para obtener un entitySearch desde una clase local</param>
         /// <returns>valor de una propiedad</returns>
-        public static List<object> GetValues<T>(IEntitySearch<T> entitySearch, bool isEntity, int typeRelated, int indexProperty, Func<T, object> geoConvert, IHashSearchHelper hash, ISearchEntity<T> sEntity = null,Type anyElementInAssembly = null, string nms = null)
+        public static List<object> GetValues<T>(IEntitySearch<T> entitySearch, bool isEntity, int typeRelated, int indexProperty, Func<T, object> geoConvert, IHashSearchHelper hash, ISearchEntity<T> sEntity = null, Type anyElementInAssembly = null, string nms = null)
         {
 
             // se la propiedad corresponde a una entidad referencial local, debe tener los argumentos para obtener la entidad desde el repositorio.
@@ -244,8 +245,8 @@ namespace trifenix.connect.util
 
             // Castea el valor al tipo que se indica. si es geo usará la función externa.
             try
-            {   
-                element.value = castToGeo ==null?(T)value:castToGeo(value);
+            {
+                element.value = castToGeo == null ? (T)value : castToGeo(value);
             }
             catch (Exception e)
             {
@@ -291,16 +292,16 @@ namespace trifenix.connect.util
                     return lcl;
                 }).ToArray();
             }
-           
+
 
             // asigna el índice
             element.index = index;
             element.id = (string)value;
-            return new IRelatedId[] { element};
+            return new IRelatedId[] { element };
         }
 
 
-        
+
         /// <summary>
         /// Obtiene un array de propiedades de acuerdo al índice y tipo de dato que tenga la metadata del atributo
         /// </summary>
@@ -323,7 +324,7 @@ namespace trifenix.connect.util
         }
 
 
-     
+
         /// <summary>
         /// Obtiene todas las propiedades del tipo que se le indique para un objeto
         /// estos tipos son de valor (str,num32, enum, geo, etc.)
@@ -335,7 +336,7 @@ namespace trifenix.connect.util
         /// <param name="elements">metadata y datos de un objeto</param>
         /// <param name="castGeoToSearch">Función para convertir el elemento geo de la clase a la de la entidad de busqueda</param>
         /// <returns>listado de propiedades de un tipo</returns>
-        public static IEnumerable<T2_Cast> GetPropertiesObjects<T,T2_Cast>(KindProperty related, Dictionary<BaseIndexAttribute, object> elements, Func<object, T> castGeoToSearch = null) where T2_Cast : IProperty<T> {
+        public static IEnumerable<T2_Cast> GetPropertiesObjects<T, T2_Cast>(KindProperty related, Dictionary<BaseIndexAttribute, object> elements, Func<object, T> castGeoToSearch = null) where T2_Cast : IProperty<T> {
             var array = elements.Where(s => !s.Key.IsEntity && s.Key.KindIndex == (int)related).SelectMany(s => GetArrayOfElements<T>(s, typeof(T2_Cast), castGeoToSearch)).ToList();
             return !array.Any() ? Array.Empty<T2_Cast>() : array.Cast<T2_Cast>();
         }
@@ -363,10 +364,9 @@ namespace trifenix.connect.util
             }
             catch (Exception e)
             {
-
                 throw;
             }
-        
+
         }
 
 
@@ -382,7 +382,7 @@ namespace trifenix.connect.util
         /// <returns>array de clase indicada que implementa INum32Property</returns>
         public static INum32Property[] GetNumProps<T>(Dictionary<BaseIndexAttribute, object> values) where T : class, INum32Property =>
             GetPropertiesObjects<int, T>(KindProperty.NUM32, values).ToArray();
-            
+
         /// <summary>
         /// Obtiene las propiedades de tipo double encontradas en un objeto
         /// base del entitySearch
@@ -483,7 +483,7 @@ namespace trifenix.connect.util
         public static IEntitySearch<T> GetSimpleEntity<T>(Implements<T> implements, object obj, int index, IHashSearchHelper hash) {
 
             // obtiene la metadata y los datos del objeto
-            var mdl = Reflection.Attributes.GetPropertiesByAttributeWithValue(obj).Where(s=> EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum).ToDictionary(s=>s.Key, s=>s.Value);
+            var mdl = Reflection.Attributes.GetPropertiesByAttributeWithValue(obj).Where(s => EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum).ToDictionary(s => s.Key, s => s.Value);
 
 
             // asigna las propiedades.
@@ -546,12 +546,12 @@ namespace trifenix.connect.util
 
             entitySearch.dbl = (IDblProperty[])entity.GetType().GetProperty("dbl").GetValue(entity);
             entitySearch.dt = (IDtProperty[])entity.GetType().GetProperty("dt").GetValue(entity);
-            entitySearch.enm = (IEnumProperty[])entity.GetType().GetProperty("enm").GetValue(entity); 
-            entitySearch.bl = (IBoolProperty[])entity.GetType().GetProperty("bl").GetValue(entity); ;
-            entitySearch.geo = (IProperty<T>[])entity.GetType().GetProperty("geo").GetValue(entity); ;
-            entitySearch.num64 = (INum64Property[])entity.GetType().GetProperty("num64").GetValue(entity); ;
-            entitySearch.str = (IStrProperty[])entity.GetType().GetProperty("str").GetValue(entity); ;
-            entitySearch.sug = (IStrProperty[])entity.GetType().GetProperty("sug").GetValue(entity); ;
+            entitySearch.enm = (IEnumProperty[])entity.GetType().GetProperty("enm").GetValue(entity);
+            entitySearch.bl = (IBoolProperty[])entity.GetType().GetProperty("bl").GetValue(entity);
+            entitySearch.geo = (IProperty<T>[])entity.GetType().GetProperty("geo").GetValue(entity);
+            entitySearch.num64 = (INum64Property[])entity.GetType().GetProperty("num64").GetValue(entity);
+            entitySearch.str = (IStrProperty[])entity.GetType().GetProperty("str").GetValue(entity);
+            entitySearch.sug = (IStrProperty[])entity.GetType().GetProperty("sug").GetValue(entity);
 
             return entitySearch;
         }
@@ -561,7 +561,7 @@ namespace trifenix.connect.util
         /// </summary>
         /// <param name="type">tipo de una propiedad</param>
         /// <returns></returns>
-        public static int? GetIndex(Type type)  => Reflection.Attributes.GetAttributes<EntityIndexAttribute>(type).FirstOrDefault()?.Index;
+        public static int? GetIndex(Type type) => Reflection.Attributes.GetAttributes<EntityIndexAttribute>(type).FirstOrDefault()?.Index;
 
 
 
@@ -687,8 +687,77 @@ namespace trifenix.connect.util
 
         }
 
+        /// <summary>
+        /// Obtiene los tipos de un assembly (dll).
+        /// </summary>
+        /// <param name="assembly">dll obtenido desde una ruta</param>
+        /// <returns></returns>
+        public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)
+        {
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                var tp = e.Types.Where(t => t == null).ToList();
+                return e.Types.Where(t => t != null);
+            }
+        }
 
 
+
+        public static DeleteItem[] GetDeleteItem<T>()
+        {
+            var assembly = typeof(T).Assembly;
+            var nameSpace = typeof(T).Namespace;
+            var types = assembly.GetLoadableTypes().ToList();
+
+            //TODO: No considera namespace anidados
+            //Filtra los tipos de assembly por el namespace 
+            var rtn = types.Where(x => x.IsClass && (x.Namespace?.Equals(nameSpace) ?? false)).ToList();
+
+            var index = GetIndex(typeof(T));
+            
+            //TODO: SonarQube
+            if (index == null)
+            {
+                throw new Exception("Index null");
+            }
+
+            var entities = rtn.Where(x => GetIndex(x).HasValue).ToList();
+
+            List<DeleteItem> deleteList = new List<DeleteItem>(); 
+
+            foreach (var item in entities)
+            {
+                //obtiene las propies de una entidad
+                var properties = item.GetProperties();
+
+                foreach (var itemProperties in properties)
+                {
+                    //obtiene un atributo relacional de una propiedad
+                    var rfrc = Reflection.Attributes.GetAttribute<EntityIndexRelatedPropertyAttribute>(itemProperties);
+
+                    if (rfrc != null)
+                    {
+                        if (rfrc.Index != index) continue;
+                        else
+                        {
+                            deleteList.Add(new DeleteItem 
+                            {
+                                DocumentType = item,
+                                Property = itemProperties.Name
+                            });
+                        }
+                    }
+                }
+                
+            }
+
+            return deleteList.ToArray();
+        }
 
         /// <summary>
         /// Retorna todos los índices de cada una de las colecciones de propiedades para un entitySearch

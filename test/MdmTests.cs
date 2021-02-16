@@ -26,7 +26,73 @@ namespace trifenix.connect.test
         /// </summary>
         [Fact]
         public void ConvertObjectoToEntity() {
-            
+
+            //new specie
+            var objsSpecie = new SpecieTest()
+            {
+                Id = Guid.NewGuid().ToString("N"),
+                ClientId = "2",
+                Name = "Specie",
+                Abbreviation = "SPC"
+            };
+            // generación de hash
+            var hashSpecie = new HashEntityMockSearch();
+
+            // action
+            // obtiene el entitySearch
+            var entityspecie = Mdm.GetEntitySearch(new ImplementMock(), objsSpecie, hashSpecie);
+
+            // genera el hash de las cabeceras de entitySearch
+            // esto es un diccionario
+            var hhSpecie = hashSpecie.HashHeader(typeof(SpecieTest));
+
+            // genera un hash del objeto de base de datos.
+            var hmSpecie = hashSpecie.HashModel(objsSpecie);
+
+            // obtiene el primer elemento de tipo barracks
+            var specieEntityFather = entityspecie.First(s => s.index == (int)EntityRelated.SPECIE);
+
+            // assert
+            // verifica que el hash sea correcto
+            Assert.True(specieEntityFather.hh.Equals(hhSpecie) && specieEntityFather.hm.Equals(hmSpecie));
+
+
+
+            //new variety
+            var objsVariety = new VarietyTest()
+            {
+                Id = Guid.NewGuid().ToString("N"),
+                ClientId = "3",
+                Name = "Variety",
+                Abbreviation = "VRTY",
+                IdSpecie = objsSpecie.Id
+            };
+            // generación de hash
+            var hashVariety = new HashEntityMockSearch();
+
+            // action
+            // obtiene el entitySearch
+            var entityVariety = Mdm.GetEntitySearch(new ImplementMock(), objsVariety, hashVariety);
+
+            // genera el hash de las cabeceras de entitySearch
+            // esto es un diccionario
+            var hhVariety = hashVariety.HashHeader(typeof(VarietyTest));
+
+            // genera un hash del objeto de base de datos.
+            var hmVariety = hashVariety.HashModel(objsVariety);
+
+            // obtiene el primer elemento de tipo barracks
+            var VarietyEntityFather = entityVariety.First(s => s.index == (int)EntityRelated.VARIETY);
+
+            // assert
+            // verifica que el hash sea correcto
+            Assert.True(VarietyEntityFather.hh.Equals(hhVariety) && VarietyEntityFather.hm.Equals(hmVariety));
+
+
+
+
+
+
             // new BarrackTest
             var objs = new BarrackTest()
             {
@@ -37,7 +103,7 @@ namespace trifenix.connect.test
                 IdPlotLand = Guid.NewGuid().ToString("N"),
                 IdPollinator = Guid.NewGuid().ToString("N"),
                 IdRootstock = Guid.NewGuid().ToString("N"),
-                IdVariety = Guid.NewGuid().ToString("N"),
+                IdVariety = objsVariety.Id,
                 Name = "Barrack1",
                 NumberOfPlants = 1221,
                 PlantingYear = 1982,
@@ -52,7 +118,6 @@ namespace trifenix.connect.test
 
             // genera el hash de las cabeceras de entitySearch
             // esto es un diccionario
-            // Beltrami estuvo aqui
             var hh = hash.HashHeader(typeof(BarrackTest));
 
             // genera un hash del objeto de base de datos.
@@ -211,9 +276,14 @@ namespace trifenix.connect.test
         /// </summary>
         /// <param name="model">elemento de base de datos a validar</param>
         /// <returns>hash único del elemento</returns>
-        public string HashModel(object model)
+        public string HashModel(object obj)
         {
-            return Mdm.Reflection.Cripto.ComputeSha256Hash(JsonConvert.SerializeObject(model));
+            if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            return Mdm.Reflection.Cripto.ComputeSha256Hash(JsonConvert.SerializeObject(obj));
         }
 
 

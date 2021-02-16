@@ -18,7 +18,6 @@ namespace trifenix.connect.util
             /// <summary>
             /// Invoca método genérico dinámicamente (Los tipo de datos se determinan en tiempo de ejecución).
             /// </summary>
-            /// <param name="ClassContainer">Clase que contiene el método genérico</param>
             /// <param name="MethodName">Nombre del método genérico</param>
             /// <param name="GenericType">Tipo de dato usado como genérico</param>            
             /// <param name="Parameters">Conjunto de parámetros utilizados por el método genérico</param>
@@ -74,7 +73,6 @@ namespace trifenix.connect.util
             /// <returns>Diccionario con el índice y la descripción</returns>
             public static Dictionary<int, string> GetDescription(Type type)
             {
-                var values = Enum.GetValues(type);
                 var enumElements = Enum.GetValues(type).Cast<Enum>();
                 var dict = enumElements.ToDictionary(s => (int)(object)s, GetDescription);
                 return dict;
@@ -142,7 +140,7 @@ namespace trifenix.connect.util
                 {
                     IEnumerable<Type> types = e.Types.Where(t => t != null);
 
-                    if (!types.Any()) throw new Exception($"Could not resolve assembly '{assembly.FullName}'");
+                    if (!types.Any()) throw new CustomException($"Could not resolve assembly '{assembly.FullName}'");
 
                     return types;
                 }
@@ -191,7 +189,7 @@ namespace trifenix.connect.util
             public static Type GetEntityType(int index, Assembly assembly, string nms)
             {   
                 var modelTypes = GetLoadableTypes(assembly).Where(type => type.FullName.StartsWith(nms) && Attribute.IsDefined(type, typeof(EntityIndexAttribute)));
-                var entityType = modelTypes.Where(type => type.GetTypeInfo().GetCustomAttributes<EntityIndexAttribute>().Any(s => s.Index == (int)index)).FirstOrDefault();
+                var entityType = modelTypes.Where(type => type.GetTypeInfo().GetCustomAttributes<EntityIndexAttribute>().Any(s => s.Index == index)).FirstOrDefault();
                 return entityType;
             }
         }

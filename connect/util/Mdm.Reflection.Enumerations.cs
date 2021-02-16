@@ -6,10 +6,6 @@ using System.Reflection;
 namespace trifenix.connect.util
 {
 
-
-
-
-
     public static partial class Mdm
     {
         public static partial class Reflection {
