@@ -10,6 +10,7 @@ using trifenix.connect.mdm.enums;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.model;
 using trifenix.connect.search_mdl;
+using trifenix.exception;
 
 namespace trifenix.connect.util
 {
