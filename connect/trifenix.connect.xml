@@ -17,8 +17,24 @@
         </member>
         <member name="T:trifenix.connect.input.Namespace">
             <summary>
-            Los inputs se refieren a las ingresos de usuario, en este namespace
+            Los inputs se refieren a los ingresos de usuario, en este namespace
             se encuentras el input base donde heredarán todos los ingresos de usuario.
+            </summary>
+        </member>
+        <member name="T:trifenix.connect.model.DeleteItem">
+            <summary>
+            Elementos de una coleccion que contiene el tipo de documento(Barrack, order, etc)
+            y la propiedad a ser usada para la eliminacion/desactivacion
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.model.DeleteItem.DocumentType">
+            <summary>
+            Tipo de documento(Barrack, order, etc)
+            </summary>
+        </member>
+        <member name="P:trifenix.connect.model.DeleteItem.Property">
+            <summary>
+            Propiedades de un documento
             </summary>
         </member>
         <member name="T:trifenix.connect.model.DocumentDb">
@@ -38,6 +54,11 @@
             </summary>
             <value></value>
         </member>
+        <member name="P:trifenix.connect.model.DocumentDb.State">
+            <summary>
+            Indicador de estado de la entidad
+            </summary>
+        </member>
         <member name="T:trifenix.connect.Model.Namespace">
             <summary>
             dentro de model estarán las clases abstractas del modelo de trifenix
@@ -50,7 +71,7 @@
             implementar el modelo en diferentes bases de datos.
             En el modelo existe una entidad y sus propiedades,
             sus propiedades pueden ser de valor o de referencia,
-            los de referencia, vinculan otros entitySearch.
+            los de referencia vinculan otros entitySearch
             y los de valor agruparan los distintos tipos de datos que un motor de busqueda soporta (str, int, enums, etc), incluso geo.
             por cada tipo existe una interface.
             Dado que debemos generar un objeto de tipo IEntitySearch desde un objeto de una clase
@@ -59,7 +80,7 @@
         </member>
         <member name="P:trifenix.connect.search_mdl.Implements`1.GeoObjetoToGeoSearch">
             <summary>
-            Transforma o Castea el objeto geo que tendría un objeto de una clase 
+            Transforma o castea el objeto geo que tendría un objeto de una clase 
             al objeto geo que usa el modelo entitySearch.
             el objeto geo es el único no primitivo (bool, date, string, dbl, etc).
             </summary>
@@ -198,7 +219,7 @@
         </member>
         <member name="T:trifenix.connect.search_mdl.JsonDictionaryHeaders">
             <summary>
-            Una vez obtenido los índices de la propiedad, asignaremos los respectivos nombres
+            Una vez obtenido los índices de la propiedad, asignaremos los respectivos nombres,
             de esta manera podremos saber si el diccionario de un entitySearch
             ha sido modificado.
             </summary>
@@ -325,6 +346,36 @@
             <param name="array">array</param>
             <param name="indexToRemove">índice del elemento a eliminar.</param>
             <returns></returns>
+        </member>
+        <member name="T:trifenix.connect.util.CustomException">
+            <summary>
+            Clase encargada de generar mensaje de excepcion
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.CustomException.#ctor">
+            <summary>
+            Constructor de mensaje de excepcion
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.CustomException.#ctor(System.String)">
+            <summary>
+            Funcion encargada mostrar mensaje especifico
+            </summary>
+            <param name="mensaje">mensaje custom</param>
+        </member>
+        <member name="M:trifenix.connect.util.CustomException.#ctor(System.String,System.Exception)">
+            <summary>
+            Funcion encargada mostrar mensaje especifico
+            </summary>
+            <param name="message">mensaje custom</param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:trifenix.connect.util.CustomException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
         </member>
         <member name="T:trifenix.connect.util.EnumerationExtension">
             <summary>
@@ -585,6 +636,13 @@
             <param name="parent">EntitySearch padre, usado para la recursividad</param>
             <returns>Colección de entitySearch que representan un model</returns>
         </member>
+        <member name="M:trifenix.connect.util.Mdm.GetLoadableTypes(System.Reflection.Assembly)">
+            <summary>
+            Obtiene los tipos de un assembly (dll).
+            </summary>
+            <param name="assembly">dll obtenido desde una ruta</param>
+            <returns></returns>
+        </member>
         <member name="M:trifenix.connect.util.Mdm.PreLoadedDictionary(System.Type)">
             <summary>
             Retorna todos los índices de cada una de las colecciones de propiedades para un entitySearch
@@ -768,7 +826,6 @@
             <summary>
             Invoca método genérico dinámicamente (Los tipo de datos se determinan en tiempo de ejecución).
             </summary>
-            <param name="ClassContainer">Clase que contiene el método genérico</param>
             <param name="MethodName">Nombre del método genérico</param>
             <param name="GenericType">Tipo de dato usado como genérico</param>            
             <param name="Parameters">Conjunto de parámetros utilizados por el método genérico</param>
