@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using trifenix.connect.mdm_attributes;
+using trifenix.exception;
 
 namespace trifenix.connect.util
 {
