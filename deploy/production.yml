@@ -18,9 +18,14 @@ variables:
 # esta instrucción asigna que no se ejecute en el pull request (para validar).
 # sino, que solo se ejecute al modificar la rama.
 pr: none
-  
-steps:
 
+steps:
+  - task: SonarQubePrepare@4
+    inputs:
+      SonarQube: 'AGROFENIXConnect'
+      scannerMode: 'MSBuild'
+      projectKey: 'AGROFENIXConnect'
+      projectName: 'AGROFENIXConnect'
   - task: gitversion/setup@0
     inputs:
       versionSpec: '5.1'
@@ -67,8 +72,13 @@ steps:
       arguments: '--configuration $(BuildConfiguration) /p:Version=$(SemVer)' 
       versioningScheme: byEnvVar 
       versionEnvVar: SemVer
-
+# corre sonar
+  - task: SonarQubeAnalyze@4
+  - task: SonarQubePublish@4
+    inputs:
+      pollingTimeoutSec: '300'
   # publica paquete para publicar.
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)"
