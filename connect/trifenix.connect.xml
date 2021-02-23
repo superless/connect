@@ -37,28 +37,6 @@
             Propiedades de un documento
             </summary>
         </member>
-        <member name="T:trifenix.connect.model.DocumentDb">
-            <summary>
-            Elemento base del modelo de datos de trifenix connect.
-            </summary>
-        </member>
-        <member name="P:trifenix.connect.model.DocumentDb.Id">
-            <summary>
-            Todos los elementos debene llevar un identificador
-            </summary>
-            <value>identificador de un elemento de base de datos</value>
-        </member>
-        <member name="P:trifenix.connect.model.DocumentDb.ClientId">
-            <summary>
-            Identificador que solo el usuario puede ver, esto puede ser un autonumérico.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:trifenix.connect.model.DocumentDb.State">
-            <summary>
-            Indicador de estado de la entidad
-            </summary>
-        </member>
         <member name="T:trifenix.connect.Model.Namespace">
             <summary>
             dentro de model estarán las clases abstractas del modelo de trifenix
@@ -346,36 +324,6 @@
             <param name="array">array</param>
             <param name="indexToRemove">índice del elemento a eliminar.</param>
             <returns></returns>
-        </member>
-        <member name="T:trifenix.connect.util.CustomException">
-            <summary>
-            Clase encargada de generar mensaje de excepcion
-            </summary>
-        </member>
-        <member name="M:trifenix.connect.util.CustomException.#ctor">
-            <summary>
-            Constructor de mensaje de excepcion
-            </summary>
-        </member>
-        <member name="M:trifenix.connect.util.CustomException.#ctor(System.String)">
-            <summary>
-            Funcion encargada mostrar mensaje especifico
-            </summary>
-            <param name="mensaje">mensaje custom</param>
-        </member>
-        <member name="M:trifenix.connect.util.CustomException.#ctor(System.String,System.Exception)">
-            <summary>
-            Funcion encargada mostrar mensaje especifico
-            </summary>
-            <param name="message">mensaje custom</param>
-            <param name="innerException"></param>
-        </member>
-        <member name="M:trifenix.connect.util.CustomException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            
-            </summary>
-            <param name="info"></param>
-            <param name="context"></param>
         </member>
         <member name="T:trifenix.connect.util.EnumerationExtension">
             <summary>

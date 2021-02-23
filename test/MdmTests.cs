@@ -1,10 +1,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Linq;
-
 using trifenix.connect.interfaces.hash;
 using trifenix.connect.mdm.entity_model;
-using trifenix.connect.mdm.ts_model;
+
 using trifenix.connect.search_mdl;
 using trifenix.connect.test.enums;
 using trifenix.connect.test.model;

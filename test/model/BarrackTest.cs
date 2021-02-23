@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using trifenix.connect.mdm.enums;
-using trifenix.connect.mdm.ts_model;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.test.enums;
 

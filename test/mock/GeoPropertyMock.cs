@@ -1,6 +1,6 @@
 ﻿using System;
 using trifenix.connect.mdm.entity_model;
-using trifenix.connect.mdm.ts_model;
+using trifenix.connect.test.model;
 
 namespace trifenix.connect.tests.mock
 {
