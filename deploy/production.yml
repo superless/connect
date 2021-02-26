@@ -40,10 +40,10 @@ steps:
   # configuración sonarqube  
   - task: SonarQubePrepare@4
     inputs:
-      SonarQube: 'AGROFENIX-connect'
+      SonarQube: 'AGROFENIXConnect'
       scannerMode: 'MSBuild'
-      projectKey: 'AGROFENIX-connect'
-      projectName: 'AGROFENIX-connect'
+      projectKey: 'AGROFENIXConnect'
+      projectName: 'AGROFENIXConnect'
       projectVersion: '$(version)'      
     displayName: preparación sonarqube
   
