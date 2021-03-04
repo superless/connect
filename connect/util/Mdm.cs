@@ -3,10 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using trifenix.connect.interfaces.hash;
 using trifenix.connect.mdm.entity_model;
 using trifenix.connect.mdm.enums;
+using trifenix.connect.mdm.ts_model;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.model;
 using trifenix.connect.search_mdl;
@@ -25,6 +27,18 @@ namespace trifenix.connect.util
     /// </summary>
     public static partial class Mdm
     {
+
+
+        /// <summary>
+        /// Obtiene el archivo de metadata de un proyecto trifenix connect desde una url
+        /// </summary>
+        /// <param name="url">url del modelo de metadatos</param>
+        /// <returns>Entidad de metadatos de un proyecto trifenix connect</returns>
+        public static EntityMetadata GetSource(string url) {
+            var json = new WebClient().DownloadString(url);
+            return JsonConvert.DeserializeObject<EntityMetadata>(json);
+        }
+
 
         /// <summary>
         /// Convierte un objeto individual o colección, en una colección
