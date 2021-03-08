@@ -748,7 +748,7 @@ namespace trifenix.connect.util
                         {
                             deleteList.Add(new DeleteItem 
                             {
-                                DocumentType = item,
+                                DocumentType = item.Name,
                                 Property = itemProperties.Name
                             });
                         }
