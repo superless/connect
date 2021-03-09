@@ -157,42 +157,13 @@ namespace trifenix.connect.util
             }
 
 
-
             /// <summary>
-            /// obtiene el tipo de la clase de acuerdo al índice
-            /// el índice identifica un entitySearch.
-            /// por ejemplo, un entitySearch con indice 1  sería igual  a la clase Persona,
-            /// este vínculo se logra a través de un atributo indicado en la clase (Metadata).
-            /// este método busca en el assembly  y el namespace indicado, la clase que tenga el atributo BaseIndexAttribute,
-            /// y dentro de ese atributo tenga el índice indicado.
+            /// Convierte un objeto individual o colección, en una colección
             /// </summary>
-            /// <see cref="BaseIndexAttribute"/>
-            /// <param name="index">índice de una entidad del metadata model de trifenix.</param>
-            /// <param name="typeOfAssembly">Cualquier tipo que esté contenido en el mismo assembly en el que esta la clase que tiene el atributo que indica que es una entidad</param>
-            /// <param name="nms">namespace donde se encuentra la clase que corresponde a la entidad</param>
-            /// <returns>la clase que tiene el atributo BaseIndexAttribute y el índice indicado</returns>
-            public static Type GetEntityType(int index, Type typeOfAssembly, string nms) => GetEntityType(index, Assembly.GetAssembly(typeOfAssembly), nms);
+            /// <param name="Obj">bjeto a convertir</param>
+            /// <returns>si el objeto es una colección deveulve una colección, si no una colección con un solo valor</returns>
+            public static List<object> CreateDynamicList(object Obj) => Obj is IList ? (Obj is Array ? ((Array)Obj).Cast<object>().ToList() : new List<object>((IEnumerable<object>)Obj)) : new List<object> { Obj };
 
-
-            /// <summary>
-            /// obtiene el tipo de la clase de acuerdo al índice
-            /// el índice identifica un entitySearch.
-            /// por ejemplo, un entitySearch con indice 1  sería igual  a la clase Persona,
-            /// este vínculo se logra a través de un atributo indicado en la clase (Metadata).
-            /// este método busca en el assembly  y el namespace indicado, la clase que tenga el atributo BaseIndexAttribute,
-            /// y dentro de ese atributo tenga el índice indicado.
-            /// </summary>
-            /// <see cref="BaseIndexAttribute"/>
-            /// <param name="index">índice de una entidad del metadata model de trifenix.</param>
-            /// <param name="assembly">assembly en el que esta la clase que tiene el atributo que indica que es una entidad</param>
-            /// <param name="nms">namespace donde se encuentra la clase que corresponde a la entidad</param>
-            /// <returns>la clase que tiene el atributo BaseIndexAttribute y el índice indicado</returns>
-            public static Type GetEntityType(int index, Assembly assembly, string nms)
-            {   
-                var modelTypes = GetLoadableTypes(assembly).Where(type => type.FullName.StartsWith(nms) && Attribute.IsDefined(type, typeof(EntityIndexAttribute)));
-                var entityType = modelTypes.Where(type => type.GetTypeInfo().GetCustomAttributes<EntityIndexAttribute>().Any(s => s.Index == index)).FirstOrDefault();
-                return entityType;
-            }
         }
 
         
