@@ -164,23 +164,24 @@ namespace trifenix.connect.util
             /// <summary>
             /// obtiene el valor de la propiedad de acuerdo al nombre de la propiedad indicado en el argumento.
             /// </summary>
-            /// <param name="elementWithId"></param>
+            /// <param name="element"></param>
+            /// <param name="propName"></param>            
             /// <returns></returns>
             public static string GetProp(object element, string propName)
             {
-            if (element.GetType().GetProperty(propName) == null)
-            {
-                throw new Exception($"el elemento no tiene la propiedad {propName}");
-            }
+                if (element.GetType().GetProperty(propName) == null)
+                {
+                    throw new Exception($"el elemento no tiene la propiedad {propName}");
+                }
 
 
-            var propInfo = element.GetType().GetProperty(propName);
-            if (propInfo.PropertyType != typeof(string))
-            {
-                throw new Exception($"la propiedad {propName} no es string, el método solo funciona con strings");
-            }
+                var propInfo = element.GetType().GetProperty(propName);
+                if (propInfo.PropertyType != typeof(string))
+                {
+                    throw new Exception($"la propiedad {propName} no es string, el método solo funciona con strings");
+                }
 
-            return propInfo.GetValue(element).ToString();
+                return propInfo.GetValue(element).ToString();
             }
 
 
