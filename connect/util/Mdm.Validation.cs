@@ -167,7 +167,7 @@ namespace trifenix.connect.util
 
 
                             // si el valor es enumerable se recorrerá para verificar si uno de los modelos coincide.
-                            if (Mdm.Reflection.IsEnumerable(item))
+                            if (Reflection.IsEnumerable(item))
                             {
                                 // convierte en colección
                                 var itemCollection = (IEnumerable<object>)item;
