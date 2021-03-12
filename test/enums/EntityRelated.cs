@@ -98,6 +98,7 @@
         SPECIE = 30,
 
 
-        GEOPOINT = 31
+        GEOPOINT = 31,
+        BRAND = 32
     }
 }

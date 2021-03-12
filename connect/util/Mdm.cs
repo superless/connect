@@ -33,6 +33,24 @@ namespace trifenix.connect.util
             return null;
         }
 
+        public static Type[] GetTypeModel(Assembly assembly) { 
+            
+        }
+
+        public static GlobalFilters GetGlobalFilter(Assembly assembly, Func<Assembly, Type[]> typeModel)
+        {
+            var types = GetTypeModel(assembly);
+
+        }
+
+        /// <summary>
+        /// Retorna el filtro global del model
+        /// </summary>
+        /// <param name="assembly">assembly donde obtendrá el modelo</param>
+        /// <returns></returns>
+        public static GlobalFilters GetGlobalFilter(Assembly assembly) {
+            return GetGlobalFilter(assembly, GetTypeModel);
+        }
 
     }
 }

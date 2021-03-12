@@ -39,7 +39,7 @@ namespace trifenix.connect.test
 
             // action
             // obtiene el entitySearch
-            var entityspecie = Mdm.GetEntitySearch(new ImplementMock(), objsSpecie, hashSpecie);
+            var entityspecie = Mdm.Reflection.Entities.GetEntitySearch(new ImplementMock(), objsSpecie, hashSpecie);
 
             // genera el hash de las cabeceras de entitySearch
             // esto es un diccionario
@@ -71,7 +71,7 @@ namespace trifenix.connect.test
 
             // action
             // obtiene el entitySearch
-            var entityVariety = Mdm.GetEntitySearch(new ImplementMock(), objsVariety, hashVariety);
+            var entityVariety = Mdm.Reflection.Entities.GetEntitySearch(new ImplementMock(), objsVariety, hashVariety);
 
             // genera el hash de las cabeceras de entitySearch
             // esto es un diccionario
@@ -113,7 +113,7 @@ namespace trifenix.connect.test
 
             // action
             // obtiene el entitySearch
-            var entities = Mdm.GetEntitySearch(new ImplementMock(), objs, hash);
+            var entities = Mdm.Reflection.Entities.GetEntitySearch(new ImplementMock(), objs, hash);
 
             // genera el hash de las cabeceras de entitySearch
             // esto es un diccionario
@@ -194,7 +194,7 @@ namespace trifenix.connect.test
             };
 
             // obtenemos el entitySearch del barrack, internamente valida el hash.
-            var barrack = (BarrackTest)Mdm.GetEntityFromSearch(entity, typeof(BarrackTest), "trifenix.connect.test.model", s => s, new SearchElement(), hash);
+            var barrack = (BarrackTest)Mdm.Reflection.Entities.GetEntityFromSearch(entity, typeof(BarrackTest), "trifenix.connect.test.model", s => s, new SearchElement(), hash);
 
 
             //assert
@@ -236,7 +236,7 @@ namespace trifenix.connect.test
             var dictBool = Mdm.Reflection.Enumerations.GetDictionaryFromEnum<BoolRelated>();
 
             // obtiene los índices de la clase
-            var indexes = Mdm.PreLoadedDictionary(type);
+            var indexes = Mdm.Reflection.Entities.PreLoadedDictionary(type);
 
             if (indexes == null)
             {
