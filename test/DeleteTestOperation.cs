@@ -15,13 +15,13 @@ namespace trifenix.connect.test.model
             var test = new DeleteItem[]
             {
                 new DeleteItem {
-                    DocumentType = typeof(BarrackTest),
+                    DocumentType = typeof(BarrackTest).Name,
                     Property = "IdVariety"
                 }
             };
 
             //action
-            var delete = Mdm.GetDeleteItem<VarietyTest>();
+            var delete = Mdm.Reflection.Entities.GetDeleteItem<VarietyTest>();
 
             //assert
             Assert.True(delete.First().Property.Equals("IdVariety"));

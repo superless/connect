@@ -282,7 +282,7 @@ namespace trifenix.connect.util
                 /// </summary>
                 /// <param name="type">tipo de una propiedad</param>
                 /// <returns></returns>
-                public static int? GetIndex(Type type) => Reflection.Attributes.GetAttributes<EntityIndexAttribute>(type).FirstOrDefault()?.Index;
+                public static int? GetIndex(Type type) => Attributes.GetAttributes<EntityIndexAttribute>(type).FirstOrDefault()?.Index;
 
 
 

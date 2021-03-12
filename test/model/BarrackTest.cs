@@ -8,6 +8,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.BARRACK, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+
     public class BarrackTest : DocumentDb
     {
 

@@ -325,7 +325,7 @@ namespace trifenix.connect.util
                     /// <returns>nueva entidad desde ub objeto</returns>
                     public static IEntitySearch<T> FillProps<T>(Implements<T> implements, Dictionary<BaseIndexAttribute, object> mdl, Type typeToCast)
                     {
-                        var objSearch = Reflection.Collections.CreateEntityInstance(typeToCast);
+                        var objSearch = Collections.CreateEntityInstance(typeToCast);
 
                         var entitySearch = GetEntityBaseSearch<T>(objSearch);
 

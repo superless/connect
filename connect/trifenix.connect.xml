@@ -86,6 +86,35 @@
             mdm
             </summary>
         </member>
+        <member name="M:trifenix.connect.util.Mdm.GetTypeModel(System.Reflection.Assembly)">
+            <summary>
+            Obtiene el listado de tipos que estén en los namespace 
+            de entidades (clases) que hereden de documentDb.
+            </summary>
+            <param name="assembly">Assembly donde buscar el modelo</param>
+            <returns>listado de tipos encontrados en los namespaces donde se encuentren entidades que hereden de documentDb</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.ToValueTypes(System.Type[])">
+            <summary>
+            Retorna una colección con el tipo y el atributo ToGlobalFilterValueAttribute encontrado
+            </summary>
+            <param name="types">colección de tipos a analizar</param>
+            <returns>colección con tuplas del tipo encontrado y el objeto ToGlobalFilterValueAttribute</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetGlobalFilterValue(System.Type)">
+            <summary>
+            Obtiene el atributo de ToValue para un tipo
+            </summary>
+            <param name="type">tipo a determinar si es ToValue</param>
+            <returns>ToValue si el tipo lo implmenta</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetGlobalFilter(System.Reflection.Assembly)">
+            <summary>
+            Retorna el filtro global del model
+            </summary>
+            <param name="assembly">assembly donde obtendrá el modelo</param>
+            <returns></returns>
+        </member>
         <member name="T:trifenix.connect.util.Mdm.Reflection">
             <summary>
             mdm reflections

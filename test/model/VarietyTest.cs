@@ -8,7 +8,8 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
 
-    [EntityIndex(Index = (int)EntityRelated.VARIETY, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]    
+    [EntityIndex(Index = (int)EntityRelated.VARIETY, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToProcess(typeof(SpecieTest), typeof(BarrackTest))]
     class VarietyTest
     {
         public string Id { get; set; }

@@ -25,7 +25,7 @@ namespace trifenix.connect.util
             /// <param name="genericProp"></param>
             public static object InvokeDynamicGeneric(string MethodName, Type GenericType, object[] Parameters, Type genericProp = null) {
 
-                var mtd = typeof(Mdm).GetMethod(MethodName, BindingFlags.Public | BindingFlags.Static);
+                var mtd = typeof(Entities.Props).GetMethod(MethodName, BindingFlags.Public | BindingFlags.Static);
                 if (genericProp == null)
                 {
                     return mtd.MakeGenericMethod(GenericType).Invoke(null, Parameters);

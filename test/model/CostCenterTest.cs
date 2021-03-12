@@ -15,6 +15,7 @@ namespace trifenix.connect.test.model
     /// todos los procesos, la bodega y los cuarteles dependen de un centro de costo.
     /// </summary>
     [EntityIndex(Index = (int)EntityRelated.COSTCENTER, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToGlobalFilterValue(typeof(CostCenterTest), typeof(SeasonTest))]
     public class CostCenterTest : DocumentDb
     {
 

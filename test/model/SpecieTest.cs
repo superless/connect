@@ -9,6 +9,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.SPECIE, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToProcess(typeof(SpecieTest),typeof(BarrackTest))]
     public class SpecieTest : DocumentDb
     {
         public override string Id { get; set; }

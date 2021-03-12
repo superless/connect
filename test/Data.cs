@@ -30,7 +30,51 @@ namespace trifenix.connect.test
                     } 
                }
             },
-            ToProcess = new 
+            ToProcess = new ToProcessClass[] { 
+                new ToProcessClass{ 
+                    Index = 0,
+                    Name = "GlobalFilter",
+                    SourceIndex = 15,
+                    TargetIndex = 1,
+                    SourceName = "SeasonTest",
+                    TargetName = "BarrackTest",
+                    TargetRealIndex = 1,
+                    PathToProcess = new PathToFiltersValue[]{ 
+                        new PathToFiltersValue{ 
+                            OriginClass = "SeasonTest",
+                            OriginIndex = 15,
+                            TargetIndex = 1,
+                            TargetClass = "BarrackTest",
+                            PropertyName = "SeasonId"
+                        }
+                    }
+                },
+                new ToProcessClass{ 
+                    Index = 0,
+                    Name="GlobalFilter",
+                    SourceIndex=30,
+                    SourceName="SpecieTest",
+                    TargetIndex=1,
+                    TargetName="BarrackTest",
+                    TargetRealIndex = 1,
+                    PathToProcess = new PathToFiltersValue[]{ 
+                        new PathToFiltersValue{ 
+                            OriginClass = "SpecieTest",
+                            OriginIndex = 30,
+                            TargetIndex = 21,
+                            TargetClass="VarietyTest",
+                            PropertyName="IdSpecie"
+                        },
+                        new PathToFiltersValue{
+                            OriginClass = "VarietyTest",
+                            OriginIndex = 21,
+                            TargetIndex = 1,
+                            TargetClass="BarrackTest",
+                            PropertyName="IdVariety"
+                        }
+                    }
+                }
+            }
         };
     }
 }
