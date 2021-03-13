@@ -20,7 +20,7 @@ namespace trifenix.connect.test.GlobalFilterTests
                 };
 
                 // action
-                var toValues = Mdm.ToValueTypes(types).ToList();
+                var toValues = Mdm.GlobalFilter.ToValueTypes(types).ToList();
 
                 var (typeToValue, toValueAttr) = toValues.FirstOrDefault();
 

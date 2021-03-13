@@ -17,7 +17,7 @@ namespace trifenix.connect.test.GlobalFilterTests
                 var assembly = typeof(BarrackTest).Assembly;
 
                 // action
-                var types = Mdm.GetTypeModel(assembly);
+                var types = Mdm.Common.GetTypeModel(assembly);
 
 
                 Assert.True(types != null);

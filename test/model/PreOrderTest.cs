@@ -54,3 +54,5 @@ namespace trifenix.connect.test.model
         public string[] BarrackIds { get; set; }
     }
 }
+
+

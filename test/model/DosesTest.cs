@@ -126,13 +126,14 @@ namespace trifenix.connect.test.model
         /// determina si la dosis es por defecto.
         /// si un producto no se le asignan dosis, siempre tendrá uno.
         /// </summary>
-        
+        [PropertyIndex(Index = (int)BoolRelated.GENERIC_DEFAULT, KindIndex = (int)KindProperty.BOOL)]
         public bool Default { get; set; }
 
         /// <summary>
         /// una dosis puede ser desactivada, si se requiere eliminar de un producto y esta está asociada con una orden.
         /// </summary>
-        
+        [PropertyIndex(Index = (int)BoolRelated.GENERIC_ACTIVE, KindIndex = (int)KindProperty.BOOL)]
         public bool Active { get; set; }
+
     }
 }

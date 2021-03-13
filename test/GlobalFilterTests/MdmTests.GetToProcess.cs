@@ -17,7 +17,7 @@ namespace trifenix.connect.test.GlobalFilterTests
 
 
                 // action
-                var processResult = Mdm.GetFilterProcess<FilterPathEnum>(Mdm.GetTypeModel(assembly), true);
+                var processResult = Mdm.ToProcess.GetFilterProcess<FilterPathEnum>(Mdm.Common.GetTypeModel(assembly), true);
 
 
 

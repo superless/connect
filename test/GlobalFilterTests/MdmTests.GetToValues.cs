@@ -29,7 +29,7 @@ namespace trifenix.connect.test.GlobalFilterTests
                 };
 
                 // action
-                var toValueResult = Mdm.GetToValues(types, tuplas).ToList();
+                var toValueResult = Mdm.GlobalFilter.GetToValues(types, tuplas).ToList();
 
 
 

@@ -22,7 +22,7 @@ namespace trifenix.connect.test.model
         /// <summary>
         /// Nombre del producto.
         /// </summary>
-        
+        [PropertyIndex(Index = (int)StringRelated.GENERIC_NAME, KindIndex = (int)KindProperty.STR)]
         public string Name { get; set; }
 
         /// <summary>
