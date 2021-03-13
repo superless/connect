@@ -10,7 +10,7 @@ namespace trifenix.connect.test.model
 {
 
     [EntityIndex(Index = (int)EntityRelated.DOSES, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class DosesTest : DocumentDb
+    public class DosesTest : DocumentDb
     {
         /// <summary>
         /// Identificador de una dosis        

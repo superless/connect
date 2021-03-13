@@ -11,7 +11,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.ORDER, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class ApplicationOrderTest : DocumentDb
+    public class ApplicationOrderTest : DocumentDb
     {
         /// <summary>
         /// Identificador de la entidad

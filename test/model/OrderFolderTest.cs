@@ -9,7 +9,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.ORDER_FOLDER, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class OrderFolderTest : DocumentDb
+    public class OrderFolderTest : DocumentDb
     {
         /// <summary>
         /// Identificador de la carpeta

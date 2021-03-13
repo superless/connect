@@ -8,7 +8,7 @@ using trifenix.connect.test.enums;
 
 namespace trifenix.connect.test.model
 {
-    class NotificationEventTest : DocumentDb
+    public class NotificationEventTest : DocumentDb
     {
         /// <summary>
         /// Identificador de la Notificación

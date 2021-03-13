@@ -18,7 +18,7 @@ namespace trifenix.connect.test
                         OriginIndex = 5,
                         ValueClass = "SeasonTest",
                         ValueIndex = 15,
-                        FiltersToValue = new PathToFiltersValue[]{ 
+                        PathToProcess = new PathToFiltersValue[]{ 
                             new PathToFiltersValue{
                                 OriginClass="CostCenterTest",
                                 OriginIndex = 5,

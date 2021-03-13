@@ -7,6 +7,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.SEASON, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToProcess(typeof(SeasonTest), typeof(BarrackTest))]
     public class SeasonTest : DocumentDb
     {
         /// <summary>

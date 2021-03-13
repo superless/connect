@@ -9,7 +9,7 @@ namespace trifenix.connect.test.model
 {
 
     [EntityIndex(Index = (int)EntityRelated.BARRACK_EVENT, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class BarrackOrderInstanceTest
+    public class BarrackOrderInstanceTest
     {
 
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.BARRACK)]

@@ -12,7 +12,7 @@ namespace trifenix.connect.test.model
 {
 
     [EntityIndex(Index = (int)EntityRelated.PRODUCT, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class ProductTest : DocumentDb
+    public class ProductTest : DocumentDb
     {
         /// <summary>
         /// Identificador

@@ -8,7 +8,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.CERTIFIED_ENTITY, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class CertifiedEntityTest : DocumentDb
+    public class CertifiedEntityTest : DocumentDb
     {
         /// <summary>
         /// Identificador de la entidad

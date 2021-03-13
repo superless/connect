@@ -8,7 +8,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.DOSES_ORDER, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
-    class DosesOrderTest
+    public class DosesOrderTest
     {
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.DOSES)]
         public string IdDoses { get; set; }
