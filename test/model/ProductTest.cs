@@ -11,7 +11,7 @@ using trifenix.connect.test.enums;
 namespace trifenix.connect.test.model
 {
 
-    [EntityIndex(Index = (int)EntityRelated.PRODUCT, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [EntityIndex(Index = (int)EntityRelated.PRODUCT, Kind = EntityKind.CUSTOM_ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
     public class ProductTest : DocumentDb
     {
         /// <summary>
@@ -53,7 +53,7 @@ namespace trifenix.connect.test.model
         /// <summary>
         /// Código Sag del producto.
         /// </summary>
-        [PropertyIndex(Index = (int)StringRelated.GENERIC_NAME, KindIndex = (int)KindProperty.STR)]
+        [PropertyIndex(Index = (int)StringRelated.SAGCODE, KindIndex = (int)KindProperty.STR)]
         [Unique]
         [Required]
         public string SagCode { get; set; }

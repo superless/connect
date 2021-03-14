@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using trifenix.connect.mdm.ts_model;
+using trifenix.connect.model;
 
 namespace trifenix.connect.test
 {
@@ -75,6 +76,435 @@ namespace trifenix.connect.test
                     }
                 }
             }
+        };
+
+        public static EntityMetadata GetProductMetadata => new EntityMetadata
+        {
+            AutoNumeric = true,
+            StringData= new Dictionary<int, PropertyMetadata> {
+                { 1, new PropertyMetadata{ 
+                    AutoNumeric = false,
+                    ClassName = "ProductTest",
+                    HasInput = true,
+                    Index = 1,
+                    IndexFather = 12,
+                    Info = new EntitySearchDisplayInfo{ 
+                        Column = "Nom",
+                        Description = "Nombre genérico de una entidad",
+                        PlaceHolder = "Indique el nomnbre",
+                        ShortName = "Nom",
+                        Title ="Nombre"
+                        
+                    },
+                    isArray = false,
+                    NameProp="Name",
+                    ReferenceValidation = false,
+                    Required = true,
+                    Unique = true,
+                    TypeString = "string",
+                    Visible = true
+                   
+                }},
+                { 14, new PropertyMetadata{
+                    AutoNumeric = false,
+                    ClassName = "ProductTest",
+                    HasInput = true,
+                    Index = 14,
+                    IndexFather = 12,
+                    Info = new EntitySearchDisplayInfo{
+                        Column = "Sag N°",
+                        Description = "Código SAG",
+                        PlaceHolder = "Indique el nombre dél código SAG",
+                        ShortName = "SAG N",
+                        Title ="Código SAG"
+
+                    },
+                    isArray = false,
+                    NameProp="SagCode",
+                    ReferenceValidation = false,
+                    Required = true,
+                    Unique = true,
+                    TypeString = "string",
+                    Visible = true
+
+                }},
+                 { 13, new PropertyMetadata{
+                    AutoNumeric = true,
+                    ClassName = "ProductTest",
+                    HasInput = false,
+                    Index = 13,
+                    IndexFather = 12,
+                    Info = new EntitySearchDisplayInfo{
+                        Column = "N°",
+                        Description = "Identificador de producto",
+                        PlaceHolder = "",
+                        ShortName = "N°",
+                        Title ="Id Producto"
+
+                    },
+                    isArray = false,
+                    NameProp="ClientId",
+                    ReferenceValidation = false,
+                    Required = false,
+                    Unique = false,
+                    TypeString = "string",
+                    Visible = true
+
+                }},
+            },
+            EnumData = new Dictionary<int, PropertyMetadadataEnum> {
+                { 0, new PropertyMetadadataEnum {
+                    AutoNumeric = false,
+                    ClassName = "ProductTest",
+                    EnumData = new Dictionary<int, string>{
+                        { 0, "gr."},
+                        { 1, "cc."},
+                    },
+                    IndexFather = 12,
+                    Index = 0,
+                    HasInput = true,
+                    Info =  new EntitySearchDisplayInfo{
+                        Column = "Tipo M",
+                        Description = "Tipo de medida para producto",
+                        PlaceHolder = "Indique el tipo de medida",
+                        ShortName = "Tipo",
+                        Title ="Tipo de medida de producto"
+
+                    },
+                    isArray = false,
+                    NameProp="MeasureType",
+                    ReferenceValidation = false,
+                    Required = true,
+                    TypeString = "MeasureType",
+                    Unique = false,
+                    Visible = true,
+
+                }},
+           
+
+            },
+            relData = new Dictionary<int, RelatedPropertyMetadata> {
+                { 7, new RelatedPropertyMetadata{ 
+                    AutoNumeric = false,
+                    Info = new EntitySearchDisplayInfo{ 
+                        Column = "Ingrediente",
+                        Description="Ingrediente de productos",
+                        PlaceHolder = "Ingrese ingrediente",
+                        ShortName = "ING",
+                        Title = "Ingrediente Activo"
+                    },
+                    ClassName = "ProductTest",
+                    ReferenceValidation = true,
+                    HasInput = true,
+                    Index = 7,
+                    IndexFather = 12,
+                    isArray = false,
+                    NameProp="IdActiveIngredient",
+                    RealIndex = 7,
+                    Required=false,
+                    TypeString = "string",
+                    Unique = false,
+                    Visible = true
+                } },
+                { 32, new RelatedPropertyMetadata{
+                    AutoNumeric = false,
+                    Info = new EntitySearchDisplayInfo{
+                        Column = "Marca",
+                        Description="Marca de producto",
+                        PlaceHolder = "Ingrese marca",
+                        ShortName = "marca",
+                        Title = "Marca"
+                    },
+                    ClassName = "ProductTest",
+                    ReferenceValidation = true,
+                    HasInput = true,
+                    Index = 32,
+                    IndexFather = 12,
+                    isArray = false,
+                    NameProp="IdBrand",
+                    RealIndex = 32,
+                    Required=false,
+                    TypeString = "string",
+                    Unique = false,
+                    Visible = true
+                } },
+            },
+            Menus = new GroupMenu[] { },
+            IsGlobalFilterValue = false,
+            PathName="products",
+            Info = new EntitySearchDisplayInfo { 
+                Column="Producto",
+                Description="Producto",
+                PlaceHolder ="Ingrese Producto",
+                ShortName="Prod",
+                Title = "Producto"
+            },
+            Index = 12,
+            ReadOnly=false,
+            FiltersProcess = new FilterProcess[] { },
+            FiltersAvailable = new RelatedItem[] { },
+            EntityKind = mdm.enums.EntityKind.CUSTOM_ENTITY,
+            ClassInputName="ProductInputTest",
+            ClassName="ProductTest",
+            Description="Producto",
+            ShortName="Producto",
+            DeleteItems = new DeleteItem[] { },
+            Title="Producto",
+            ToProcessClass = new ToProcessClass[] { },
+            Visible = true,
+            InputDetails = new InputDetails { 
+                InputPropsDetails = new Dictionary<string, InputPropDetails> {
+                    { "Name",  new InputPropDetails{
+                            AutoNumeric = false,
+                            ClassName = "ProductTest",
+                            HasInput = true,
+                            Index = 1,
+                            IndexFather = 12,
+                            Info = new EntitySearchDisplayInfo{
+                                Column = "Nom",
+                                Description = "Nombre genérico de una entidad",
+                                PlaceHolder = "Indique el nomnbre",
+                                ShortName = "Nom",
+                                Title ="Nombre"
+
+                            },
+                            isArray = false,
+                            NameProp="Name",
+                            ReferenceValidation = false,
+                            Required = true,
+                            Unique = true,
+                            TypeString = "string",
+                            Visible = true,
+                            ModelPropName = "Name"
+                      } },
+                      { "SagCode", new InputPropDetails{
+                            AutoNumeric = false,
+                            ClassName = "ProductTest",
+                            HasInput = true,
+                            Index = 14,
+                            IndexFather = 12,
+                            Info = new EntitySearchDisplayInfo{
+                                Column = "Sag N°",
+                                Description = "Código SAG",
+                                PlaceHolder = "Indique el nombre dél código SAG",
+                                ShortName = "SAG N",
+                                Title ="Código SAG"
+
+                            },
+                            isArray = false,
+                            NameProp="SagCode",
+                            ReferenceValidation = false,
+                            Required = true,
+                            Unique = true,
+                            TypeString = "string",
+                            Visible = true,
+                            ModelPropName ="SagCode"
+
+                        }},
+                      { "MeasureType", new InputPropDetails{
+                           AutoNumeric = false,
+                            ClassName = "ProductTest",                            
+                            IndexFather = 12,
+                            Index = 0,
+                            HasInput = true,
+                            Info =  new EntitySearchDisplayInfo{
+                                Column = "Tipo M",
+                                Description = "Tipo de medida para producto",
+                                PlaceHolder = "Indique el tipo de medida",
+                                ShortName = "Tipo",
+                                Title ="Tipo de medida de producto"
+
+                            },
+                            isArray = false,
+                            NameProp="MeasureType",
+                            ReferenceValidation = false,
+                            Required = true,
+                            TypeString = "MeasureType",
+                            Unique = false,
+                            Visible = true,
+                            ModelPropName="MeasureType"
+                        }}
+                },
+                InputRelatedDetails=new Dictionary<string, InputPropRelatedDetails> {
+                    { "IdActiveIngredient", new InputPropRelatedDetails{
+                        AutoNumeric = false,
+                        Info = new EntitySearchDisplayInfo{
+                            Column = "Ingrediente",
+                            Description="Ingrediente de productos",
+                            PlaceHolder = "Ingrese ingrediente",
+                            ShortName = "ING",
+                            Title = "Ingrediente Activo"
+                        },
+                        ClassName = "ProductTest",
+                        ReferenceValidation = true,
+                        HasInput = true,
+                        Index = 7,
+                        IndexFather = 12,
+                        isArray = false,
+                        NameProp="IdActiveIngredient",
+                        RealIndex = 12,
+                        Required=false,
+                        TypeString = "string",
+                        Unique = false,
+                        Visible = true,
+                        IsReference = true,
+                        ModelPropName="IdActiveIngredient"
+
+                    } },
+                    { "IdBrand", new InputPropRelatedDetails{
+                            AutoNumeric = false,
+                            Info = new EntitySearchDisplayInfo{
+                                Column = "Marca",
+                                Description="Marca de producto",
+                                PlaceHolder = "Ingrese marca",
+                                ShortName = "marca",
+                                Title = "Marca"
+                            },
+                            ClassName = "ProductTest",
+                            ReferenceValidation = true,
+                            HasInput = true,
+                            Index = 32,
+                            IndexFather = 12,
+                            isArray = false,
+                            NameProp="IdBrand",
+                            RealIndex = 12,
+                            Required=false,
+                            TypeString = "string",
+                            Unique = false,
+                            Visible = true
+
+                    }},
+                     { "Doses", new InputPropRelatedDetails{
+                            AutoNumeric = false,
+                            Info = new EntitySearchDisplayInfo{
+                                Column = "Doses",
+                                Description="Doses",
+                                PlaceHolder = "Doses",
+                                ShortName = "Doses",
+                                Title = "Doses"
+                            },
+                            ClassName = "ProductTest",
+                            ReferenceValidation = false,
+                            HasInput = true,
+                            Index = 6,
+                            IndexFather = 12,
+                            isArray = true,
+                            NameProp="Doses",
+                            RealIndex = 6,
+                            Required=false,
+                            TypeString = "Doses",
+                            Unique = false,
+                            Visible = true,
+                            IsReference = false,
+                            ModelPropName=string.Empty
+                    }},
+
+                }, 
+                RelatedInputs = new Dictionary<string, InputDetails> {
+                    { "DosesInputTest", new InputDetails{ 
+                        InputRelatedDetails = new Dictionary<string, InputPropRelatedDetails>{
+                            {"IdVarieties", new InputPropRelatedDetails {
+                                AutoNumeric = false,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Variedad",
+                                    Description="Variedad",
+                                    PlaceHolder = "Variedad",
+                                    ShortName = "Variedad",
+                                    Title = "Variedad"
+                                },
+                                ClassName = "DosesInputTest",
+                                ReferenceValidation = true,
+                                HasInput = true,
+                                Index = 21,
+                                IndexFather = 6,
+                                isArray = true,
+                                NameProp="IdVarieties",
+                                RealIndex = 21,
+                                Required=false,
+                                TypeString = "string",
+                                Unique = false,
+                                Visible = true,
+                                IsReference = true,
+                                ModelPropName="idVarieties"
+                            } },
+                            {"IdSpecies", new InputPropRelatedDetails {
+                                AutoNumeric = false,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Specie",
+                                    Description="Specie",
+                                    PlaceHolder = "Specie",
+                                    ShortName = "Specie",
+                                    Title = "Specie"
+                                },
+                                ClassName = "DosesInputTest",
+                                ReferenceValidation = true,
+                                HasInput = true,
+                                Index = 30,
+                                IndexFather = 6,
+                                isArray = true,
+                                NameProp="IdSpecies",
+                                RealIndex = 30,
+                                Required=false,
+                                TypeString = "string",
+                                Unique = false,
+                                Visible = true,
+                                IsReference = true,
+                                ModelPropName="IdSpecies"
+                            } },
+                             {"IdsApplicationTarget", new InputPropRelatedDetails {
+                                AutoNumeric = false,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Objetivo",
+                                    Description="Objetivo aplicación",
+                                    PlaceHolder = "Objetivo",
+                                    ShortName = "Objetivo",
+                                    Title = "Objetivo"
+                                },
+                                ClassName = "DosesInputTest",
+                                ReferenceValidation = true,
+                                HasInput = true,
+                                Index = 18,
+                                IndexFather = 6,
+                                isArray = true,
+                                NameProp="IdsApplicationTarget",
+                                RealIndex = 18,
+                                Required=false,
+                                TypeString = "string",
+                                Unique = false,
+                                Visible = true,
+                                IsReference = true,
+                                ModelPropName="IdsApplicationTarget"
+                            } },
+                              {"WaitingToHarvest", new InputPropRelatedDetails {
+                                AutoNumeric = false,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "WaitingToHarvest",
+                                    Description="WaitingToHarvest",
+                                    PlaceHolder = "WaitingToHarvest",
+                                    ShortName = "WaitingToHarvest",
+                                    Title = "WaitingToHarvest"
+                                },
+                                ClassName = "DosesInputTest",
+                                ReferenceValidation = false,
+                                HasInput = true,
+                                Index = 0,
+                                IndexFather = 6,
+                                isArray = true,
+                                NameProp="WaitingToHarvest",
+                                RealIndex = 0,
+                                Required=false,
+                                TypeString = "string",
+                                Unique = false,
+                                Visible = true,
+                                IsReference = true,
+                                ModelPropName="WaitingToHarvest"
+                            } }
+
+                        }
+                    } }
+                }
+            }
+
         };
     }
 }
