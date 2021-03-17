@@ -98,7 +98,7 @@ namespace trifenix.connect.test
                     },
                     isArray = false,
                     NameProp="Name",
-                    ReferenceValidation = false,
+                    
                     Required = true,
                     Unique = true,
                     TypeString = "string",
@@ -119,9 +119,9 @@ namespace trifenix.connect.test
                         Title ="Código SAG"
 
                     },
+                    
                     isArray = false,
-                    NameProp="SagCode",
-                    ReferenceValidation = false,
+                    NameProp="SagCode",                    
                     Required = true,
                     Unique = true,
                     TypeString = "string",
@@ -142,13 +142,14 @@ namespace trifenix.connect.test
                         Title ="Id Producto"
 
                     },
+                    
                     isArray = false,
-                    NameProp="ClientId",
-                    ReferenceValidation = false,
+                    NameProp="ClientId",                    
                     Required = false,
                     Unique = false,
                     TypeString = "string",
                     Visible = true
+                    
 
                 }},
             },
@@ -172,8 +173,7 @@ namespace trifenix.connect.test
 
                     },
                     isArray = false,
-                    NameProp="MeasureType",
-                    ReferenceValidation = false,
+                    NameProp="MeasureType",                    
                     Required = true,
                     TypeString = "MeasureType",
                     Unique = false,
@@ -193,8 +193,9 @@ namespace trifenix.connect.test
                         ShortName = "ING",
                         Title = "Ingrediente Activo"
                     },
-                    ClassName = "ProductTest",
-                    ReferenceValidation = true,
+                    ClassName = "ProductTest",                    
+                    ClassNameTarget="IngredientTest",                    
+                    IsReference = true,
                     HasInput = true,
                     Index = 7,
                     IndexFather = 12,
@@ -216,7 +217,8 @@ namespace trifenix.connect.test
                         Title = "Marca"
                     },
                     ClassName = "ProductTest",
-                    ReferenceValidation = true,
+                    ClassNameTarget = "BrandTest",
+                    IsReference = true,
                     HasInput = true,
                     Index = 32,
                     IndexFather = 12,
@@ -239,6 +241,7 @@ namespace trifenix.connect.test
                 ShortName="Prod",
                 Title = "Producto"
             },
+            ClassNameInput="ProductTestInput",
             Index = 12,
             ReadOnly=false,
             FiltersProcess = new FilterProcess[] { },
@@ -259,23 +262,22 @@ namespace trifenix.connect.test
                             ClassName = "ProductTest",
                             HasInput = true,
                             Index = 1,
-                            IndexFather = 12,
+                            IndexFather = 12,                            
                             Info = new EntitySearchDisplayInfo{
                                 Column = "Nom",
                                 Description = "Nombre genérico de una entidad",
                                 PlaceHolder = "Indique el nomnbre",
                                 ShortName = "Nom",
                                 Title ="Nombre"
-
                             },
                             isArray = false,
                             NameProp="Name",
-                            ReferenceValidation = false,
                             Required = true,
                             Unique = true,
                             TypeString = "string",
                             Visible = true,
                             ModelPropName = "Name"
+                            
                       } },
                       { "SagCode", new InputPropDetails{
                             AutoNumeric = false,
@@ -293,7 +295,6 @@ namespace trifenix.connect.test
                             },
                             isArray = false,
                             NameProp="SagCode",
-                            ReferenceValidation = false,
                             Required = true,
                             Unique = true,
                             TypeString = "string",
@@ -317,7 +318,6 @@ namespace trifenix.connect.test
                             },
                             isArray = false,
                             NameProp="MeasureType",
-                            ReferenceValidation = false,
                             Required = true,
                             TypeString = "MeasureType",
                             Unique = false,
@@ -336,7 +336,9 @@ namespace trifenix.connect.test
                             Title = "Ingrediente Activo"
                         },
                         ClassName = "ProductTest",
-                        ReferenceValidation = true,
+                        ClassNameTarget="IngredientTest",
+                        ClassInput="ProductTestInput",
+                        ClassInputTarget="IngredientTestInput",
                         HasInput = true,
                         Index = 7,
                         IndexFather = 12,
@@ -349,6 +351,7 @@ namespace trifenix.connect.test
                         Visible = true,
                         IsReference = true,
                         ModelPropName="IdActiveIngredient"
+                        
 
                     } },
                     { "IdBrand", new InputPropRelatedDetails{
@@ -361,7 +364,11 @@ namespace trifenix.connect.test
                                 Title = "Marca"
                             },
                             ClassName = "ProductTest",
-                            ReferenceValidation = true,
+                            ClassNameTarget="BrandTest",
+                            ClassInput="ProductTestInput",
+                            ClassInputTarget="BrandInputTest",
+                            IsReference = true,
+                            ModelPropName="IdBrand",
                             HasInput = true,
                             Index = 32,
                             IndexFather = 12,
@@ -384,7 +391,7 @@ namespace trifenix.connect.test
                                 Title = "Doses"
                             },
                             ClassName = "ProductTest",
-                            ReferenceValidation = false,
+                            ClassNameTarget="DosesTest",
                             HasInput = true,
                             Index = 6,
                             IndexFather = 12,
@@ -396,6 +403,8 @@ namespace trifenix.connect.test
                             Unique = false,
                             Visible = true,
                             IsReference = false,
+                            ClassInputTarget="DosesInputTest",
+                            ClassInput="ProductInputTest",                            
                             ModelPropName=string.Empty
                     }},
 
@@ -412,8 +421,9 @@ namespace trifenix.connect.test
                                     ShortName = "Variedad",
                                     Title = "Variedad"
                                 },
-                                ClassName = "DosesInputTest",
-                                ReferenceValidation = true,
+                                ClassName = "DosesTest",
+                                ClassNameTarget= "VarietyTest",
+                                ClassInput="DosesInputTest",                                
                                 HasInput = true,
                                 Index = 21,
                                 IndexFather = 6,
@@ -423,7 +433,9 @@ namespace trifenix.connect.test
                                 Required=false,
                                 TypeString = "string",
                                 Unique = false,
+                                ClassInputTarget="VarietyTestInput",
                                 Visible = true,
+                                
                                 IsReference = true,
                                 ModelPropName="idVarieties"
                             } },
@@ -436,8 +448,10 @@ namespace trifenix.connect.test
                                     ShortName = "Specie",
                                     Title = "Specie"
                                 },
-                                ClassName = "DosesInputTest",
-                                ReferenceValidation = true,
+                                ClassName = "DosesTest",
+                                ClassInput = "DosesInputTest",
+                                ClassInputTarget="SpeciesInputTest",
+                                ClassNameTarget="SpeciesTest",
                                 HasInput = true,
                                 Index = 30,
                                 IndexFather = 6,
@@ -460,8 +474,10 @@ namespace trifenix.connect.test
                                     ShortName = "Objetivo",
                                     Title = "Objetivo"
                                 },
-                                ClassName = "DosesInputTest",
-                                ReferenceValidation = true,
+                                ClassName = "DosesTest",
+                                ClassInput= "DosesInputTest",
+                                ClassInputTarget="TargetInpuTest",
+                                ClassNameTarget="TargetTest",
                                 HasInput = true,
                                 Index = 18,
                                 IndexFather = 6,
@@ -484,8 +500,10 @@ namespace trifenix.connect.test
                                     ShortName = "WaitingToHarvest",
                                     Title = "WaitingToHarvest"
                                 },
-                                ClassName = "DosesInputTest",
-                                ReferenceValidation = false,
+                                ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
+                                ClassNameTarget="WaitingHarvestTest",
+                                ClassInputTarget="WaitingHarvestInputTest",
                                 HasInput = true,
                                 Index = 0,
                                 IndexFather = 6,
@@ -499,6 +517,73 @@ namespace trifenix.connect.test
                                 IsReference = true,
                                 ModelPropName="WaitingToHarvest"
                             } }
+
+                        },
+                        InputPropsDetails = new Dictionary<string, InputPropDetails>{
+                            {"HoursToReEntryToBarrack", new InputPropDetails{ 
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                HasInput= true,
+                                Index= 2,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{ 
+                                    Column = "Horas",
+                                    Description = "Horas de reingreso a cuartel",
+                                    PlaceHolder = "Ingrese horas de reingreso",
+                                    ShortName = "Horas",
+                                    Title= "Horas de reingreso a cuartel"
+                                },
+                                isArray = false,
+                                ModelPropName = "HoursToReEntryToBarrack",
+                                NameProp="HoursToReEntryToBarrack",
+                                Required = false,
+                                TypeString = "int",
+                                Unique=false,
+                                Visible=true
+                            } },
+                             {"ApplicationDaysInterval", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                HasInput= true,
+                                Index= 3,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Intevalo",
+                                    Description = "Intevalo de horas entre aplicación en un cuartel",
+                                    PlaceHolder = "Ingrese Intevalo de horas",
+                                    ShortName = "Intevalo",
+                                    Title= "Intevalo de horas entre aplicación"
+                                },
+                                isArray = false,
+                                ModelPropName = "ApplicationDaysInterval",
+                                NameProp="ApplicationDaysInterval",
+                                Required = false,
+                                TypeString = "int",
+                                Unique=false,
+                                Visible=true
+                            } },
+                              {"NumberOfSequentialApplication", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                HasInput= true,
+                                Index= 4,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Intevalo",
+                                    Description = "Intevalo de horas entre aplicación en un cuartel",
+                                    PlaceHolder = "Ingrese Intevalo de horas",
+                                    ShortName = "Intevalo",
+                                    Title= "Intevalo de horas entre aplicación"
+                                },
+                                isArray = false,
+                                ModelPropName = "ApplicationDaysInterval",
+                                NameProp="ApplicationDaysInterval",
+                                Required = false,
+                                TypeString = "int",
+                                Unique=false,
+                                Visible=true
+                            } },
+
 
                         }
                     } }
