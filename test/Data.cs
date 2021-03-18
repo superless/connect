@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using trifenix.connect.mdm.enums;
 using trifenix.connect.mdm.ts_model;
 using trifenix.connect.model;
+using trifenix.connect.ts_model.enums;
 
 namespace trifenix.connect.test
 {
@@ -84,7 +86,8 @@ namespace trifenix.connect.test
             StringData= new Dictionary<int, PropertyMetadata> {
                 { 1, new PropertyMetadata{ 
                     AutoNumeric = false,
-                    ClassName = "ProductTest",
+                    KindProperty = KindProperty.STR,
+                    ClassName = "ProductTest",                    
                     HasInput = true,
                     Index = 1,
                     IndexFather = 12,
@@ -95,7 +98,7 @@ namespace trifenix.connect.test
                         ShortName = "Nom",
                         Title ="Nombre"
                         
-                    },
+                    },                    
                     isArray = false,
                     NameProp="Name",
                     
@@ -108,6 +111,7 @@ namespace trifenix.connect.test
                 { 14, new PropertyMetadata{
                     AutoNumeric = false,
                     ClassName = "ProductTest",
+                    KindProperty = KindProperty.STR,
                     HasInput = true,
                     Index = 14,
                     IndexFather = 12,
@@ -131,6 +135,7 @@ namespace trifenix.connect.test
                  { 13, new PropertyMetadata{
                     AutoNumeric = true,
                     ClassName = "ProductTest",
+                    KindProperty=KindProperty.STR,
                     HasInput = false,
                     Index = 13,
                     IndexFather = 12,
@@ -157,6 +162,7 @@ namespace trifenix.connect.test
                 { 0, new PropertyMetadadataEnum {
                     AutoNumeric = false,
                     ClassName = "ProductTest",
+                    KindProperty = KindProperty.ENUM,
                     EnumData = new Dictionary<int, string>{
                         { 0, "gr."},
                         { 1, "cc."},
@@ -259,7 +265,9 @@ namespace trifenix.connect.test
                 InputPropsDetails = new Dictionary<string, InputPropDetails> {
                     { "Name",  new InputPropDetails{
                             AutoNumeric = false,
+                            KindProperty = KindProperty.STR,
                             ClassName = "ProductTest",
+                            ClassInput="ProductInputTest",
                             HasInput = true,
                             Index = 1,
                             IndexFather = 12,                            
@@ -282,8 +290,10 @@ namespace trifenix.connect.test
                       { "SagCode", new InputPropDetails{
                             AutoNumeric = false,
                             ClassName = "ProductTest",
+                            ClassInput="ProductInputTest",
                             HasInput = true,
                             Index = 14,
+                            KindProperty = KindProperty.STR,
                             IndexFather = 12,
                             Info = new EntitySearchDisplayInfo{
                                 Column = "Sag N°",
@@ -304,7 +314,9 @@ namespace trifenix.connect.test
                         }},
                       { "MeasureType", new InputPropDetails{
                            AutoNumeric = false,
-                            ClassName = "ProductTest",                            
+                            ClassName = "ProductTest",
+                            ClassInput="ProductInputTest",    
+                            KindProperty = KindProperty.ENUM,
                             IndexFather = 12,
                             Index = 0,
                             HasInput = true,
@@ -410,7 +422,7 @@ namespace trifenix.connect.test
 
                 }, 
                 RelatedInputs = new Dictionary<string, InputDetails> {
-                    { "DosesInputTest", new InputDetails{ 
+                    { "Doses", new InputDetails{ 
                         InputRelatedDetails = new Dictionary<string, InputPropRelatedDetails>{
                             {"IdVarieties", new InputPropRelatedDetails {
                                 AutoNumeric = false,
@@ -523,6 +535,8 @@ namespace trifenix.connect.test
                             {"HoursToReEntryToBarrack", new InputPropDetails{ 
                                 AutoNumeric = false,
                                 ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
+                                KindProperty = KindProperty.NUM32,
                                 HasInput= true,
                                 Index= 2,
                                 IndexFather = 6,
@@ -544,7 +558,9 @@ namespace trifenix.connect.test
                              {"ApplicationDaysInterval", new InputPropDetails{
                                 AutoNumeric = false,
                                 ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
                                 HasInput= true,
+                                KindProperty = KindProperty.NUM32,
                                 Index= 3,
                                 IndexFather = 6,
                                 Info = new EntitySearchDisplayInfo{
@@ -565,29 +581,242 @@ namespace trifenix.connect.test
                               {"NumberOfSequentialApplication", new InputPropDetails{
                                 AutoNumeric = false,
                                 ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
                                 HasInput= true,
+                                KindProperty = KindProperty.NUM32,
                                 Index= 4,
                                 IndexFather = 6,
                                 Info = new EntitySearchDisplayInfo{
-                                    Column = "Intevalo",
-                                    Description = "Intevalo de horas entre aplicación en un cuartel",
+                                    Column = "N° secuencias",
+                                    Description = "N° secuencias",
                                     PlaceHolder = "Ingrese Intevalo de horas",
-                                    ShortName = "Intevalo",
-                                    Title= "Intevalo de horas entre aplicación"
+                                    ShortName = "N° secuencias",
+                                    Title= "N° secuencias"
                                 },
                                 isArray = false,
-                                ModelPropName = "ApplicationDaysInterval",
-                                NameProp="ApplicationDaysInterval",
+                                ModelPropName = "NumberOfSequentialApplication",
+                                NameProp="NumberOfSequentialApplication",
                                 Required = false,
                                 TypeString = "int",
                                 Unique=false,
                                 Visible=true
                             } },
+                              {"WettingRecommendedByHectares", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
+                                HasInput= true,
+                                KindProperty = KindProperty.NUM32,
+                                Index= 5,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Mojamiento recomendado",
+                                    Description = "Mojamiento recomendado de la etiqueta",
+                                    PlaceHolder = "Ingrese Mojamiento",
+                                    ShortName = "Mojamiento",
+                                    Title= "Mojamiento"
+                                },
+                                isArray = false,
+                                ModelPropName = "WettingRecommendedByHectares",
+                                NameProp="WettingRecommendedByHectares",
+                                Required = false,
+                                TypeString = "int",
+                                Unique=false,
+                                Visible=true
+                            } },
+                            {"DosesQuantityMin", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
+                                HasInput= true,
+                                KindProperty = KindProperty.DBL,
+                                Index= 4,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Cantidad Mínima",
+                                    Description = "Cantidad Mínima",
+                                    PlaceHolder = "Ingrese Cantidad Mínima",
+                                    ShortName = "Cantidad Mínima",
+                                    Title= "Cantidad Mínima"
+                                },
+                                isArray = false,
+                                ModelPropName = "DosesQuantityMin",
+                                NameProp="DosesQuantityMin",
+                                Required = false,
+                                TypeString = "double",
+                                Unique=false,
+                                Visible=true
+                            } },
+                             {"DosesQuantityMax", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",                                
+                                ClassInput="DosesInputTest",                                
+                                HasInput= true,
+                                KindProperty = KindProperty.DBL,
+                                Index= 4,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Cantidad Máxima",
+                                    Description = "Cantidad Máxima",
+                                    PlaceHolder = "Ingrese Cantidad Máxima",
+                                    ShortName = "Cantidad Máxima",
+                                    Title= "Cantidad Máxima"
+                                },
+                                isArray = false,
+                                ModelPropName = "DosesQuantityMax",
+                                NameProp="DosesQuantityMax",
+                                Required = false,
+                                TypeString = "double",
+                                Unique=false,
+                                Visible=true
+                            } },
+                             {"WaitingDaysLabel", new InputPropDetails{
+                                AutoNumeric = false,
+                                ClassName = "DosesTest",
+                                ClassInput="DosesInputTest",
+                                HasInput= true,
+                                Index= 0,
+                                KindProperty = KindProperty.NUM32,
+                                IndexFather = 6,
+                                Info = new EntitySearchDisplayInfo{
+                                    Column = "Días de cosecha",
+                                    Description = "Días de cosecha",
+                                    PlaceHolder = "Ingrese Días de cosecha",
+                                    ShortName = "Días de cosecha",
+                                    Title= "Días de cosecha"
+                                },
+                                isArray = false,
+                                ModelPropName = "WaitingDaysLabel",
+                                NameProp="WaitingDaysLabel",
+                                Required = false,
+                                TypeString = "int",
+                                Unique=false,
+                                Visible=true
+                            } }
+                        },
+                        RelatedInputs = new Dictionary<string, InputDetails> { 
+                            { "WaitingToHarvest",  new InputDetails {
+                                InputPropsDetails = new Dictionary<string, InputPropDetails>{
+                                    { "Ppm", new InputPropDetails{ 
+                                        AutoNumeric = false,
+                                        ClassInput = "WaitingHarvestInputTest",
+                                        ClassName = "WaitingHarvestTest",
+                                        HasInput = true,
+                                        Index = 1,
+                                        IndexFather = 0,
+                                        Info = new EntitySearchDisplayInfo
+                                        {
+                                            Column = "PPM",
+                                            Description = "Partes Por millón",
+                                            PlaceHolder = "Ingrese PPM",
+                                            ShortName = "PPM",
+                                            Title = "PPM"
+                                        },
+                                        isArray = false,
+                                        KindProperty= KindProperty.DBL,
+                                        ModelPropName= "Ppm",
+                                        NameProp = "Ppm",
+                                        Required = true,
+                                        TypeString = "double",
+                                        Unique = false,
+                                        Visible = true
+                                    } },
+                                    { "WaitingDays", new InputPropDetails{
+                                        AutoNumeric = false,
+                                        ClassInput = "WaitingHarvestInputTest",
+                                        ClassName = "WaitingHarvestTest",
+                                        HasInput = true,
+                                        Index = 1,
+                                        IndexFather = 0,
+                                        Info = new EntitySearchDisplayInfo
+                                        {
+                                            Column = "Días de Cosecha",
+                                            Description = "Días de Cosecha",
+                                            PlaceHolder = "Ingrese Días de Cosecha",
+                                            ShortName = "Días de Cosecha",
+                                            Title = "Días de Cosecha"
+                                        },
+                                        isArray = false,
+                                        KindProperty= KindProperty.DBL,
+                                        ModelPropName= "WaitingDays",
+                                        NameProp = "WaitingDays",
+                                        Required = true,
+                                        TypeString = "double",
+                                        Unique = false,
+                                        Visible = true
+                                    } },
 
-
+                                },
+                                InputRelatedDetails  = new Dictionary<string, InputPropRelatedDetails>{
+                                    { "IdCertifiedEntity", new InputPropRelatedDetails{ 
+                                        AutoNumeric = false,
+                                        Visible = true,
+                                        Unique = false,
+                                        ClassInput = "WaitingHarvestInputTest",
+                                        ClassInputTarget = "CertifiedEntityInputTest",
+                                        ClassName = "WaitingHarvestTest",
+                                        ClassNameTarget = "CertifiedEntityTest",
+                                        HasInput = true,
+                                        Index = 4,
+                                        IndexFather = 0,
+                                        Info = new EntitySearchDisplayInfo { 
+                                            Column = "Mercado",
+                                            Description = "Mercado (Entidad Certificadora)",
+                                            PlaceHolder = "Ingrese Mercado",
+                                            ShortName = "Mercado",
+                                            Title = "Mercado"
+                                        },
+                                        isArray = false,
+                                        IsReference = true,
+                                        ModelPropName = "IdCertifiedEntity",
+                                        NameProp = "IdCertifiedEntity",
+                                        RealIndex = 4,
+                                        TypeString = "string",
+                                        Required = true
+                                    } }
+                                },
+                                ValidationsGroup = new Dictionary<int, string[][]>{
+                                    {(int)Validation.REQUIRED, new string[][]{ 
+                                        new string[]{
+                                            "Ppm",
+                                            "WaitingDays",
+                                            "IdCertifiedEntity"
+                                        }
+                                    } }
+                                }
+                            } } 
+                        
+                        },
+                        ValidationsGroup = new Dictionary<int, string[][]> {
+                            {(int)Validation.REQUIRED, new string[][]{
+                                                new string[]{
+                                                    "HoursToReEntryToBarrack",
+                                                    "ApplicationDaysInterval",
+                                                    "NumberOfSequentialApplication",
+                                                    "WettingRecommendedByHectares",
+                                                    "DosesQuantityMin",
+                                                }
+                                            } },
+                            
                         }
                     } }
+                },
+                ValidationsGroup = new Dictionary<int, string[][]> {
+                    {(int)Validation.REQUIRED, new string[][]{
+                                        new string[]{
+                                            "Name",
+                                            "MeasureType",
+                                            "SagCode"
+                                        }
+                                    } },
+                    {(int)Validation.UNIQUE, new string[][]{
+                                        new string[]{
+                                            "Name",
+                                            "SagCode"
+                                        }
+                                    } }
                 }
+
             }
 
         };

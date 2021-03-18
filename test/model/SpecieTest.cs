@@ -24,8 +24,6 @@ namespace trifenix.connect.test.model
         /// Nombre de la especie
         /// </summary>
         [PropertyIndex(Index = (int)StringRelated.GENERIC_NAME, KindIndex = (int)KindProperty.STR)]
-        [Unique]
-        [Required]
         public string Name { get; set; }
 
 
@@ -33,8 +31,6 @@ namespace trifenix.connect.test.model
         /// Abreviación de la especie.
         /// </summary>
         [PropertyIndex(Index = (int)StringRelated.GENERIC_ABBREVIATION, KindIndex = (int)KindProperty.STR)]
-        [Unique]
-        [Required]
         public string Abbreviation { get; set; }
     }
 }

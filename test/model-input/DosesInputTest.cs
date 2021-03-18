@@ -27,14 +27,12 @@ namespace trifenix.connect.test.model_input
         /// <summary>
         /// Búsqueda por referencia de la especia asociada
         /// </summary>
-        [Reference(typeof(SpecieTest))]
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.SPECIE)]
         public string[] IdSpecies { get; set; }
 
         /// <summary>
         /// Búsqueda por referencia del objetivo de aplicación
         /// </summary>
-        [Reference(typeof(TargetTest))]
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.TARGET)]
         public string[] IdsApplicationTarget { get; set; }
 
@@ -102,11 +100,13 @@ namespace trifenix.connect.test.model_input
         /// determina si la dosis es por defecto.
         /// si un producto no se le asignan dosis, siempre tendrá uno.
         /// </summary>
+        [HideFront]
         public bool Default { get; set; }
 
         /// <summary>
         /// una dosis puede ser desactivada, si se requiere eliminar de un producto y esta está asociada con una orden.
-        /// </summary>        
+        /// </summary>
+        [HideFront]
         public bool Active { get; set; }
 
     }

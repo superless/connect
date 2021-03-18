@@ -26,7 +26,7 @@ namespace trifenix.connect.test.model_input
         /// <summary>
         /// Búsqueda por referencia de ingrediente asociado
         /// </summary>
-        [Required, Reference(typeof(IngredientTest))]
+        
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.INGREDIENT)]
         public string IdActiveIngredient { get; set; }
 
@@ -34,7 +34,6 @@ namespace trifenix.connect.test.model_input
         /// Búsqueda por referencia de marca asociada
         /// </summary>
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.BRAND)]
-        [Required, Reference(typeof(BrandTest))]
         public string IdBrand { get; set; }
 
       
@@ -49,6 +48,7 @@ namespace trifenix.connect.test.model_input
         /// Código Sag
         /// </summary>
         [Unique]
+        [Required]
         [PropertyIndex(Index = (int)StringRelated.SAGCODE, KindIndex = (int)KindProperty.STR)]
         public string SagCode { get; set; }
 
