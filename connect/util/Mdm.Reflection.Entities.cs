@@ -148,7 +148,7 @@ namespace trifenix.connect.util
                 {
 
                     // obtiene la metadata y los datos del objeto
-                    var mdl = Attributes.GetPropertiesByAttributeWithValue(obj).Where(s => EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum).ToDictionary(s => s.Key, s => s.Value);
+                    var mdl = Attributes.GetPropertiesByAttributeWithValue(obj).Where(s => Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum).ToDictionary(s => s.Key, s => s.Value);
 
 
                     // asigna las propiedades.
@@ -319,7 +319,7 @@ namespace trifenix.connect.util
                     // obtiene todas las propiedades sin metadata.
                     // filtra por aquellas propiedades que sean de tipo clase.
                     // las propiedades sin metadata se usan para  comprobar  si son una entidad local, es decir tienen el atributo mdm que lo identifica como entidad.
-                    var valuesWithoutProperty = Attributes.GetPropertiesWithoutAttributeWithValues(obj).Where(s => !EnumerationExtension.IsPrimitiveAndCollection(s.GetType()) && !s.GetType().IsEnum);
+                    var valuesWithoutProperty = Attributes.GetPropertiesWithoutAttributeWithValues(obj).Where(s => !Mdm.Reflection.IsPrimitiveAndCollection(s.GetType()) && !s.GetType().IsEnum);
 
 
 
@@ -356,7 +356,7 @@ namespace trifenix.connect.util
                     // toma todos los valores de propiedad que sean de tipo local reference o no tengan atributos de metadata y que los valores deben ser clases y no valores primitivos, para poder identificar entidades locales.
                     // el método recorrerá el objeto y verificará que tenga el atributo que lo identifique como entidad, sino lo tiene no será reconocido como entidad, no importa si la propiedad tiene el atributo de entidad local.
                     // el atributo de la clase es el que vale (EntityIndexAttribute).
-                    var posibleLocals = valuesWithoutProperty.Union(values.Where(s => !EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum).Select(s => s.Value)).ToList();
+                    var posibleLocals = valuesWithoutProperty.Union(values.Where(s => !Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum).Select(s => s.Value)).ToList();
 
 
 

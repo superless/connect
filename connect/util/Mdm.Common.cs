@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using trifenix.connect.input;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.model;
 
@@ -29,6 +30,24 @@ namespace trifenix.connect.util
 
                 return nsFounded.SelectMany(s => types.Where(a => a.Namespace.Equals(s))).ToArray();
             }
+
+            /// <summary>
+            /// Obtiene el listado de tipos que estén en los namespace 
+            /// de model-input (clases) que hereden de documentDb.
+            /// </summary>
+            /// <param name="assembly">Assembly donde buscar el modelo</param>
+            /// <returns>listado de tipos encontrados en los namespaces donde se encuentren entidades que hereden de documentDb</returns>
+            public static Type[] GetTypeInputModel(Assembly assembly)
+            {
+                var types = Reflection.GetLoadableTypes(assembly);
+
+                var typesDocumentDb = types.Where(s => s.IsSubclassOf(typeof(InputBase))).ToList();
+
+                var nsFounded = typesDocumentDb.Select(s => s.Namespace).Distinct();
+
+                return nsFounded.SelectMany(s => types.Where(a => a.Namespace.Equals(s))).ToArray();
+            }
+
 
             /// <summary>
             /// deja en minuscula la primera letra de un texto

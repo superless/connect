@@ -37,14 +37,14 @@ namespace trifenix.connect.util
 
 
                 // busqueda de propiedades que no tengan atributos mdm, en busqueda de locals.
-                var valuesWithoutProperty = Reflection.Attributes.GetPropertiesWithoutAttributeWithValues(input).Where(s => !EnumerationExtension.IsPrimitiveAndCollection(s.GetType()) && !s.GetType().IsEnum);
+                var valuesWithoutProperty = Reflection.Attributes.GetPropertiesWithoutAttributeWithValues(input).Where(s => !Mdm.Reflection.IsPrimitiveAndCollection(s.GetType()) && !s.GetType().IsEnum);
 
 
 
                 // toma todos los valores de propiedad que sean de tipo local reference o no tengan atributos de metadata y que los valores deben ser clases y no valores primitivos, para poder identificar entidades locales.
                 // el método recorrerá el objeto y verificará que tenga el atributo que lo identifique como entidad, sino lo tiene no será reconocido como entidad, no importa si la propiedad tiene el atributo de entidad local.
                 // el atributo de la clase es el que vale (EntityIndexAttribute).
-                var posibleLocals = valuesWithoutProperty.Union(values.Where(s => !EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum).Select(s => s.Value)).ToList();
+                var posibleLocals = valuesWithoutProperty.Union(values.Where(s => !Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum).Select(s => s.Value)).ToList();
 
 
 
@@ -57,7 +57,7 @@ namespace trifenix.connect.util
                 {
 
                     // obtiene los valores que sean datos primitivos o enumeraciones, dejando fuera los locals.
-                    var valuesWithoutLocals = values.Where(s => EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum);
+                    var valuesWithoutLocals = values.Where(s => Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum);
 
 
                     // obtiene los valores de referencia que incluye un input.
@@ -260,8 +260,8 @@ namespace trifenix.connect.util
 
             private static ValueContainer<T> GetValueContainer<T>(IEnumerable<KeyValuePair<BaseIndexAttribute, object>> collection) => new ValueContainer<T>
             {
-                Primitives = collection.Where(v => !EnumerationExtension.IsPrimitiveCollection(v.Value.GetType())).ToDictionary(k => k.Key.Index, v => (T)v.Value),
-                PrimitiveCollections = collection.Where(v => EnumerationExtension.IsPrimitiveCollection(v.Value.GetType())).ToDictionary(k => k.Key.Index, v => (IEnumerable<T>)v.Value)
+                Primitives = collection.Where(v => !Mdm.Reflection.IsPrimitiveCollection(v.Value.GetType())).ToDictionary(k => k.Key.Index, v => (T)v.Value),
+                PrimitiveCollections = collection.Where(v => Mdm.Reflection.IsPrimitiveCollection(v.Value.GetType())).ToDictionary(k => k.Key.Index, v => (IEnumerable<T>)v.Value)
 
             };
 
@@ -272,7 +272,7 @@ namespace trifenix.connect.util
                 var values = Reflection.Attributes.GetPropertiesByAttributeWithValue(input);
 
 
-                var valuesWithoutLocals = values.Where(s => EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum);
+                var valuesWithoutLocals = values.Where(s => Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) || s.Value.GetType().IsEnum);
 
 
                 if (isEntity) return GetValueContainer<T>(valuesWithoutLocals.Where(g => g.Key.IsEntity));

@@ -201,7 +201,7 @@ namespace trifenix.connect.util
                             {
                                 throw new Exception("Debe implementar IRelatedId");
                             }
-                            var array = elements.Where(s => s.Key.IsEntity && EnumerationExtension.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum);
+                            var array = elements.Where(s => s.Key.IsEntity && Mdm.Reflection.IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum);
 
                             var refes = array.SelectMany(s => GetEntityProperty(s.Key.Index, s.Value, typeToCast)).ToArray();
                             return !refes.Any() ? Array.Empty<IRelatedId>() : refes;

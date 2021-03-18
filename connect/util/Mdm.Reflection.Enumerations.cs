@@ -27,7 +27,33 @@ namespace trifenix.connect.util
                         .Cast<T>()
                         .ToDictionary(t => (int)(object)t, t => t.ToString());
                 }
+
+                /// <summary>
+                /// Obtiene la descripción desde una enumeración.
+                /// </summary>
+                /// <param name="value">valor de la enumeración</param>
+                /// <returns></returns>
+                public static string Description(Enum value)
+                {
+                    // get attributes  
+                    var field = value.GetType().GetField(value.ToString());
+                    var attributes = field.GetCustomAttributes(false);
+
+                    // Description is in a hidden Attribute class called DisplayAttribute
+                    // Not to be confused with DisplayNameAttribute
+                    dynamic displayAttribute = null;
+
+                    if (attributes.Any())
+                    {
+                        displayAttribute = attributes.ElementAt(0);
+                    }
+
+                    // return description
+                    return displayAttribute?.Description ?? "Description Not Found";
+                }
             }
+
+
         }
 
         

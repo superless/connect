@@ -33,6 +33,13 @@ namespace trifenix.connect.util
 
         }
 
+        public static EntityMetadata[] GetEntityCollection(Assembly assembly) {
+            return null;
+        }
+
+
+
+
 
 
         
