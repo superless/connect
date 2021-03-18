@@ -28,10 +28,6 @@ namespace trifenix.connect.test.model
         [EntityIndexRelatedProperty(Index = (int)EntityRelated.CERTIFIED_ENTITY)]
         public string IdCertifiedEntity { get; set; }
 
-        /// <summary>
-        /// Id de las dosis
-        /// </summary>
-        [EntityIndexRelatedProperty(Index = (int)EntityRelated.DOSES)]
-        public string IdDoses { get; set; }
+       
     }
 }
