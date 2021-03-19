@@ -25,7 +25,7 @@ namespace trifenix.connect.util
                         throw new ArgumentException("Type must be an enum");
                     return Enum.GetValues(typeof(T))
                         .Cast<T>()
-                        .ToDictionary(t => (int)(object)t, t => t.ToString());
+                        .ToDictionary(t => (int)(object)t, t => Description(t));
                 }
 
                 /// <summary>
@@ -49,7 +49,7 @@ namespace trifenix.connect.util
                     }
 
                     // return description
-                    return displayAttribute?.Description ?? "Description Not Found";
+                    return displayAttribute?.Description ?? value.ToString();
                 }
             }
 

@@ -57,5 +57,22 @@ namespace trifenix.connect.test.model
         [Unique]
         [Required]
         public string SagCode { get; set; }
+
+
+        private List<WaitingHarvestTest> _waitingToHarvest;
+
+        /// <summary>
+        /// Dias para cosechar por entidad certificadora
+        /// </summary>
+
+        public List<WaitingHarvestTest> WaitingToHarvest
+        {
+            get
+            {
+                _waitingToHarvest = _waitingToHarvest ?? new List<WaitingHarvestTest>();
+                return _waitingToHarvest;
+            }
+            set { _waitingToHarvest = value; }
+        }
     }
 }

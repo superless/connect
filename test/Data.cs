@@ -252,7 +252,7 @@ namespace trifenix.connect.test
             ReadOnly=false,
             FiltersProcess = new FilterProcess[] { },
             FiltersAvailable = new RelatedItem[] { },
-            EntityKind = mdm.enums.EntityKind.CUSTOM_ENTITY,
+            EntityKind = EntityKind.CUSTOM_ENTITY,
             ClassInputName="ProductInputTest",
             ClassName="ProductTest",
             Description="Producto",

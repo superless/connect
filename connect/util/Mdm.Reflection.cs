@@ -135,7 +135,21 @@ namespace trifenix.connect.util
             /// <param name="genericProp"></param>
             public static object InvokeDynamicGeneric(string MethodName, Type GenericType, object[] Parameters, Type genericProp = null) {
 
-                var mtd = typeof(Entities.Props).GetMethod(MethodName, BindingFlags.Public | BindingFlags.Static);
+                return InvokeDynamicGeneric(typeof(Entities.Props), MethodName, GenericType, Parameters, genericProp);
+            }
+
+            /// <summary>
+            /// Invoca método genérico dinámicamente (Los tipo de datos se determinan en tiempo de ejecución).
+            /// </summary>
+            /// <param name="whereToMethod">donde se encuentra el método</param>
+            /// <param name="MethodName">Nombre del método genérico</param>
+            /// <param name="GenericType">Tipo de dato usado como genérico</param>            
+            /// <param name="Parameters">Conjunto de parámetros utilizados por el método genérico</param>
+            /// <param name="genericProp"></param>
+            public static object InvokeDynamicGeneric(Type whereToMethod, string MethodName, Type GenericType, object[] Parameters, Type genericProp = null)
+            {
+
+                var mtd = whereToMethod.GetMethod(MethodName, BindingFlags.Public | BindingFlags.Static);
                 if (genericProp == null)
                 {
                     return mtd.MakeGenericMethod(GenericType).Invoke(null, Parameters);

@@ -30,25 +30,4 @@ namespace trifenix.connect.test.GlobalFilterTests
         }
     }
 
-    public partial class MdmTests
-    {
-        public class GetEntityCollection
-        {
-
-            [Fact]
-            public void Test1()
-            {
-                // assign
-                var assembly = typeof(BarrackTest).Assembly;
-
-                // action
-                var globalFilters = Mdm.GetEntityCollection(assembly);
-
-
-
-                Assert.True(globalFilters != null);
-                
-            }
-        }
-    }
 }

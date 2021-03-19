@@ -107,6 +107,42 @@ namespace trifenix.connect.util {
                             yield return (result);
                     }
                 }
+
+
+                /// <summary>
+                /// Recorre una clase y retorna todas sus propiedades y los atributos que esta contenga.
+                /// </summary>
+                /// <param name="type">Tipo de la clase</param>
+                /// <param name="visited">interno, hace una busqueda recursiva</param>
+                /// <returns>Colección con la clase, la info de la propiedad y los atributos que esta contenga.</returns>
+                public static IEnumerable<(Type Class, PropertyInfo property, Attribute[] attributes)> GetAttributesCollection(Type type)
+                {
+                   
+
+                    foreach (var prop in type.GetProperties().Where(p => p.DeclaringType.Equals(type)))
+                    {
+
+                        var attributes = prop.GetCustomAttributes().ToArray();
+
+                        yield return (type, prop, attributes);
+                    }
+                }
+
+
+                /// <summary>
+                /// Retorna una colección con clase e info de una propiedad desde una lista de clases, info de propiedad y atributos
+                /// De acuerdo al tipo de atributo que se le indique.
+                /// </summary>
+                /// <typeparam name="T">Tipo de atributo a buscar</typeparam>
+                /// <param name="props">tupla con clase, info propiedad y atributos que esta contenga</param>
+                /// <returns>Las clases e info de propiedad de un atributo</returns>
+                public static IEnumerable<(Type Class, PropertyInfo property)> GetAttributeList<T>(IEnumerable<(Type Class, PropertyInfo property, Attribute[] attributes)> props) where T : Attribute {
+                    return props.Where(p => p.attributes.Any(s => s.GetType().Equals(typeof(T)))).Select(t =>
+                    {
+                        return (t.Class, t.property);
+                    });
+                }
+
             }
         }
 

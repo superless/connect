@@ -50,9 +50,10 @@ namespace trifenix.connect.util
             /// </summary>
             /// <typeparam name="T">enumeración donde asignará la descripción</typeparam>
             /// <param name="types">tipos, debe ser filtrado porque estén en el modelo de datos</param>
+            /// <param name="index"></param>
             /// <param name="isGlobalFilter">Determina si los procesos a obtener corresponden al filtro global</param>
             /// <returns>Coleccción con las rutas a la entidad de convergencia (barrack)</returns>
-            public static ToProcessClass[] GetFilterProcess<T>(Type[] types, bool isGlobalFilter) where T : Enum
+            public static ToProcessClass[] GetFilterProcess<T>(Type[] types, int index, bool isGlobalFilter) where T : Enum
             {
 
 
@@ -62,8 +63,8 @@ namespace trifenix.connect.util
 
                 return processFounded.GroupBy(s => new { sc = s.toProcess.SourceType.Name, tg = s.toProcess.TargetType.Name }).Select(s => {
                     var pr = GetToProcess(types, s.ToArray());
-                    pr.Index = 0;
-                    pr.Name = enmDsc[0];
+                    pr.Index = index;
+                    pr.Name = enmDsc[index];
                     return pr;
                 }).ToArray();
 
