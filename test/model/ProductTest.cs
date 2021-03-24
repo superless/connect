@@ -7,11 +7,13 @@ using trifenix.connect.mdm.validation_attributes;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.model;
 using trifenix.connect.test.enums;
+using trifenix.connect.test.resources;
 
 namespace trifenix.connect.test.model
 {
 
     [EntityIndex(Index = (int)EntityRelated.PRODUCT, Kind = EntityKind.CUSTOM_ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToProcess(typeof(ProductTest), typeof(DosesOrderTest),(int)FilterPathEnum.ProductDosesOrder)]
     public class ProductTest : DocumentDb
     {
         /// <summary>
@@ -58,21 +60,8 @@ namespace trifenix.connect.test.model
         [Required]
         public string SagCode { get; set; }
 
+       
 
-        private List<WaitingHarvestTest> _waitingToHarvest;
 
-        /// <summary>
-        /// Dias para cosechar por entidad certificadora
-        /// </summary>
-
-        public List<WaitingHarvestTest> WaitingToHarvest
-        {
-            get
-            {
-                _waitingToHarvest = _waitingToHarvest ?? new List<WaitingHarvestTest>();
-                return _waitingToHarvest;
-            }
-            set { _waitingToHarvest = value; }
-        }
     }
 }

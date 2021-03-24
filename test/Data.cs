@@ -247,7 +247,6 @@ namespace trifenix.connect.test
                 ShortName="Prod",
                 Title = "Producto"
             },
-            ClassNameInput="ProductTestInput",
             Index = 12,
             ReadOnly=false,
             FiltersProcess = new FilterProcess[] { },

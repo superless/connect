@@ -7,7 +7,7 @@ namespace trifenix.connect.test.resources
     public enum FilterPathEnum
     {
         GlobalFilter = 0,
-        SpecieBarrack  = 1,
+        ProductDosesOrder  = 1,
 
     }
 }

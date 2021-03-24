@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using trifenix.connect.input;
 using trifenix.connect.mdm.enums;
+using trifenix.connect.mdm.resources;
 using trifenix.connect.mdm.ts_model;
 using trifenix.connect.mdm.validation_attributes;
 using trifenix.connect.mdm_attributes;
@@ -26,336 +27,445 @@ namespace trifenix.connect.util
     public static partial class Mdm
     {
         ///
-        public static ModelMetaData GetMdm<T_ENUM_FILTERS>(Assembly assembly, string version, VersionStructure versionStructure ) where T_ENUM_FILTERS: Enum
+        public static ModelMetaData GetMdm(Assembly assembly, string version, VersionStructure versionStructure ) 
         {
 
-            return new ModelMetaData
+            var globalFilters = GlobalFilter.GetGlobalFilter(assembly);
+
+            var entitiesFirstStep = GetFirstStepEntityCollection(assembly, globalFilters);
+
+            
+
+            var mainDocumentation = GetMainDocumentation(assembly, entitiesFirstStep);
+
+
+
+            var filterProcess = GetFilterProcessDocs(assembly);
+
+            var entitiesWithDocumentation= entitiesFirstStep.Select(s => GetEntityWithDocumentation(s, mainDocumentation)).ToList();
+
+            var entitiesWithProcess = entitiesWithDocumentation.Select(s => GetEntityWithProcess(s, filterProcess)).ToList();
+
+            var entitiesWithRelatedProcess = entitiesWithProcess.Select(s => GetEntityWithRelatedFilters(assembly, s)).ToList();
+
+
+            var enumDescriptions = GetEnumDescriptions(assembly);
+
+            var md = new ModelMetaData
             {
                 Version = version,
                 VersionStructure = versionStructure,
-                GlobalFilters = GlobalFilter.GetGlobalFilter<T_ENUM_FILTERS>(assembly)
+                GlobalFilters = globalFilters,
+                EnumDescriptions = enumDescriptions,
+                FiltersProcess = filterProcess,
+                Indexes= entitiesWithProcess.ToArray(),
+                MainDocumentation = mainDocumentation,
+                Menu = new GroupMenuViewer[] { }
             };
+
+            return md;
 
         }
 
-        public static EntityMetadata[] GetEntityCollection(Assembly assembly) {
+
+        private static EntityMetadata GetEntityMetadataMainDoc(EntityMetadata entity, MainDocumentation mainDocumentation) {
+
+            var doc = mainDocumentation.Rels[entity.Index];
+            entity.Description = doc.Description;
+            entity.Title = doc.Title;
+            entity.ShortName = doc.ShortName;
+            entity.Info = doc;
+            return entity;
+        }
+
+        private static ModelDetails GetModelDetailsDoc(EntityMetadata entity, MainDocumentation mainDocumentation)
+        {
+
+            return GetModelDetailsDoc(mainDocumentation, entity.ModelDetails);
+        }
+        private static ModelDetails GetModelDetailsDoc(MainDocumentation mainDocumentation, ModelDetails modelDetails)
+        {
+            foreach (var propModel in modelDetails.PropsDetails)
+            {
+                propModel.Value.Info = mainDocumentation.
+            }
+            return null;
+        }
+
+        private static EntitySearchDisplayInfo GetDisplayInfoProp(MainDocumentation mainDoc, KindProperty kindProperty, int index) {
+
+            switch (KindProperty)
+            {
+                case KindProperty.STR | KindProperty.SUGGESTION:
+                    return mainDoc.Strs[index];
+                case KindProperty.NUM64 | KindProperty.NUM32:
+                    return mainDoc.Nums[index];
+                case KindProperty.DBL:
+                    return mainDoc.Dates[index]
+                case KindProperty.BOOL:
+                    break;
+                case KindProperty.GEO:
+                    break;
+                case KindProperty.ENUM:
+                    break;
+                case KindProperty.DATE:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static InputDetails GetInputDetailsDoc(EntityMetadata entity, MainDocumentation mainDocumentation)
+        {
+
+            return GetInputDetailsDoc(entity, mainDocumentation, entity.InputDetails);
+        }
+
+        private static EntityMetadata GetEntityMetadataDicctionaryDocs(EntityMetadata entity, MainDocumentation mainDocumentation)
+        {
+
+            return null;
+        }
+
+
+        private static InputDetails GetInputDetailsDoc(EntityMetadata entity, MainDocumentation mainDocumentation, InputDetails modelDetails)
+        {
 
             return null;
         }
 
 
 
-        /// <summary>
-        /// Obtiene la metadata de una propiedad tipo entidad 
-        /// </summary>
-        /// <param name="input">clase de entrada, puede ser un input o un model</param>
-        /// <param name="output">clase de salida, puede ser un input o un model</param>
-        /// <param name="propertyInput">propiedad perteneciente a la clase input</param>
-        /// <param name="info">documentación de la propiedad</param>
-        /// <returns>Metadata de la propiedad</returns>
-        public static RelatedPropertyMetadata GetRelatedMetadata(Type input, Type output, PropertyInfo propertyInput, EntitySearchDisplayInfo info) {
-            return GetRelatedMetadata(GetPropMetadata(input, output, propertyInput, info), input, output, propertyInput);
 
+        private static EntityMetadata GetEntityWithDocumentation(EntityMetadata s, MainDocumentation mainDocumentation)
+        {
 
+            // 1. documentacion directa en metadata, directo y como EntitySearchDisplayInfo.
+
+            // 2. ModelDetailsDocumentación.
+
+            // 3. inputDetailsDocumentation
+
+            // 4. Diccionario de documentación.
+
+            throw new NotImplementedException();
+        }
+
+        private static EnumDescription[] GetEnumDescriptions(Assembly assembly)
+        {
+            throw new NotImplementedException();
         }
 
 
-        /// <summary>
-        /// Complementa una metadata con los datos de la propiedad entidad.
-        /// </summary>
-        /// <param name="input">clase de entrada, puede ser un input o un model</param>
-        /// <param name="output">clase de salida, puede ser un input o un model</param>
-        /// <param name="propertyInput">propiedad perteneciente a la clase input</param>
-        /// <param name="info"></param>
-        /// <returns>Metadata de una propiedad de entidad</returns>
-        public static PropertyMetadadataEnum GetEnumPropMetadata(Type input, Type output, PropertyInfo propertyInput, EntitySearchDisplayInfo info)
+        private static EntityMetadata GetEntityWithRelatedFilters(Assembly assembly, EntityMetadata s)
         {
-            return GetEnumPropMetadata(GetPropMetadata(input, output, propertyInput, info), input, output, propertyInput);
+            throw new NotImplementedException();
+        }
+        private static EntityMetadata GetEntityWithProcess(EntityMetadata s, FilterProcess[] filterProcess)
+        {
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Complementa una metadata con los datos de la propiedad entidad.
-        /// </summary>
-        /// <param name="propMeta">metadata de la propiedad base</param>
-        /// <param name="input">clase de entrada, puede ser un input o un model</param>
-        /// <param name="output">clase de salida, puede ser un input o un model</param>
-        /// <param name="propertyInput">propiedad perteneciente a la clase input</param>
-        /// <returns>Metadata de una propiedad de entidad</returns>
-        public static PropertyMetadadataEnum GetEnumPropMetadata(PropertyMetadata propMeta, Type input, Type output, PropertyInfo propertyInput)
+        private static FilterProcess[] GetFilterProcessDocs(Assembly assembly)
         {
+            var filterInmpl = Common.GetFilterDoc(assembly);
 
-
-            var enumType = propertyInput.PropertyType;
-
-            var enm = (Dictionary<int, string>)Reflection.InvokeDynamicGeneric(typeof(Reflection.Enumerations),nameof(Reflection.Enumerations.GetDictionaryFromEnum), enumType, new object[] { });
-
-            
-
-            // classname target
-            // realIndex
-            // KindProperty
-            // isReference
-            return new PropertyMetadadataEnum
+            if (filterInmpl == null)
             {
-                AutoNumeric = propMeta.AutoNumeric,
-                ClassName = propMeta.ClassName,
-                HasInput = propMeta.HasInput,
-                Index = propMeta.Index,
-                IndexFather = propMeta.IndexFather,
-                Info = propMeta.Info,
-                isArray = propMeta.isArray,
-                NameProp = propMeta.NameProp,
-                TypeString = propMeta.TypeString,
-                Visible = propMeta.Visible,
-                Unique = propMeta.Unique,
-                Required = propMeta.Required,                
-                KindProperty = propMeta.KindProperty,
-                EnumData = enm
+                throw new CustomException("no existe documentación de filtros en el modelo.");
+            }
+
+            var globalFilter = filterInmpl.GetFilterProcessDescription(0);
+
+            var mdlTypes = Common.GetTypeModel(assembly);
+
+            var indexProcessTypes = mdlTypes.Where(s =>
+            {
+                var i = Reflection.Attributes.GetAttributes<ToProcessAttribute>(s);
+                return i != null && i.Any(o=>o.Index!=0);
+            }
+            ).SelectMany(s=> Reflection.Attributes.GetAttributes<ToProcessAttribute>(s).Select(a=>a.Index)).Distinct();
+
+            var filters = new List<FilterProcess>();
+
+            filters.Add(globalFilter);
+
+            foreach (var filterElement in indexProcessTypes)
+            {
+
+                filters.Add(filterInmpl.GetFilterProcessDescription(filterElement));
+            }
+
+            return filters.ToArray();
+
+
+
+        }
+
+        private static MainDocumentation GetMainDocumentation(Assembly assembly, EntityMetadata[] entitiesFirstStep)
+        {
+            var indexEntities = entitiesFirstStep.Select(s => s.Index).ToArray();
+
+            var indexNum = entitiesFirstStep.Where(s=> s.NumData != null && s.NumData.Any()).SelectMany(s => s.NumData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexDbl = entitiesFirstStep.Where(s => s.DoubleData != null && s.DoubleData.Any()).SelectMany(s => s.DoubleData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexDt  = entitiesFirstStep.Where(s => s.DateData != null && s.DateData.Any()).SelectMany(s => s.DateData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexGeo = entitiesFirstStep.Where(s => s.GeoData != null && s.GeoData.Any()).SelectMany(s => s.GeoData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexbl = entitiesFirstStep.Where(s => s.BoolData != null && s.BoolData.Any()).SelectMany(s => s.BoolData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexEnum = entitiesFirstStep.Where(s => s.EnumData != null && s.EnumData.Any()).SelectMany(s => s.EnumData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            var indexStr = entitiesFirstStep.Where(s => s.StringData != null && s.StringData.Any()).SelectMany(s => s.StringData.Values.Select(a => a.Index)).Distinct().ToArray();
+
+            return GetMainDocumentation(assembly, indexEntities, indexStr, indexDbl, indexDt, indexGeo, indexbl, indexNum, indexEnum);
+
+
+
+
+
+
+        }
+
+        
+        
+        private static (int index, EntitySearchDisplayInfo info)[] GetIndexPropertyInfo(IMdmDocumentation mdmDocs, int[] index, KindProperty kindProp)
+        {
+            return index.Select(s =>
+            {
+                try
+                {
+                    var indexLocal = s;
+
+                    var docLocal = mdmDocs.GetInfoFromProperty(kindProp, indexLocal);
+                    return (indexLocal, docLocal);
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
                 
-            };
 
 
+
+            }).ToArray();
         }
 
 
-        /// <summary>
-        /// Complementa una metadata con los datos de la propiedad entidad.
-        /// </summary>
-        /// <param name="propMeta">metadata de la propiedad base</param>
-        /// <param name="input">clase de entrada, puede ser un input o un model</param>
-        /// <param name="output">clase de salida, puede ser un input o un model</param>
-        /// <param name="propertyInput">propiedad perteneciente a la clase input</param>
-        /// <returns>Metadata de una propiedad de entidad</returns>
-        public static RelatedPropertyMetadata GetRelatedMetadata(PropertyMetadata propMeta, Type input, Type output, PropertyInfo propertyInput)
+        private static (int index, EntitySearchDisplayInfo info)[] GetIndexEntityInfo(IMdmDocumentation mdmDocs, int[] index) {
+
+            return index.Select(s =>
+            {
+                var indexLocal = s;
+                var docLocal = mdmDocs.GetInfoFromEntity(indexLocal);
+
+                return (indexLocal, docLocal);
+
+            }).ToArray();
+        }
+
+        private static MainDocumentation GetMainDocumentation(Assembly assembly, int[] indexEntities, int[] indexStr, int[] indexDbl, int[] indexDt, int[] indexGeo, int[] indexbl, int[] indexNum, int[] indexEnum)
         {
+            var docInterface = Common.GetDocs(assembly);
 
-            // determina si la clase de entrada es input
-            var isInput = input.IsSubclassOf(typeof(InputBase));
-
-            var attrEntity = Reflection.Attributes.GetAttribute<EntityIndexRelatedPropertyAttribute>(propertyInput);
-
-            
-            var assemblyModel = isInput ? output.Assembly : input.Assembly;
-
-            
-            var types = Common.GetTypeModel(assemblyModel);
-
-            var indexReal = attrEntity.RealIndex == -1 || attrEntity.RealIndex == attrEntity.Index ? attrEntity.Index : attrEntity.RealIndex;
-
-
-
-            var typeTarget = types.FirstOrDefault(s =>
+            if (docInterface == null)
             {
-
-                var indx = Reflection.Entities.GetIndex(s);
-                return indx.HasValue && indx == indexReal;
-
-            });
-
-            var isReference = propertyInput.PropertyType.Equals(typeof(string));
-
-
-
-
-            // classname target
-            // realIndex
-            // KindProperty
-            // isReference
-            return new RelatedPropertyMetadata
-            {
-                AutoNumeric = propMeta.AutoNumeric,
-                ClassName = propMeta.ClassName,
-                HasInput = propMeta.HasInput,
-                Index = attrEntity.Index,
-                IndexFather = propMeta.IndexFather,
-                Info = propMeta.Info,
-                isArray = propMeta.isArray,
-                NameProp = propMeta.NameProp,
-                TypeString = propMeta.TypeString,
-                Visible = propMeta.Visible,
-                Unique = propMeta.Unique,
-                Required = propMeta.Required,
-                RealIndex = indexReal,
-                IsReference = isReference,
-                KindProperty = propMeta.KindProperty,
-                ClassNameTarget = typeTarget.Name
-            };  
-
-
-        }
-
-
-        
-
-        /// <summary>
-        /// obtiene la metadata de una propiedad desde una clase de entrada
-        /// que puede ser un input o un modelo 
-        /// e información de la propiedad input
-        /// los tipos pueden ser viceversa porque se espera pasar de input a model y de model a input.
-        /// </summary>
-        /// <param name="input">clase input</param>
-        /// <param name="output">clase output</param>
-        /// <param name="propertyInput">propiedad del input</param>
-        /// <param name="info">documentacion de la propiedad</param>
-        /// <returns>Metadata de una propiedad</returns>
-        public static PropertyMetadata GetPropMetadata(Type input, Type output, PropertyInfo propertyInput, EntitySearchDisplayInfo info) {
-
-
-            var existsClassInput = input != null;
-
-            var existsClassOutput = output != null;
-
-            // la clase de entrada puede ser modelo o input
-            // si la clase de entrada es nula lanzará excepción
-            if (!existsClassInput)
-            {
-                throw new CustomException("la clase input no puede ser nula");
+                throw new CustomException("no existe documentación en el modelo");
             }
 
-            // determina si la clase de entrada es input
-            var isInput = input.IsSubclassOf(typeof(InputBase));
-
-            // no puede existir una clase input que no tenga una clase modelo.
-            if (isInput && !existsClassOutput)
-            {
-                throw new CustomException("la clase output no puede ser nula, si la clase de entrada es tipo input");
-            }
-
-
-            // si existsClassOutput es nulo, significa que la clase output es input
-            // si cla clase output es nula, no es posible obtener la info de la propiedad de esa clase.
-            // si ambos clases existen.
-            // se buscará la unión por nombre o por atributos, de preferencia atributos
-            var propOutput = existsClassOutput?GetPropOutput(output, propertyInput):null;
-
-            // si es input, significa que después habrá una herencia y se le asignará el ClassNameInput
-            var className = isInput ? output.Name : input.Name;
-
-            
-            // indice del input, por obligación ambos deben tener el atributo Entity
-            var index = Reflection.Entities.GetIndex(input);
-
-
-            // si es input, la propiedad puede tener el mismo nombre y/o la unión por atributos
-            // si es el mismo nombre, no tiene BaseIndexAttribute
-            var inputPropAttr = Reflection.Attributes.GetAttribute<BaseIndexAttribute>(propertyInput);
-
-            // el propOut puede ser nulo (en caso de que el input sea model)
-            var outputPropAttr = propOutput!=null?Reflection.Attributes.GetAttribute<BaseIndexAttribute>(propOutput):null;
-
-
-            var entityPropAttr = inputPropAttr != null ? inputPropAttr : outputPropAttr;
-
             
 
 
-
-            var requiredAttr = propOutput!=null?
-                isInput?Reflection.Attributes.GetAttribute<RequiredAttribute>(propertyInput): 
-                Reflection.Attributes.GetAttribute<RequiredAttribute>(propOutput) : 
-            null;
-            var uniqueAttr = propOutput != null ?
-                isInput ?
-                Reflection.Attributes.GetAttribute<UniqueAttribute>(propertyInput):
-                Reflection.Attributes.GetAttribute<UniqueAttribute>(propOutput)
-                : null;
-
-            var hideAttr = propOutput != null ?
-                isInput ?
-                Reflection.Attributes.GetAttribute<HideAttribute>(propertyInput) :
-                Reflection.Attributes.GetAttribute<HideAttribute>(propOutput) 
-                : null;
-
-
-            return new PropertyMetadata
+            return new MainDocumentation
             {
-                AutoNumeric  = IsAutoNumeric(input, propertyInput),
-                ClassName = className,
-                HasInput = isInput?true: propOutput != null,
-                Index = entityPropAttr?.Index??0,
-                KindProperty = (KindProperty)entityPropAttr.KindIndex,
-                Info = info,
-                isArray = Reflection.IsEnumerableProperty(propertyInput),
-                NameProp = propertyInput.Name,
-                Required  = requiredAttr!=null,
-                TypeString = propertyInput.PropertyType.Name,
-                Unique = uniqueAttr!=null,
-                Visible = hideAttr==null,
-                IndexFather = index.Value
+                Bools = GetIndexPropertyInfo(docInterface, indexbl, KindProperty.BOOL).ToDictionary(s => s.index, s => s.info),
+                Dates = GetIndexPropertyInfo(docInterface, indexDt, KindProperty.DATE).ToDictionary(s => s.index, s => s.info),
+                Enums = GetIndexPropertyInfo(docInterface, indexEnum, KindProperty.ENUM).ToDictionary(s => s.index, s => s.info),
+                Geos = GetIndexPropertyInfo(docInterface, indexGeo, KindProperty.GEO).ToDictionary(s => s.index, s => s.info),
+                Nums = GetIndexPropertyInfo(docInterface, indexNum, KindProperty.NUM32).ToDictionary(s => s.index, s => s.info),
+                Strs = GetIndexPropertyInfo(docInterface, indexStr, KindProperty.STR).ToDictionary(s => s.index, s => s.info),
+                Rels = GetIndexEntityInfo(docInterface, indexEntities).ToDictionary(s => s.index, s => s.info)
             };
+
+
+
+            
+
         }
+
+
+
+
+
+        /// <summary>
+        /// Obtiene una colección de metadatos para cada entidad.
+        /// </summary>
+        /// <param name="assembly">assembly donde lo obtendrá.</param>
+        /// <param name="globalFilters"></param>
+        /// <returns>Colección de metadatos para cada entidad.</returns>
+        public static EntityMetadata[] GetFirstStepEntityCollection(Assembly assembly, GlobalFilters globalFilters) {
+
+            var inputTypes = Common.GetTypeInputModel(assembly);
+
+            var entitiesFirstStep = inputTypes.Select(s=>GetFirstStepEntityMetadata(s, globalFilters)).ToList();
+
+            var modelTypesIndex = Common.GetTypeModel(assembly).Where(s=> Reflection.Attributes.GetAttributes<EntityIndexAttribute>(s).FirstOrDefault()!=null);
+
+            var indexes = modelTypesIndex.Select(s => (Reflection.Attributes.GetAttributes<EntityIndexAttribute>(s).FirstOrDefault().Index, s)).Distinct();
+
+            var noInputIndexes = indexes.Where(s => !entitiesFirstStep.Any(k => k.Index == s.Index)).Select(s=>s.s).ToList();
+
+            var entitiesModelFirsStep = noInputIndexes.Select(s => GetFirstStepEntityMetadata(s, globalFilters)).ToList();
+
+            var entities = new List<EntityMetadata>();
+
+
+            entities.AddRange(entitiesFirstStep);
+
+            if (entitiesModelFirsStep.Any())
+            {
+                entities.AddRange(entitiesModelFirsStep);
+            }
+            return entities.ToArray();
+        }
+
+
+
 
 
         
 
+
         /// <summary>
-        /// Obtiene un propinfo desde una clase input, de acuerdo al propinfo de una clase del modelo.
+        /// Retorna las propiedades de un input model
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="propertyOutput"></param>
+        /// <param name="input">tipo input</param>
+        /// <param name="mdl">tipo model</param>
         /// <returns></returns>
-        public static PropertyInfo GetPropOutput(Type input, PropertyInfo propertyOutput)
-        {
-            return GetPropEqual(propertyOutput, Reflection.Attributes.GetAttributeList<BaseIndexAttribute>(input));
-        }
+        public static InputDetails GetModelInputMetadata(Type input, Type mdl) {
+            var reflectionInput = Reflection.Attributes.GetAttributesCollection(input).Where(s => Reflection.Attributes.GetAttribute<HideFrontAttribute>(s.property) == null).ToList();
 
-        /// <summary>
-        /// Retorna información de una propiedad de un modelo, desde una propiedad input.
-        /// </summary>
-        /// <param name="propertyInput">propiedad input</param>
-        /// <param name="types">colección de tipos donde buscar</param>
-        /// <returns>propiedad del modelo</returns>
-        public static PropertyInfo GetPropEqual(PropertyInfo propertyInput, IEnumerable<(Type Class, PropertyInfo Property)> types) {
+            var reflectionInputNoRel = reflectionInput.Where(s => s.property.GetCustomAttribute<EntityIndexRelatedPropertyAttribute>() == null).ToList();
 
-            // atributos 
-            var baseIndex = Reflection.Attributes.GetAttribute<BaseIndexAttribute>(propertyInput);
 
-            // obtiene la info de propiedades donde se buscará la propiedad que sea igual.
-            var props = types.Select(s => s.Property);
+            var reflectionInputRel = reflectionInput.Where(s => s.property.GetCustomAttribute<EntityIndexRelatedPropertyAttribute>() != null && s.property.PropertyType.Equals(typeof(string))).ToList();
 
-            // busca, si existe una propiedad que tenga el mismo nombre y no tenga el atributo que lo relaciona con una propiedad.
-            var equalName = props.FirstOrDefault(s => s.Name.Equals(propertyInput.Name) && Reflection.Attributes.GetAttribute<BaseIndexAttribute>(s) == null);
 
-            
-            // busca propiedades, que no necesariamente tengan el mismo nombre
-            // pero están relacionadas a través de atributos.
-            var propAttrEqual = props.FirstOrDefault(pm =>
+            var inputPropsNoEnum = reflectionInputNoRel.Where(s => !s.property.PropertyType.IsEnum && (s.property.GetCustomAttribute<BaseIndexAttribute>() != null || Reflection.IsPrimitiveAndCollection(s.property.PropertyType)));
+
+
+            var inputPropsEnum = reflectionInputNoRel.Where(s => s.property.PropertyType.IsEnum).ToList();
+
+            var inputPropMdm = inputPropsNoEnum.Select(s => GetPropInputMetadata(input, mdl, s.property, new EntitySearchDisplayInfo
             {
-                var pma = Reflection.Attributes.GetAttribute<BaseIndexAttribute>(pm);
-                return pma!=null && pma.IsEntity == baseIndex.IsEntity && pma.Index == baseIndex.Index && pma.KindIndex == baseIndex.KindIndex;
+
+            })).ToArray();
+
+            var inputPropEnmMdm = inputPropsEnum.Select(s => GetPropInputEnumMetadata(input, mdl, s.property, new EntitySearchDisplayInfo { })).ToList();
+
+            var inputPropRelMdm = reflectionInputRel.Select(s => GetPropInputRelatedMetadata(input, mdl, s.property, new EntitySearchDisplayInfo { })).ToList();
+
+
+            var childs = reflectionInput.Where(s => !Reflection.IsPrimitiveAndCollection(s.property.PropertyType) && (s.property.GetCustomAttribute<PropertyIndexAttribute>() == null || s.property.GetCustomAttribute<EntityIndexRelatedPropertyAttribute>() != null)).ToList();
+
+
+            var childRelModelProps = childs.Select(s => GetPropInputRelatedMetadata(mdl, input, s.property, new EntitySearchDisplayInfo { })).ToArray();
+
+
+
+            var allProps = new List<PropertyMetadata>();
+
+            allProps.AddRange(inputPropMdm);
+            allProps.AddRange(inputPropRelMdm);
+            allProps.AddRange(inputPropEnmMdm);
+            allProps.AddRange(childRelModelProps);
+
+
+
+
+
+            var validationg = new Dictionary<int, string[][]>();
+
+            if (allProps.Any(s => s.Required))
+            {
+                validationg.Add(
+                    (int)ts_model.enums.Validation.REQUIRED, new string[][]{
+                        allProps.Where(s=>s.Required).Select(s=>s.NameProp).ToArray()
+                    } );
+            }
+            if (allProps.Any(s=>s.Unique))
+            {
+                validationg.Add((int)ts_model.enums.Validation.UNIQUE, new string[][]{
+                        allProps.Where(s=>s.Unique).Select(s=>s.NameProp).ToArray()
+                    });
+            }
+
+
+            var ind = new InputDetails
+            {
+                InputPropsDetails = inputPropMdm.GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+
+                InputEnumDetails = inputPropEnmMdm.GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+
+                InputRelatedDetails = inputPropRelMdm.Concat(childRelModelProps).GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+
+                ValidationsGroup = validationg
+            };
+
+            if (!childs.Any())
+            {
+                return ind;
+            }
+
+            var models = Common.GetTypeInputModel(input.Assembly);
+
+            // Crea una  colección con el nombre de la propiedad, si es array la colección, el tipo del modelo
+            // y el tipo del input
+            var childTarget = childs.Select(s => {
+                var isArray = Reflection.IsEnumerableProperty(s.property);
+
+                var type = isArray ? s.property.PropertyType.IsArray? s.property.PropertyType.GetElementType(): s.property.PropertyType.GenericTypeArguments.First() : s.property.PropertyType;
+
+                var index = Reflection.Entities.GetIndex(type);
+
+                var targetType = models.FirstOrDefault(r => {
+                    var lclIndex = Reflection.Entities.GetIndex(r);
+                    return lclIndex.HasValue && lclIndex.Value == index;
+                });
+
+                return new
+                {
+                    nameProp = s.property.Name,
+                    isArray,
+                    type,
+                    targetType
+                };
+            });
+            
+            
+
+            ind.RelatedInputs = childTarget.GroupBy(s => s.nameProp).ToDictionary(s => s.Key, s =>
+            {
+                var d = s.FirstOrDefault();
+
+                return GetModelInputMetadata(d.targetType, d.type);
             });
 
-            // si está relacionada por atributo, sino por nombre.
-            return propAttrEqual ?? equalName;
-               
-
-
-
-
+            return ind;
 
         }
+
+
 
         /// <summary>
-        /// Retorna si una clase contiene una propiedad que es autonumérica.
+        /// Retorna la metadata de las propiedades de una entidad y la metadata de las entidades anidadas, si existen.
         /// </summary>
-        /// <param name="type">Tipo de la clase</param>
-        /// <returns>true si es autonumerico</returns>
-        public static bool IsAutoNumeric(Type type) {
-            return Reflection.Attributes.GetAttributeList<AutoNumericDependantAttribute>(type).Any();
-        }
-        
-        /// <summary>
-        /// Retorna si una propiedad es autonumérica.
-        /// </summary>
-        /// <param name="type">Tipo de la clase</param>
-        /// <param name="propInfo">la propiedad a evaluar</param>
-        /// <returns>true si es autonumerico</returns>
-        public static bool IsAutoNumeric(Type type, PropertyInfo propInfo)
-        {
-            return Reflection.Attributes.GetAttributeList<AutoNumericDependantAttribute>(type).Any(s=>s.Property.Equals(propInfo));
-        }
-
-
+        /// <param name="input">tipo input</param>
+        /// <param name="mdl">tipo model</param>
+        /// <returns>Model Details con las propiedades y su anidación, y un resto de tuplas con las otras propiedades.</returns>
         public static (ModelDetails mdlDetails, PropertyMetadata[] props, PropertyMetadadataEnum[] propEnms, RelatedPropertyMetadata[] relsProps) GetModelMetadata(Type input, Type mdl) {
             
 
@@ -368,11 +478,7 @@ namespace trifenix.connect.util
             // filtra por los que tengan propiedades de tipo EntityIndexRelatedPropertyAttribute
             var reflectionModelRel = reflectionModel.Where(s => s.property.GetCustomAttribute<EntityIndexRelatedPropertyAttribute>() != null && s.property.PropertyType.Equals(typeof(string))).ToList();
 
-            // filtra para que solo se incluya solo la clase actual.
             
-            
-
-
             // propiedades que no sean enumeración.
             var modelPropsNoEnum = reflectionModelNoRel.Where(s => !s.property.PropertyType.IsEnum && (s.property.GetCustomAttribute<BaseIndexAttribute>() != null || Reflection.IsPrimitiveAndCollection(s.property.PropertyType)));
 
@@ -383,7 +489,7 @@ namespace trifenix.connect.util
             var modelProps = modelPropsNoEnum.Select(s => GetPropMetadata(mdl, input, s.property, new EntitySearchDisplayInfo
             {
 
-            })).ToArray();
+            }).meta).ToArray();
 
             // obtiene la metadata de las propiedades enumeración
             var enmModelProps = modelPropsEnum.Select(s => GetEnumPropMetadata(mdl, input, s.property, new EntitySearchDisplayInfo { })).ToArray();
@@ -391,23 +497,81 @@ namespace trifenix.connect.util
             // obtiene la metadata de las propiedades relacionadas.
             var relModelProps = reflectionModelRel.Select(s => GetRelatedMetadata(mdl, input, s.property, new EntitySearchDisplayInfo { })).ToArray();
 
+            // verifica si existen propiedades con objetos anidados
             var childs = reflectionModel.Where(s => !Reflection.IsPrimitiveAndCollection(s.property.PropertyType) && s.property.GetCustomAttribute<BaseIndexAttribute>() == null).ToList();
 
+            var childRelModelProps = childs.Select(s => GetRelatedMetadata(mdl, input, s.property, new EntitySearchDisplayInfo { })).ToArray();
+
+            var mdt = new ModelDetails
+            {
+                PropsDetails = modelProps.GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+
+                PropsEnumDetails = enmModelProps.GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+
+                RelatedDetails = relModelProps.Concat(childRelModelProps).GroupBy(s => s.NameProp).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+            };
+
+
+            // si no existen propiedades con objetos anidados
+            // retorna la recursión
             if (!childs.Any())
             {
-                return (new ModelDetails
-                {
-                    PropsDetails = modelProps.GroupBy(s=>s.NameProp).ToDictionary(s=>s.Key, s=>s.FirstOrDefault()),
-                    
-                }, modelProps, enmModelProps, relModelProps);
+                return (mdt, modelProps, enmModelProps, relModelProps);
             }
 
 
-            
+            // si existen objetos anidados
 
+            // obtiene los tipos que existen en el namespace de input.
+            var inputs = Common.GetTypeInputModel(mdl.Assembly);
+
+            // Crea una  colección con el nombre de la propiedad, si es array la colección, el tipo del modelo
+            // y el tipo del input
+            var childTarget = childs.Select(s => {
+                var isArray = Reflection.IsEnumerableProperty(s.property);
+
+                var type = isArray ? s.property.PropertyType.GenericTypeArguments.First() : s.property.PropertyType;
+
+                var index = Reflection.Entities.GetIndex(type);
+
+                var targetType = inputs.FirstOrDefault(r => {
+                    var lclIndex = Reflection.Entities.GetIndex(r);
+                    return lclIndex.HasValue && lclIndex.Value == index;
+                });
+
+                return new
+                {
+                    nameProp = s.property.Name,
+                    isArray,
+                    type,
+                    targetType
+                };
+            });
+
+            // usa la recursividad para asignar un nuevo ModelDetail con las clases anidades.
+            mdt.RelatedInputs = childTarget.GroupBy(s => s.nameProp).ToDictionary(s => s.Key, s =>
+            {
+                var d = s.FirstOrDefault();
+
+                return GetModelMetadata(d.targetType, d.type).mdlDetails;
+            });
+
+
+
+            return (mdt, modelProps, enmModelProps, relModelProps);
+            
         }
 
-        public static EntityMetadata GetEntityMetadata(Type input) {
+
+
+        /// <summary>
+        /// obtiene principalmente las propiedades tanto de input y output.
+        /// el resto de operaciones se harán es pasos posteriores
+        /// </summary>
+        /// <param name="input">tipo input de entrada</param>
+        /// <param name="globalFilters">para incorporar la propiedad isGlobalFilter</param>
+        /// <returns></returns>
+        public static EntityMetadata GetFirstStepEntityMetadata(Type input, GlobalFilters globalFilters) {
 
             // validar que tenga el atributo entity
 
@@ -418,62 +582,104 @@ namespace trifenix.connect.util
                 throw new CustomException("la entidad no tiene el atributo entity");
             }
 
-            var entityAttr = Reflection.Attributes.GetAttributes<EntityIndexAttribute>(input);
+            var isInput = input.IsSubclassOf(typeof(InputBase));
 
-            var models = Common.GetTypeModel(input.Assembly);
 
-            // modelo del input
-            var mdl = models.FirstOrDefault(s => {
-                var lclIndex = Reflection.Entities.GetIndex(s);
-                return lclIndex.HasValue && lclIndex.Value == index;
-            });
+            var entityAttr = Reflection.Attributes.GetAttributes<EntityIndexAttribute>(input).FirstOrDefault();
+
+
+            var outm = isInput ? Common.GetModelTypeFromIndex(input.Assembly,entityAttr.Index) : Common.GetInputTypFromIndex(input.Assembly, entityAttr.Index);
+
+            if (isInput && outm == null)
+            {
+                throw new CustomException("una entidad de tipo input, debe tener una clase en el modelo.");
+            }
+
 
             // se quitan las propiedades con fronthide.
             var reflectionInput = Reflection.Attributes.GetAttributesCollection(input).Where(s=>s.property.GetCustomAttribute<HideFrontAttribute>()==null && !s.property.Name.ToLower().Equals("id")).ToList();
 
+            var kindIndex = (EntityKind)entityAttr.KindIndex;
 
-            var props = GetModelMetadata(input, mdl);
+            if (outm!=null)
+            {
+                var props = GetModelMetadata(input, isInput?outm:input);
+
+                var propInput = GetModelInputMetadata(input, isInput ? outm : input);
+
+                var indexGlobalFilters = GetIndexesGlobalFilters(globalFilters);
 
 
-            // guardar los ToProcess
 
-            // guardar los GroupMenu
+                return new EntityMetadata
+                {
+                    Index = index.Value,
+                    AutoNumeric = props.props.Any(s => s.AutoNumeric),
+                    BoolData = props.props.Where(s => s.KindProperty == KindProperty.BOOL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    ClassInputName = input.Name,
+                    ClassName = outm.Name,
+                    DateData = props.props.Where(s => s.KindProperty == KindProperty.DATE).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    DoubleData = props.props.Where(s => s.KindProperty == KindProperty.DBL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    GeoData = props.props.Where(s => s.KindProperty == KindProperty.GEO).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    NumData = props.props.Where(s => s.KindProperty == KindProperty.NUM32 || s.KindProperty == KindProperty.NUM64).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    StringData = props.props.Where(s => s.KindProperty == KindProperty.SUGGESTION || s.KindProperty == KindProperty.STR).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    EnumData = props.propEnms.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    ModelDetails = props.mdlDetails,
+                    InputDetails = propInput,
+                    EntityKind = (EntityKind)entityAttr.KindIndex,
+                    Visible = entityAttr.Visible,
+                    ReadOnly = kindIndex == EntityKind.ENTITY_ONLY_READ,
+                    PathName = entityAttr.PathName,
+                    relData = props.relsProps.GroupBy(s => s.RealIndex.Value).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    IsGlobalFilterValue = indexGlobalFilters.Any(s=>indexGlobalFilters.Any(e=>e.Equals(s)))
+
+                };
+            }
+
+            var propsNoInput = GetModelMetadata(null, input);
 
 
-            // obtener la misma clase en el modelo
+            
 
-            // obtener documentación
-
-            // determinar si es visible
-
-            // crear menus
-
-            // se utiliza entityKind del atributo entity
-
-            // Autonumeric
-            return new EntityMetadata { 
+            return new EntityMetadata
+            {
                 Index = index.Value,
-                AutoNumeric = props.props.Any(s=>s.AutoNumeric),
-                BoolData = props.props.Where(s=>s.KindProperty == KindProperty.BOOL).GroupBy(s=>s.Index).ToDictionary(s=>s.Key, s=>s.FirstOrDefault()),
-                ClassInputName = input.Name,
-                ClassName = mdl.Name,
-                DateData = props.props.Where(s => s.KindProperty == KindProperty.DATE).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                DoubleData = props.props.Where(s => s.KindProperty == KindProperty.DBL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                GeoData = props.props.Where(s => s.KindProperty == KindProperty.GEO).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                NumData = props.props.Where(s => s.KindProperty == KindProperty.NUM32 || s.KindProperty == KindProperty.NUM64).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                StringData = props.props.Where(s => s.KindProperty == KindProperty.SUGGESTION || s.KindProperty == KindProperty.STR).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                EnumData = props.propEnms.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                AutoNumeric = propsNoInput.props.Any(s => s.AutoNumeric),
+                BoolData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.BOOL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                ClassInputName = string.Empty,
+                ClassName = input.Name,
+                DateData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.DATE).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                DoubleData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.DBL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                GeoData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.GEO).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                NumData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.NUM32 || s.KindProperty == KindProperty.NUM64).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                StringData = propsNoInput.props.Where(s => s.KindProperty == KindProperty.SUGGESTION || s.KindProperty == KindProperty.STR).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                EnumData = propsNoInput.propEnms.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                ModelDetails = propsNoInput.mdlDetails,
+                EntityKind = (EntityKind)entityAttr.KindIndex,
+                Visible = entityAttr.Visible,
+                ReadOnly = kindIndex == EntityKind.ENTITY_ONLY_READ,
+                PathName = entityAttr.PathName,
+                relData = propsNoInput.relsProps.GroupBy(s => s.RealIndex.Value).ToDictionary(s => s.Key, s => s.FirstOrDefault())
             };
+
 
 
 
         }
 
+        private static int[] GetIndexesGlobalFilters(GlobalFilters globalFilters)
+        {
+            var sourceIndexToProcess = globalFilters.ToProcess.Select(s => s.SourceIndex);
 
+            var targetIndexToProcess = globalFilters.ToProcess.Select(s => s.TargetIndex);
 
+            var sourceIndexToValue = globalFilters.ToValue.Select(s => s.Value.OriginIndex);
 
+            var targetIndexToValue = globalFilters.ToValue.Select(s => s.Value.ValueIndex);
 
+            return sourceIndexToProcess.Concat(targetIndexToProcess).Concat(sourceIndexToValue).Concat(targetIndexToValue).Distinct().ToArray();
 
-        
+            
+        }
     }
 }

@@ -8,13 +8,14 @@ using trifenix.connect.test.model;
 
 namespace trifenix.connect.test.model_input
 {
-    [EntityIndex(Index = (int)EntityRelated.PRODUCT)]
+    [EntityIndex(Index = (int)EntityRelated.DOSES)]
     public class DosesInputTest : InputBase
     {
 
         /// <summary>
         /// Búsqueda por referencia del id el producto asociado
         /// </summary>
+        [HideFront]
         public string IdProduct { get; set; }
 
         /// <summary>

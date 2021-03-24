@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using trifenix.connect.input;
 using trifenix.connect.mdm.enums;
 using trifenix.connect.mdm.validation_attributes;
 using trifenix.connect.mdm_attributes;
-using trifenix.connect.model;
 using trifenix.connect.test.enums;
-using trifenix.connect.test.model;
 
 namespace trifenix.connect.test.model_input
 {

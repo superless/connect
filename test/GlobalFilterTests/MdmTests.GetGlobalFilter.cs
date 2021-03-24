@@ -20,7 +20,7 @@ namespace trifenix.connect.test.GlobalFilterTests
                 var assembly = typeof(BarrackTest).Assembly;
 
                 // action
-                var globalFilters = Mdm.GlobalFilter.GetGlobalFilter<FilterPathEnum>(assembly);
+                var globalFilters = Mdm.GlobalFilter.GetGlobalFilter(assembly);
 
 
 

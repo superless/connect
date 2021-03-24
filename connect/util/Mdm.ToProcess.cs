@@ -53,18 +53,18 @@ namespace trifenix.connect.util
             /// <param name="index"></param>
             /// <param name="isGlobalFilter">Determina si los procesos a obtener corresponden al filtro global</param>
             /// <returns>Coleccción con las rutas a la entidad de convergencia (barrack)</returns>
-            public static ToProcessClass[] GetFilterProcess<T>(Type[] types, int index, bool isGlobalFilter) where T : Enum
+            public static ToProcessClass[] GetFilterProcess(Type[] types, int index, bool isGlobalFilter) 
             {
 
 
                 var processFounded = ToProcessTypes(types, 0, isGlobalFilter);
 
-                var enmDsc = Reflection.Enumerations.GetDictionaryFromEnum<T>();
+                
 
                 return processFounded.GroupBy(s => new { sc = s.toProcess.SourceType.Name, tg = s.toProcess.TargetType.Name }).Select(s => {
                     var pr = GetToProcess(types, s.ToArray());
                     pr.Index = index;
-                    pr.Name = enmDsc[index];
+                    pr.Name = "";
                     return pr;
                 }).ToArray();
 

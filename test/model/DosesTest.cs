@@ -5,11 +5,13 @@ using trifenix.connect.mdm.enums;
 using trifenix.connect.mdm_attributes;
 using trifenix.connect.model;
 using trifenix.connect.test.enums;
+using trifenix.connect.test.resources;
 
 namespace trifenix.connect.test.model
 {
 
     [EntityIndex(Index = (int)EntityRelated.DOSES, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
+    [ToProcess(typeof(ProductTest), typeof(DosesOrderTest), (int)FilterPathEnum.ProductDosesOrder)]
     public class DosesTest : DocumentDb
     {
         /// <summary>

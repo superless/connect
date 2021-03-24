@@ -23,4 +23,370 @@
     <ProjectReference Include="..\connect\trifenix.connect.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="resources\docs\dictionary\booleans\boolean_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>boolean_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\booleans\boolean_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>boolean_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\booleans\boolean_placeholder.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>boolean_placeholder.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\booleans\boolean_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>boolean_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\booleans\boolean_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>boolean_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\dates\date_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>date_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\dates\date_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>date_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\dates\date_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>date_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\dates\date_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>date_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\dates\date_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>date_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\doubles\double_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>double_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\doubles\double_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>double_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\doubles\double_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>double_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\doubles\double_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>double_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\doubles\double_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>double_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\entities\entity_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>entity_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\entities\entity_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>entity_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\entities\entity_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>entity_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\entities\entity_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>entity_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\enums\enum_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>enum_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\enums\enum_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>enum_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\enums\enum_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>enum_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\enums\enum_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>enum_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\enums\enum_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>enum_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\geos\geo_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>geo_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\geos\geo_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>geo_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\geos\geo_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>geo_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\geos\geo_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>geo_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\geos\geo_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>geo_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\nums\num_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>num_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\nums\num_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>num_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\nums\num_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>num_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\nums\num_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>num_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\nums\num_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>num_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\strings\string_columns.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>string_columns.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\strings\string_descriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>string_descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\strings\string_placeholders.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>string_placeholders.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\strings\string_snames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>string_snames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\docs\dictionary\strings\string_titles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>string_titles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="resources\filters\filters.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>filters.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="resources\docs\dictionary\booleans\boolean_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>boolean_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\booleans\boolean_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>boolean_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\booleans\boolean_placeholder.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>boolean_placeholder.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\booleans\boolean_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>boolean_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\booleans\boolean_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>boolean_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\dates\date_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>date_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\dates\date_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>date_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\dates\date_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>date_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\dates\date_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>date_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\dates\date_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>date_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\doubles\double_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>double_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\doubles\double_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>double_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\doubles\double_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>double_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\doubles\double_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>double_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\doubles\double_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>double_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\entities\entity_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>entity_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\entities\entity_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>entity_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\entities\entity_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>entity_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\entities\entity_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>entity_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\enums\enum_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>enum_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\enums\enum_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>enum_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\enums\enum_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>enum_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\enums\enum_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>enum_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\enums\enum_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>enum_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\geos\geo_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>geo_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\geos\geo_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>geo_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\geos\geo_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>geo_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\geos\geo_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>geo_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\geos\geo_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>geo_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\nums\num_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>num_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\nums\num_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>num_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\nums\num_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>num_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\nums\num_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>num_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\nums\num_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>num_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\strings\string_columns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>string_columns.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\strings\string_descriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>string_descriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\strings\string_placeholders.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>string_placeholders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\strings\string_snames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>string_snames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\docs\dictionary\strings\string_titles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>string_titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="resources\filters\filters.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>filters.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -9,7 +9,6 @@ namespace trifenix.connect.test.model
 {
     [EntityIndex(Index = (int)EntityRelated.BARRACK, Kind = EntityKind.ENTITY, KindIndex = (int)KindEntityProperty.REFERENCE)]
     [ToProcess(typeof(BarrackTest), typeof(PreOrderTest))]
-
     public class BarrackTest : DocumentDb
     {
 

@@ -3,6 +3,7 @@ using trifenix.connect.mdm_attributes;
 using trifenix.connect.test.model;
 using trifenix.connect.test.model_input;
 using trifenix.connect.util;
+using trifenix.versions.model;
 using Xunit;
 
 namespace trifenix.connect.test.GlobalFilterTests
@@ -25,13 +26,8 @@ namespace trifenix.connect.test.GlobalFilterTests
                 {
                     
                 };
-
-
-                
-
-
                 // action
-                var globalFilters = Mdm.GetEntityMetadata(type);
+                var globalFilters = Mdm.GetMdm(assembly, "0.0.1", new VersionStructure());
 
 
 

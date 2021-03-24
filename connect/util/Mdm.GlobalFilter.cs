@@ -21,9 +21,8 @@ namespace trifenix.connect.util
             /// Obtiene el filtro global
             /// </summary>
             /// <param name="assembly">asembly donde obtener la metadata</param>
-
             /// <returns></returns>
-            public static GlobalFilters GetGlobalFilter<T>(Assembly assembly) where T : Enum
+            public static GlobalFilters GetGlobalFilter(Assembly assembly) 
             {
 
                 var types = Common.GetTypeModel(assembly);
@@ -35,7 +34,7 @@ namespace trifenix.connect.util
 
                 var ToProcesTypes = ToProcess.ToProcessTypes(types, 0, true);
 
-                var toProcess = ToProcess.GetFilterProcess<T>(types, 0, true);
+                var toProcess = ToProcess.GetFilterProcess(types, 0, true);
 
                 var tp = ToProcesTypes.First().toProcess.TargetType;
 
