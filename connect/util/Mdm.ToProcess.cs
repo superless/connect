@@ -50,14 +50,15 @@ namespace trifenix.connect.util
             /// </summary>
             /// <typeparam name="T">enumeración donde asignará la descripción</typeparam>
             /// <param name="types">tipos, debe ser filtrado porque estén en el modelo de datos</param>
-            /// <param name="index"></param>
+            /// <param name="index">índice de la documentación</param>
             /// <param name="isGlobalFilter">Determina si los procesos a obtener corresponden al filtro global</param>
+            /// <param name="gfc">globalFilter si existe, si se usar este método para generar el GlobalFilter, este valor debe ser nulo.</param>
             /// <returns>Coleccción con las rutas a la entidad de convergencia (barrack)</returns>
-            public static ToProcessClass[] GetFilterProcess(Type[] types, int index, bool isGlobalFilter) 
+            public static ToProcessClass[] GetFilterProcess(Type[] types, int index, bool isGlobalFilter, GlobalFilters gfc) 
             {
 
 
-                var processFounded = ToProcessTypes(types, 0, isGlobalFilter);
+                var processFounded = ToProcessTypes(types, index, isGlobalFilter, gfc);
 
                 
 
@@ -120,10 +121,11 @@ namespace trifenix.connect.util
             /// Retorna una colección con el tipo y el atributo ToProcessAttribute  encontrado
             /// </summary>
             /// <param name="types">colección de tipos a analizar</param>
-            /// <param name="index"></param>
+            /// <param name="index">índice en la documentación de filtros</param>
             /// <param name="globalFilter"></param>
+            /// <param name="gfc">colección de globalFilters</param>
             /// <returns>colección con tuplas del tipo encontrado y el objeto ToGlobalFilterValueAttribute</returns>
-            public static (Type type, ToProcessAttribute toProcess)[] ToProcessTypes(Type[] types, int index, bool globalFilter)
+            public static (Type type, ToProcessAttribute toProcess)[] ToProcessTypes(Type[] types, int index, bool globalFilter, GlobalFilters gfc)
             {
                 if (index == 0 && globalFilter)
                 {
@@ -137,13 +139,15 @@ namespace trifenix.connect.util
                     }).ToArray());
                 }
 
+                // solo los que no sean globalFilter
+                // o sean el main del globalFilter
                 return types.Select(s =>
                 {
                     return (s, GetProcessAttr(s, index));
                 }).Where(s =>
                 {
-                    var (t, v) = s;
-                    return v != null;
+                    var (t, v) = s ;
+                    return v != null && (!v.IsGlobalFilter || (v.IsGlobalFilter && Reflection.Attributes.GetAttributes<EntityIndexAttribute>(t).First().Index == gfc.IndexEntityForGlobalFilters));
                 }).ToArray();
             }
 

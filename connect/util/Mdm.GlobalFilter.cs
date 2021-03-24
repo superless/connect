@@ -32,9 +32,9 @@ namespace trifenix.connect.util
                 var toValues = GetToValues(types, toValueTypes);
 
 
-                var ToProcesTypes = ToProcess.ToProcessTypes(types, 0, true);
+                var ToProcesTypes = ToProcess.ToProcessTypes(types, 0, true, null);
 
-                var toProcess = ToProcess.GetFilterProcess(types, 0, true);
+                var toProcess = ToProcess.GetFilterProcess(types, 0, true, null);
 
                 var tp = ToProcesTypes.First().toProcess.TargetType;
 

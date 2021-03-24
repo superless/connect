@@ -30,33 +30,36 @@ namespace trifenix.connect.util
         public static ModelMetaData GetMdm(Assembly assembly, string version, VersionStructure versionStructure ) 
         {
 
+            // obtenemos global filter para asignar si es globalfilter la entidad.
             var globalFilters = GlobalFilter.GetGlobalFilter(assembly);
 
+            // obtiene la metadata de las entidades
             var entitiesFirstStep = GetFirstStepEntityCollection(assembly, globalFilters);
 
-            
-
+            // obtiene la documentación de las entidades.
             var mainDocumentation = GetMainDocumentation(assembly, entitiesFirstStep);
 
 
-
+            // obtiene la documentación de los filtros.
             var filterProcess = GetFilterProcessDocs(assembly);
 
+            // asigna documentación a las entidades.
             var entitiesWithDocumentation= entitiesFirstStep.Select(s => GetEntityWithDocumentation(s, mainDocumentation)).ToList();
 
-            var entitiesWithProcess = entitiesWithDocumentation.Select(s => GetEntityWithProcess(s, filterProcess)).ToList();
+            // asigna los procesos.
+            var entitiesWithProcess = entitiesWithDocumentation.Select(s => GetEntityWithProcess(assembly, globalFilters, s, filterProcess)).ToList();
 
-            var entitiesWithRelatedProcess = entitiesWithProcess.Select(s => GetEntityWithRelatedFilters(assembly, s)).ToList();
+            // falta asignar los deletes a entities
 
 
-            var enumDescriptions = GetEnumDescriptions(assembly);
+            //var enumDescriptions = GetEnumDescriptions(assembly);
 
             var md = new ModelMetaData
             {
                 Version = version,
                 VersionStructure = versionStructure,
                 GlobalFilters = globalFilters,
-                EnumDescriptions = enumDescriptions,
+                //EnumDescriptions = enumDescriptions,
                 FiltersProcess = filterProcess,
                 Indexes= entitiesWithProcess.ToArray(),
                 MainDocumentation = mainDocumentation,
@@ -87,68 +90,169 @@ namespace trifenix.connect.util
         {
             foreach (var propModel in modelDetails.PropsDetails)
             {
-                propModel.Value.Info = mainDocumentation.
+                propModel.Value.Info = GetDisplayInfoProp(mainDocumentation, propModel.Value.KindProperty, propModel.Value.Index);
             }
-            return null;
+
+            foreach (var propEnumModel in modelDetails.PropsEnumDetails)
+            {
+                propEnumModel.Value.Info = GetDisplayInfoProp(mainDocumentation, propEnumModel.Value.KindProperty, propEnumModel.Value.Index);
+            }
+
+            foreach (var propRelatedModel in modelDetails.RelatedDetails)
+            {
+                propRelatedModel.Value.Info = mainDocumentation.Rels[propRelatedModel.Value.RealIndex.Value];
+            }
+
+            if (modelDetails.RelatedInputs == null || !modelDetails.RelatedInputs.Any())
+            {
+                return modelDetails;
+            }
+
+            var newMdlDetails = new Dictionary<string,ModelDetails>();
+
+            foreach (var mdlDetails in modelDetails.RelatedInputs)
+            {
+                newMdlDetails.Add(mdlDetails.Key,GetModelDetailsDoc(mainDocumentation, mdlDetails.Value));
+            }
+
+            modelDetails.RelatedInputs = newMdlDetails;
+            return modelDetails;
         }
 
         private static EntitySearchDisplayInfo GetDisplayInfoProp(MainDocumentation mainDoc, KindProperty kindProperty, int index) {
 
-            switch (KindProperty)
+            switch (kindProperty)
             {
-                case KindProperty.STR | KindProperty.SUGGESTION:
+                case KindProperty.STR :
+                    return mainDoc.Strs[index];
+                case KindProperty.SUGGESTION:
                     return mainDoc.Strs[index];
                 case KindProperty.NUM64 | KindProperty.NUM32:
                     return mainDoc.Nums[index];
                 case KindProperty.DBL:
-                    return mainDoc.Dates[index]
+                    // resolver
+                    return mainDoc.Dbls[index];
                 case KindProperty.BOOL:
-                    break;
+                    return mainDoc.Bools[index];
                 case KindProperty.GEO:
-                    break;
+                    return mainDoc.Geos[index];
                 case KindProperty.ENUM:
-                    break;
+                    return mainDoc.Enums[index];
                 case KindProperty.DATE:
-                    break;
+                    return mainDoc.Dates[index];
+                
                 default:
-                    break;
+                    throw new CustomException("Bad ENUM");
             }
         }
 
         private static InputDetails GetInputDetailsDoc(EntityMetadata entity, MainDocumentation mainDocumentation)
         {
 
-            return GetInputDetailsDoc(entity, mainDocumentation, entity.InputDetails);
+            return GetInputDetailsDoc(mainDocumentation, entity.InputDetails);
+        }
+
+        private static InputDetails GetInputDetailsDoc(MainDocumentation mainDocumentation, InputDetails inputDetails)
+        {
+
+            foreach (var propModel in inputDetails.InputPropsDetails)
+            {
+                propModel.Value.Info = GetDisplayInfoProp(mainDocumentation, propModel.Value.KindProperty, propModel.Value.Index);
+            }
+
+            foreach (var propEnumModel in inputDetails.InputEnumDetails)
+            {
+                propEnumModel.Value.Info = GetDisplayInfoProp(mainDocumentation, propEnumModel.Value.KindProperty, propEnumModel.Value.Index);
+            }
+
+            foreach (var propRelatedModel in inputDetails.InputRelatedDetails)
+            {
+                propRelatedModel.Value.Info = mainDocumentation.Rels[propRelatedModel.Value.Index];
+            }
+
+            if (inputDetails.RelatedInputs == null || !inputDetails.RelatedInputs.Any())
+            {
+                return inputDetails;
+            }
+
+            var newInputDetails = new Dictionary<string, InputDetails>();
+
+            foreach (var inputDetailsItem in inputDetails.RelatedInputs)
+            {
+                newInputDetails.Add(inputDetailsItem.Key, GetInputDetailsDoc(mainDocumentation, inputDetailsItem.Value));
+            }
+
+            inputDetails.RelatedInputs = newInputDetails;
+            return inputDetails;
         }
 
         private static EntityMetadata GetEntityMetadataDicctionaryDocs(EntityMetadata entity, MainDocumentation mainDocumentation)
         {
+            foreach (var strData in entity.StringData)
+            {
+                strData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.STR, strData.Value.Index);
+            }
 
-            return null;
+            foreach (var boolData in entity.BoolData)
+            {
+                boolData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.BOOL, boolData.Value.Index);
+            }
+
+            foreach (var dateData in entity.DateData)
+            {
+                dateData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.DATE, dateData.Value.Index);
+            }
+
+            foreach (var dblData in entity.DoubleData)
+            {
+                dblData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.DBL, dblData.Value.Index);
+            }
+            foreach (var enmData in entity.EnumData)
+            {
+                enmData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.ENUM, enmData.Value.Index);
+            }
+
+            foreach (var geoData in entity.GeoData)
+            {
+                geoData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.GEO, geoData.Value.Index);
+            }
+
+            foreach (var numData in entity.NumData)
+            {
+                numData.Value.Info = GetDisplayInfoProp(mainDocumentation, KindProperty.NUM32, numData.Value.Index);
+            }
+
+            foreach (var relData in entity.relData)
+            {
+                relData.Value.Info = mainDocumentation.Rels[relData.Value.Index];
+            }
+
+
+            return entity;
         }
 
 
-        private static InputDetails GetInputDetailsDoc(EntityMetadata entity, MainDocumentation mainDocumentation, InputDetails modelDetails)
-        {
-
-            return null;
-        }
+        
 
 
 
 
-        private static EntityMetadata GetEntityWithDocumentation(EntityMetadata s, MainDocumentation mainDocumentation)
+        private static EntityMetadata GetEntityWithDocumentation(EntityMetadata entity, MainDocumentation mainDocumentation)
         {
 
             // 1. documentacion directa en metadata, directo y como EntitySearchDisplayInfo.
-
+            entity = GetEntityMetadataMainDoc(entity, mainDocumentation);
             // 2. ModelDetailsDocumentación.
-
+            entity.ModelDetails = GetModelDetailsDoc(entity, mainDocumentation);
             // 3. inputDetailsDocumentation
-
+            if (entity.InputDetails!=null)
+            {
+                entity.InputDetails = GetInputDetailsDoc(entity, mainDocumentation); 
+            }
             // 4. Diccionario de documentación.
+            entity = GetEntityMetadataDicctionaryDocs(entity, mainDocumentation);
 
-            throw new NotImplementedException();
+            return entity;
         }
 
         private static EnumDescription[] GetEnumDescriptions(Assembly assembly)
@@ -161,9 +265,100 @@ namespace trifenix.connect.util
         {
             throw new NotImplementedException();
         }
-        private static EntityMetadata GetEntityWithProcess(EntityMetadata s, FilterProcess[] filterProcess)
+        private static EntityMetadata GetEntityWithProcess(Assembly asm, GlobalFilters gfc, EntityMetadata entity, FilterProcess[] docProcess)
         {
-            throw new NotImplementedException();
+            // asignar los procesos del entityMetadata
+
+            var mdlTypes = Common.GetTypeModel(asm);
+
+            if (!docProcess.Any())
+            {
+                throw new CustomException("No existe documentación de filtros");
+            }
+
+
+
+            var filterProcess = docProcess.SelectMany(dp => ToProcess.GetFilterProcess(mdlTypes, dp.Index, false, gfc));
+
+            var filterProcessForEntity = filterProcess.Where(s => s.SourceIndex == entity.Index);
+
+            if (!filterProcess.Any())
+            {
+                // no existen procesos en el modelo.
+                return entity;
+            }
+
+            if (filterProcessForEntity.Any())
+            {
+                var docFiltersAvailableForEntity = docProcess.Where(s => filterProcessForEntity.Any(a => a.SourceIndex == entity.Index));
+
+                // documentación de filtros de la entidad.
+                if (docFiltersAvailableForEntity.Any())
+                {
+                    entity.FiltersProcess = docFiltersAvailableForEntity.ToArray();
+                }
+
+
+                if (docFiltersAvailableForEntity.Any())
+                {
+                    var targetProcesForEntity = filterProcessForEntity.Where(s => s.SourceIndex == entity.Index);
+
+                    if (targetProcesForEntity.Any())
+                    {
+                        entity.ToProcessClass = targetProcesForEntity.ToArray();
+                    }
+                }
+            }
+
+
+            // se encuentan procesos que apunten a esta entidad.
+            var filterAvailableForEntity = filterProcess.Where(s => s.TargetIndex == entity.Index);
+
+            
+
+            if (gfc !=null)
+            {
+                var globalTarget = ToProcess.GetFilterProcess(mdlTypes, 0, true, null);
+
+                if (gfc.IndexEntityForGlobalFilters == entity.Index)
+                {
+                    var docFiltersAvailableToEntity = docProcess.Where(s => s.Index == 0);
+
+                    var lst = entity.FiltersAvailable?.ToList() ?? new List<RelatedItem>();
+
+                    lst.AddRange(globalTarget.Select(s => new RelatedItem
+                    {
+                        PathToEntity = s,
+                        ClassName = s.SourceName,
+                        FiltersProcess = docFiltersAvailableToEntity.First(a => a.Index == s.Index),
+                        Index = s.Index
+
+                    }));
+                    entity.FiltersAvailable = lst.ToArray();
+                }
+            }
+
+            if (filterAvailableForEntity.Any())
+            {
+
+                // todos la documentación de filtros
+                var docFiltersAvailableToEntity = docProcess.Where(s => filterAvailableForEntity.Any(a => s.Index == a.Index));
+
+                if (docFiltersAvailableToEntity.Any())
+                {
+                    var lst = entity.FiltersAvailable?.ToList()??new List<RelatedItem>();
+                    lst.AddRange(filterAvailableForEntity.Select(s => new RelatedItem
+                    {
+                        PathToEntity = s,
+                        ClassName = s.SourceName,
+                        FiltersProcess = docFiltersAvailableToEntity.First(a => a.Index == s.Index),
+                        Index = s.Index
+
+                    }));
+                    entity.FiltersAvailable = lst.ToArray();
+                }
+            }
+            return entity;
         }
 
         private static FilterProcess[] GetFilterProcessDocs(Assembly assembly)
@@ -235,19 +430,11 @@ namespace trifenix.connect.util
         {
             return index.Select(s =>
             {
-                try
-                {
-                    var indexLocal = s;
+                var indexLocal = s;
 
-                    var docLocal = mdmDocs.GetInfoFromProperty(kindProp, indexLocal);
-                    return (indexLocal, docLocal);
-                }
-                catch (Exception e)
-                {
+                var docLocal = mdmDocs.GetInfoFromProperty(kindProp, indexLocal);
+                return (indexLocal, docLocal);
 
-                    throw e;
-                }
-                
 
 
 
@@ -282,6 +469,7 @@ namespace trifenix.connect.util
             return new MainDocumentation
             {
                 Bools = GetIndexPropertyInfo(docInterface, indexbl, KindProperty.BOOL).ToDictionary(s => s.index, s => s.info),
+                Dbls = GetIndexPropertyInfo(docInterface, indexDbl, KindProperty.DBL).ToDictionary(s => s.index, s => s.info),
                 Dates = GetIndexPropertyInfo(docInterface, indexDt, KindProperty.DATE).ToDictionary(s => s.index, s => s.info),
                 Enums = GetIndexPropertyInfo(docInterface, indexEnum, KindProperty.ENUM).ToDictionary(s => s.index, s => s.info),
                 Geos = GetIndexPropertyInfo(docInterface, indexGeo, KindProperty.GEO).ToDictionary(s => s.index, s => s.info),
@@ -609,29 +797,50 @@ namespace trifenix.connect.util
 
                 var indexGlobalFilters = GetIndexesGlobalFilters(globalFilters);
 
+                var boolData = props.props.Where(s => s.KindProperty == KindProperty.BOOL && s.IndexFather == index);
 
+                var dateData = props.props.Where(s => s.KindProperty == KindProperty.DATE && s.IndexFather == index);
+
+
+                var doubleData = props.props.Where(s => s.KindProperty == KindProperty.DBL && s.IndexFather == index);
+
+                var geoData = props.props.Where(s => s.KindProperty == KindProperty.GEO && s.IndexFather == index);
+
+                var numData = props.props.Where(s => (s.KindProperty == KindProperty.NUM32 || s.KindProperty == KindProperty.NUM64) && s.IndexFather == index);
+
+                var strData = props.props.Where(s => (s.KindProperty == KindProperty.SUGGESTION || s.KindProperty == KindProperty.STR) && s.IndexFather == index);
+
+                var enumData = props.propEnms.Where(s => s.IndexFather == index);
+
+                var relData = props.relsProps.Where(s => s.IndexFather == index);
 
                 return new EntityMetadata
                 {
                     Index = index.Value,
                     AutoNumeric = props.props.Any(s => s.AutoNumeric),
-                    BoolData = props.props.Where(s => s.KindProperty == KindProperty.BOOL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
+                    BoolData = boolData.Any()? boolData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()):new Dictionary<int, PropertyMetadata>(),
+                    DateData = dateData.Any()? dateData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()): new Dictionary<int, PropertyMetadata>(),
+                    DoubleData = doubleData.Any()? doubleData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()): new Dictionary<int, PropertyMetadata>(),
+                    GeoData = geoData.Any()? geoData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()):new Dictionary<int, PropertyMetadata>(),
+                    NumData = numData.Any()? numData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()): new Dictionary<int, PropertyMetadata>(),
+                    StringData = strData.Any()? strData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()):new Dictionary<int, PropertyMetadata>(),
+                    EnumData = enumData.Any()? enumData.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()):new Dictionary<int, PropertyMetadadataEnum>(),
+                    relData = relData.Any()? relData.GroupBy(s => s.RealIndex.Value).ToDictionary(s => s.Key, s => s.FirstOrDefault()): new Dictionary<int, RelatedPropertyMetadata>(),
                     ClassInputName = input.Name,
                     ClassName = outm.Name,
-                    DateData = props.props.Where(s => s.KindProperty == KindProperty.DATE).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    DoubleData = props.props.Where(s => s.KindProperty == KindProperty.DBL).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    GeoData = props.props.Where(s => s.KindProperty == KindProperty.GEO).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    NumData = props.props.Where(s => s.KindProperty == KindProperty.NUM32 || s.KindProperty == KindProperty.NUM64).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    StringData = props.props.Where(s => s.KindProperty == KindProperty.SUGGESTION || s.KindProperty == KindProperty.STR).GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    EnumData = props.propEnms.GroupBy(s => s.Index).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
                     ModelDetails = props.mdlDetails,
                     InputDetails = propInput,
                     EntityKind = (EntityKind)entityAttr.KindIndex,
                     Visible = entityAttr.Visible,
                     ReadOnly = kindIndex == EntityKind.ENTITY_ONLY_READ,
                     PathName = entityAttr.PathName,
-                    relData = props.relsProps.GroupBy(s => s.RealIndex.Value).ToDictionary(s => s.Key, s => s.FirstOrDefault()),
-                    IsGlobalFilterValue = indexGlobalFilters.Any(s=>indexGlobalFilters.Any(e=>e.Equals(s)))
+                    
+                    IsGlobalFilterValue = indexGlobalFilters.Any(s=> index.Value == s) || index.Value == globalFilters.IndexEntityForGlobalFilters,
+                    FiltersProcess  = new FilterProcess[] { },
+                    DeleteItems = new DeleteItem[] { },
+                    FiltersAvailable = new RelatedItem[] { },
+                    ToProcessClass = new ToProcessClass[] { }
+                    
 
                 };
             }
@@ -676,6 +885,8 @@ namespace trifenix.connect.util
             var sourceIndexToValue = globalFilters.ToValue.Select(s => s.Value.OriginIndex);
 
             var targetIndexToValue = globalFilters.ToValue.Select(s => s.Value.ValueIndex);
+
+            
 
             return sourceIndexToProcess.Concat(targetIndexToProcess).Concat(sourceIndexToValue).Concat(targetIndexToValue).Distinct().ToArray();
 
