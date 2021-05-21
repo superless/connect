@@ -144,7 +144,9 @@ namespace trifenix.connect.util
                 /// <param name="obj">objeto desde el que se obtendrán los atributos</param>        
                 /// <param name="index">índice de la entidad a crear, el índice se encuentra en el atributo mdm de la clase</param>
                 /// <returns>retorna un nuevo entitySearch desde un objeto, instancia de una clase.</returns>
+#pragma warning disable CS1573 // Parameter 'hash' has no matching param tag in the XML comment for 'Mdm.Reflection.Entities.GetSimpleEntity<T>(Implements<T>, object, int, IHashSearchHelper)' (but other parameters do)
                 public static IEntitySearch<T> GetSimpleEntity<T>(Implements<T> implements, object obj, int index, IHashSearchHelper hash)
+#pragma warning restore CS1573 // Parameter 'hash' has no matching param tag in the XML comment for 'Mdm.Reflection.Entities.GetSimpleEntity<T>(Implements<T>, object, int, IHashSearchHelper)' (but other parameters do)
                 {
 
                     // obtiene la metadata y los datos del objeto

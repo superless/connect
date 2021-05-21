@@ -87,11 +87,9 @@ namespace trifenix.connect.util
 
             // esto se da en el caso de que se tenga que ir a buscar el índice en la misma clase y no en la propiedad
             // debido a que no tiene el atributo en la propiedad del modelo.
-            if (entityPropAttr == null && !isInput)
+            if (entityPropAttr == null && !isInput && !Reflection.IsPrimitive(propertyInput.PropertyType))
             {
                 var modelTypes = Common.GetTypeModel(output.Assembly);
-
-
                 var localType = modelTypes.FirstOrDefault(s => isArray ? s.Equals(propertyInput.PropertyType.GenericTypeArguments.First()) : s.Equals(propertyInput.PropertyType));
 
                 // asigna el atributo de la clase a la que apunta la propiedad.
@@ -108,7 +106,7 @@ namespace trifenix.connect.util
                 entityPropAttr = localType == null ? null : Reflection.Attributes.GetAttributes<EntityIndexAttribute>(localType).First();
             }
 
-            if (entityPropAttr == null)
+            if (entityPropAttr == null && Reflection.IsPrimitive(propertyInput.PropertyType))
             {
                 // lanza excepción si una propiedad no tiene atributos.
                 throw new CustomException($"la propiedad {propertyInput.Name} no tiene atributos");
@@ -150,7 +148,7 @@ namespace trifenix.connect.util
                 ClassName = className,
                 HasInput = isInput ? true : propOutput != null,
                 Index = entityPropAttr?.Index ?? 0,
-                KindProperty = (KindProperty)entityPropAttr.KindIndex,
+                KindProperty = entityPropAttr==null?KindProperty.STR:(KindProperty)entityPropAttr.KindIndex,
                 Info = info,
                 isArray = isArray,
                 NameProp = propertyInput.Name,
@@ -421,7 +419,7 @@ namespace trifenix.connect.util
             var types = Common.GetTypeModel(assemblyModel);
 
             
-            var indexReal = attrEntity == null ? prop.attr.Index : attrEntity.RealIndex == -1 || attrEntity.RealIndex == attrEntity.Index ? attrEntity.Index : attrEntity.RealIndex;
+            var indexReal = attrEntity == null ? Reflection.Entities.GetIndex(types.First(s => s.Name.Equals(prop.propMeta.TypeString))).Value : attrEntity.RealIndex == -1 || attrEntity.RealIndex == attrEntity.Index ? attrEntity.Index : attrEntity.RealIndex;
 
 
             // obtiene el tipo target desde el índice

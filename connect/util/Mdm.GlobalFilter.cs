@@ -25,8 +25,11 @@ namespace trifenix.connect.util
             public static GlobalFilters GetGlobalFilter(Assembly assembly) 
             {
 
+                // obtiene el assembly.
                 var types = Common.GetTypeModel(assembly);
 
+
+                // 
                 var toValueTypes = ToValueTypes(types);
 
                 var toValues = GetToValues(types, toValueTypes);
@@ -60,7 +63,9 @@ namespace trifenix.connect.util
             /// </summary>
             /// <param name="atrs">colección de tuplas con el tipo y el atríbuto ToValue</param>
             /// <returns>Colección de atributos to Value por origen y destino</returns>
+#pragma warning disable CS1573 // Parameter 'types' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.GetToValues(Type[], (Type type, ToGlobalFilterValueAttribute tov)[])' (but other parameters do)
             public static Dictionary<string, ToValue> GetToValues(Type[] types, (Type type, ToGlobalFilterValueAttribute tov)[] atrs)
+#pragma warning restore CS1573 // Parameter 'types' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.GetToValues(Type[], (Type type, ToGlobalFilterValueAttribute tov)[])' (but other parameters do)
             {
 
                 return GetToValues(types, atrs, GetToValue);
@@ -93,7 +98,9 @@ namespace trifenix.connect.util
             /// <param name="atrs">colección de tuplas con el tipo y el atríbuto ToValue</param>
             /// <param name="toValue">método para convertir una colección de tipos y su atributo a ToValue</param>
             /// <returns>Colección de atributos to Value por origen y destino</returns>
+#pragma warning disable CS1573 // Parameter 'types' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.GetToValues(Type[], (Type type, ToGlobalFilterValueAttribute tov)[], Func<Type[], (Type type, ToGlobalFilterValueAttribute toValueAttr)[], ToValue>)' (but other parameters do)
             public static Dictionary<string, ToValue> GetToValues(Type[] types, (Type type, ToGlobalFilterValueAttribute tov)[] atrs, Func<Type[], (Type type, ToGlobalFilterValueAttribute toValueAttr)[], ToValue> toValue)
+#pragma warning restore CS1573 // Parameter 'types' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.GetToValues(Type[], (Type type, ToGlobalFilterValueAttribute tov)[], Func<Type[], (Type type, ToGlobalFilterValueAttribute toValueAttr)[], ToValue>)' (but other parameters do)
             {
                 return atrs.GroupBy(s => $"{Common.toLowerFirstLetter(s.tov.SourceType.Name)}-{Common.toLowerFirstLetter(s.tov.TargetType.Name)}").ToDictionary(s => s.Key, s => toValue(types, s.ToArray()));
 
@@ -164,7 +171,9 @@ namespace trifenix.connect.util
                 return tp;
             }
 
-            /// <summary>
+            
+#pragma warning disable CS1572 // XML comment has a param tag for '', but there is no parameter by that name
+/// <summary>
             /// Los filtros globales serán solo los que apuntan a barrack, lo que apunte a barrack será de filtro global, pero no parte del filtro global de cabecera.
             /// para determinarlo, 
             /// 1. si existen dos procesos, que como final tienen uno en común, solo esos serán considerados.
@@ -172,7 +181,10 @@ namespace trifenix.connect.util
             /// </summary>
             /// <param name=""></param>
             /// <returns></returns>
+#pragma warning disable CS1573 // Parameter 'tups' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.OnlyFilters((Type type, ToProcessAttribute toProcess)[])' (but other parameters do)
             public static (Type type, ToProcessAttribute toProcess)[] OnlyFilters((Type type, ToProcessAttribute toProcess)[] tups)
+#pragma warning restore CS1572 // XML comment has a param tag for '', but there is no parameter by that name
+#pragma warning restore CS1573 // Parameter 'tups' has no matching param tag in the XML comment for 'Mdm.GlobalFilter.OnlyFilters((Type type, ToProcessAttribute toProcess)[])' (but other parameters do)
             {
 
                 var targetType = TargetFilterType(tups);

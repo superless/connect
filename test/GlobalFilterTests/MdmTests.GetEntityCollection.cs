@@ -20,12 +20,7 @@ namespace trifenix.connect.test.GlobalFilterTests
                 // assign
                 var assembly = typeof(BarrackTest).Assembly;
 
-                var type = typeof(ProductInputTest);
 
-                var entity = new EntityMetadata
-                {
-                    
-                };
                 // action
                 var globalFilters = Mdm.GetMdm(assembly, "0.0.1", new VersionStructure());
 

@@ -109,13 +109,16 @@ namespace trifenix.connect.util {
                 }
 
 
-                /// <summary>
+                
+#pragma warning disable CS1572 // XML comment has a param tag for 'visited', but there is no parameter by that name
+/// <summary>
                 /// Recorre una clase y retorna todas sus propiedades y los atributos que esta contenga.
                 /// </summary>
                 /// <param name="type">Tipo de la clase</param>
                 /// <param name="visited">interno, hace una busqueda recursiva</param>
                 /// <returns>Colección con la clase, la info de la propiedad y los atributos que esta contenga.</returns>
                 public static IEnumerable<(Type Class, PropertyInfo property, Attribute[] attributes)> GetAttributesCollection(Type type)
+#pragma warning restore CS1572 // XML comment has a param tag for 'visited', but there is no parameter by that name
                 {
                    
 

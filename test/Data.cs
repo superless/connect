@@ -249,7 +249,7 @@ namespace trifenix.connect.test
             },
             Index = 12,
             ReadOnly=false,
-            FiltersProcess = new FilterProcess[] { },
+            ToProcessFilter = new ToProcessClass[] { },
             FiltersAvailable = new RelatedItem[] { },
             EntityKind = EntityKind.CUSTOM_ENTITY,
             ClassInputName="ProductInputTest",
@@ -258,7 +258,7 @@ namespace trifenix.connect.test
             ShortName="Producto",
             DeleteItems = new DeleteItem[] { },
             Title="Producto",
-            ToProcessClass = new ToProcessClass[] { },
+            DocFilters  = new DocFilter[] { },
             Visible = true,
             InputDetails = new InputDetails { 
                 InputPropsDetails = new Dictionary<string, InputPropDetails> {

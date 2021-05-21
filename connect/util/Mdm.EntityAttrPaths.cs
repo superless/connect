@@ -34,7 +34,11 @@ namespace trifenix.connect.util
             /// <param name="tup">colección de tuplas con el tipo y el atributo para llegar a un valor</param>
             /// <param name="convert">Convierte una tupla de type y ToGlobalFilterValue del primer salto (origen) a el tipo contenedor (ToProcess o ToValue)</param>
             /// <returns>el contenedor creando la primera estructura y el resto de tuplas con el tipo y el atributo ToGlobalFilterValue</returns>
+#pragma warning disable CS1573 // Parameter 'firstPath' has no matching param tag in the XML comment for 'Mdm.EntityAttrPaths.ToPathFirstStep<T, T2>(Type[], (Type type, T2 toValueAttr)[], Func<(Type, T2), T>, Func<(Type type, T2 toValueAttr)[], (Type type, T2 toValueAttr)>, Func<Type[], T2, (Type type, PropertyInfo propInfo, EntityIndexRelatedPropertyAttribute entityAttr)>)' (but other parameters do)
+#pragma warning disable CS1573 // Parameter 'nextTargetFnc' has no matching param tag in the XML comment for 'Mdm.EntityAttrPaths.ToPathFirstStep<T, T2>(Type[], (Type type, T2 toValueAttr)[], Func<(Type, T2), T>, Func<(Type type, T2 toValueAttr)[], (Type type, T2 toValueAttr)>, Func<Type[], T2, (Type type, PropertyInfo propInfo, EntityIndexRelatedPropertyAttribute entityAttr)>)' (but other parameters do)
             public static (T toPath, Type nxt, (Type type, T2 toValueAttr)[] tup) ToPathFirstStep<T, T2>(Type[] types, (Type type, T2 toValueAttr)[] tup, Func<(Type, T2), T> convert, Func<(Type type, T2 toValueAttr)[], (Type type, T2 toValueAttr)> firstPath, Func<Type[], T2, (Type type, PropertyInfo propInfo, EntityIndexRelatedPropertyAttribute entityAttr)> nextTargetFnc) where T : PathCollection where T2 : Attribute
+#pragma warning restore CS1573 // Parameter 'nextTargetFnc' has no matching param tag in the XML comment for 'Mdm.EntityAttrPaths.ToPathFirstStep<T, T2>(Type[], (Type type, T2 toValueAttr)[], Func<(Type, T2), T>, Func<(Type type, T2 toValueAttr)[], (Type type, T2 toValueAttr)>, Func<Type[], T2, (Type type, PropertyInfo propInfo, EntityIndexRelatedPropertyAttribute entityAttr)>)' (but other parameters do)
+#pragma warning restore CS1573 // Parameter 'firstPath' has no matching param tag in the XML comment for 'Mdm.EntityAttrPaths.ToPathFirstStep<T, T2>(Type[], (Type type, T2 toValueAttr)[], Func<(Type, T2), T>, Func<(Type type, T2 toValueAttr)[], (Type type, T2 toValueAttr)>, Func<Type[], T2, (Type type, PropertyInfo propInfo, EntityIndexRelatedPropertyAttribute entityAttr)>)' (but other parameters do)
             {
                 var firstJump = firstPath(tup);
 
@@ -63,7 +67,9 @@ namespace trifenix.connect.util
             /// <param name="endType">Entidad final</param>
             /// <param name="tup">colección de entidades con su tipo y el atributo ToValue o ToProcess</param>
             /// <returns></returns>
+#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
             public static PathToFiltersValue[] GetPathFilterValue<T2>(Type[] types, Type startType, Type endType, (Type type, T2 toValueAttr)[] tup) where T2 : Attribute
+#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
             {
 
 

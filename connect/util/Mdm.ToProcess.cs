@@ -21,8 +21,7 @@ namespace trifenix.connect.util
             /// El método ToPathFirstStep crea un ToProcessClass o un ToValue con el primer registro
             /// Para crear ToValue o ToProcess necesita una función, donde se le entrega el tipo y el atributo ToProcess
             /// del primer salto de una ruta.
-            /// </summary>
-            /// <typeparam name="T">Tipo de enumeración</typeparam>
+            /// </summary>            
             /// <param name="atr"></param>
             /// <returns></returns>
             public static ToProcessClass GetToProcess((Type type, ToProcessAttribute toProcessAtribute) atr)
@@ -47,8 +46,7 @@ namespace trifenix.connect.util
 
             /// <summary>
             /// Obtiene los procesos del filtro global
-            /// </summary>
-            /// <typeparam name="T">enumeración donde asignará la descripción</typeparam>
+            /// </summary>            
             /// <param name="types">tipos, debe ser filtrado porque estén en el modelo de datos</param>
             /// <param name="index">índice de la documentación</param>
             /// <param name="isGlobalFilter">Determina si los procesos a obtener corresponden al filtro global</param>

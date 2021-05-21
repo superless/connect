@@ -102,10 +102,11 @@ namespace trifenix.connect.util
             public static (Type input, Type model) GetInputModelTypeFromIndex(Assembly asm, int index) => (GetInputTypFromIndex(asm, index), GetModelTypeFromIndex(asm, index));
 
 
+            
+
             /// <summary>
             /// Obtiene un tipo por el índice
-            /// </summary>
-            /// <param name="asm">assembly</param>
+            /// </summary>            
             /// <param name="index">índice a buscar</param>
             /// <param name="types">tipos donde buscar</param>
             /// <returns>Tipo encontrado</returns>
@@ -148,6 +149,17 @@ namespace trifenix.connect.util
 
 
                 return tp!=null?(IMdmDocumentation)Reflection.Collections.CreateEntityInstance(tp):null;
+            }
+
+            /// <summary>
+            /// obtiene todas las enumeraciones de un assembly.
+            /// </summary>
+            /// <param name="assembly">modelo trifenix connect</param>
+            /// <returns>Todas las enumeraciones encontradas</returns>
+            public static Type[] GetEnumerations(Assembly assembly) {
+
+                
+                return Reflection.GetLoadableTypes(assembly).Where(s => s.IsEnum).ToArray();
             }
 
 

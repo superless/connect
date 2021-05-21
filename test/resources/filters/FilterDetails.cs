@@ -10,13 +10,13 @@ namespace trifenix.connect.test.resources.filters
 {
     public class FilterDetails : IFilterProcessDescription
     {
-        public FilterProcess GetFilterProcessDescription(int index)
+        public DocFilter GetFilterProcessDescription(int index)
         {
             var name = Enum.GetName(typeof(FilterPathEnum), index);
 
             var description = new ResourceManager(typeof(filters)).GetString(name);
 
-            return new FilterProcess
+            return new DocFilter
             {
                 Index = index,
                 EnumDescription = description,
