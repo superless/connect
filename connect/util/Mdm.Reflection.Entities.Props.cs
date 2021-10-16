@@ -40,19 +40,15 @@ namespace trifenix.connect.util
                     public static T[] GetPropValues<T>(IProperty<T>[] props, int index) => props.Where(s => s.index == index).Select(s => s.value).ToArray();
 
                     
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag ''.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-/// <summary>
-                    /// Verifica si un tipo es una propiedad (IProperty<>)
+
+                    /// <summary>
+                    /// Verifica si un tipo es una propiedad (IProperty())
                     /// </summary>
                     /// <see cref="IProperty{T}"/>
                     /// <param name="typeToCheck">tipo a verificar</param>
                     /// <returns>true, si implementa IProperty</returns>
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
                     public static bool CheckImplementsIProperty(Type typeToCheck)
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag ''.'
+
                     {
                         return typeToCheck.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IProperty<>));
                     }
@@ -70,8 +66,8 @@ namespace trifenix.connect.util
                     }
 
                     
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'End tag 'param' does not match the start tag 'T'.'
-/// <summary>
+
+                    /// <summary>
                     /// Una propiedad de un entitySearch es un contenedor con un índice que mapea una propiedad de una clase y el valor que tiene esa propiedad ,
                     /// de acuerdo al tipo de propiedad de la clase será el tipo de contenedor que retornará.        
                     /// </summary>
@@ -83,10 +79,7 @@ namespace trifenix.connect.util
                     /// <param name="typeToCast">Tipo de la nueva propiedad a retornar</param>
                     /// <param name="castToGeo">Para el caso de tipo geo, normalmente el valor geo en el modelo de clases puede ser distinto al de geo del search. para ese caso usará esta función, para convertir desde el geo del modelo de clases, al del de busqueda (Implementación de IEntitySearch<T>)</param>
                     /// <returns>propiedad de un entitySearch con su índice y valor</returns>
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'param'.'
                     public static IProperty<T> GetProperty<T>(int index, object value, Type typeToCast, Func<object, T> castToGeo = null)
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'End tag 'param' does not match the start tag 'T'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'param'.'
                     {
                         if (!CheckImplementsIProperty(typeToCast))
                         {
@@ -164,10 +157,10 @@ namespace trifenix.connect.util
                     /// <typeparam name="T">Tipo de valor de la propiedad que será retornada</typeparam>
                     /// <param name="attribute">tupla con el atributo de la propiedad y el valor de la instancia</param>
                     /// <param name="typeToCast">Tipo de dato a convertir</param>
-                    /// <returns></returns>
-#pragma warning disable CS1573 // Parameter 'castGeoToSearch' has no matching param tag in the XML comment for 'Mdm.Reflection.Entities.Props.GetArrayOfElements<T>(KeyValuePair<BaseIndexAttribute, object>, Type, Func<object, T>)' (but other parameters do)
+                    /// <returns>Array de propiedades de acuerdo al índice y tipo de dato que tenga la metadata del atributo</returns>
+
                     public static IEnumerable<IProperty<T>> GetArrayOfElements<T>(KeyValuePair<BaseIndexAttribute, object> attribute, Type typeToCast, Func<object, T> castGeoToSearch = null)
-#pragma warning restore CS1573 // Parameter 'castGeoToSearch' has no matching param tag in the XML comment for 'Mdm.Reflection.Entities.Props.GetArrayOfElements<T>(KeyValuePair<BaseIndexAttribute, object>, Type, Func<object, T>)' (but other parameters do)
+
                     {
                         // comprueba si es una colección
                         if (Reflection.IsEnumerable(attribute.Value))
@@ -193,9 +186,8 @@ namespace trifenix.connect.util
                     /// <param name="elements">metadata y datos de un objeto</param>
                     /// <param name="castGeoToSearch">Función para convertir el elemento geo de la clase a la de la entidad de busqueda</param>
                     /// <returns>listado de propiedades de un tipo</returns>
-#pragma warning disable CS1712 // Type parameter 'T2_Cast' has no matching typeparam tag in the XML comment on 'Mdm.Reflection.Entities.Props.GetPropertiesObjects<T, T2_Cast>(KindProperty, Dictionary<BaseIndexAttribute, object>, Func<object, T>)' (but other type parameters do)
+
                     public static IEnumerable<T2_Cast> GetPropertiesObjects<T, T2_Cast>(KindProperty related, Dictionary<BaseIndexAttribute, object> elements, Func<object, T> castGeoToSearch = null) where T2_Cast : IProperty<T>
-#pragma warning restore CS1712 // Type parameter 'T2_Cast' has no matching typeparam tag in the XML comment on 'Mdm.Reflection.Entities.Props.GetPropertiesObjects<T, T2_Cast>(KindProperty, Dictionary<BaseIndexAttribute, object>, Func<object, T>)' (but other type parameters do)
                     {
                         var array = elements.Where(s => !s.Key.IsEntity && s.Key.KindIndex == (int)related).SelectMany(s => GetArrayOfElements<T>(s, typeof(T2_Cast), castGeoToSearch)).ToList();
                         return !array.Any() ? Array.Empty<T2_Cast>() : array.Cast<T2_Cast>();
@@ -211,24 +203,14 @@ namespace trifenix.connect.util
                     public static IRelatedId[] GetReferences(Dictionary<BaseIndexAttribute, object> elements, Type typeToCast)
                     {
 
-                        try
-                        {    // lanza error si no implementa IRelatedId
-                            if (!CheckImplementsIRelatedId(typeToCast))
-                            {
-                                throw new Exception("Debe implementar IRelatedId");
-                            }
-                            var array = elements.Where(s => s.Key.IsEntity && IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum);
-
-                            var refes = array.SelectMany(s => GetEntityProperty(s.Key.Index, s.Value, typeToCast)).ToArray();
-                            return !refes.Any() ? Array.Empty<IRelatedId>() : refes;
-
-                        }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-                        catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+                        if (!CheckImplementsIRelatedId(typeToCast))
                         {
-                            throw;
+                            throw new Exception("Debe implementar IRelatedId");
                         }
+                        var array = elements.Where(s => s.Key.IsEntity && IsPrimitiveAndCollection(s.Value.GetType()) && !s.Value.GetType().IsEnum);
+
+                        var refes = array.SelectMany(s => GetEntityProperty(s.Key.Index, s.Value, typeToCast)).ToArray();
+                        return !refes.Any() ? Array.Empty<IRelatedId>() : refes;
 
                     }
 
@@ -296,9 +278,8 @@ namespace trifenix.connect.util
                     /// <param name="castGeoToSearch">Convierte el objeto geo de una instancia de una clase al entitySearch.</param>
                     /// <param name="values">Diccionario con la metadata y valor de la propiedad.</param>
                     /// <returns>retorna un array de clase indicada que implementa IBoolProperty</returns>
-#pragma warning disable CS1712 // Type parameter 'T2' has no matching typeparam tag in the XML comment on 'Mdm.Reflection.Entities.Props.GetGeoProps<T, T2>(Dictionary<BaseIndexAttribute, object>, Func<object, T>)' (but other type parameters do)
+
                     public static IProperty<T>[] GetGeoProps<T, T2>(Dictionary<BaseIndexAttribute, object> values, Func<object, T> castGeoToSearch) where T2 : class, IProperty<T> =>
-#pragma warning restore CS1712 // Type parameter 'T2' has no matching typeparam tag in the XML comment on 'Mdm.Reflection.Entities.Props.GetGeoProps<T, T2>(Dictionary<BaseIndexAttribute, object>, Func<object, T>)' (but other type parameters do)
                         GetPropertiesObjects<T, T2>(KindProperty.GEO, values, castGeoToSearch).ToArray();
 
 

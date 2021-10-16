@@ -267,9 +267,8 @@ namespace trifenix.connect.util
 
 
           
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member 'Mdm.Validation.GetPrimitiveValues<T>(object, bool, KindProperty)'
+
             public static ValueContainer<T> GetPrimitiveValues<T>(object input,  bool isEntity = false, KindProperty kindProperty = KindProperty.BOOL) {
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member 'Mdm.Validation.GetPrimitiveValues<T>(object, bool, KindProperty)'
 
                 var values = Reflection.Attributes.GetPropertiesByAttributeWithValue(input);
 
@@ -285,17 +284,12 @@ namespace trifenix.connect.util
             }
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>'
+
         public class ValueContainer<T> {
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>'
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>.Primitives'
+
             public Dictionary<int, T> Primitives { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>.Primitives'
-
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>.PrimitiveCollections'
             public Dictionary<int, IEnumerable<T>> PrimitiveCollections { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member 'Mdm.ValueContainer<T>.PrimitiveCollections'
+
         }
 
     }

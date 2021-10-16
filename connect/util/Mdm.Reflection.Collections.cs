@@ -40,35 +40,27 @@ namespace trifenix.connect.util
             public static T[] CastToArray<T>(IEnumerable<object> list) => list.Select(element => (T)element).ToArray();
 
             
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag 'T'.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'End tag 'returns' does not match the start tag 'T'.'
-/// <summary>
-            /// Convierte una lista de objetos a una colección con generic (List<T>) de manera dinámica,
+
+            /// <summary>
+            /// Convierte una lista de objetos a una colección con generic List(T) de manera dinámica,
             /// asignandole el tipo y la lista de objetos a castear.
             /// </summary>
             /// <param name="genericParameterType">Tipo al que se convertirá</param>
             /// <param name="list">listado de objetos a convertir.</param>
-            /// <returns>objeto que puede ser casteado a una lista tipada (List<T>)</returns>
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'returns'.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
+            /// <returns>objeto que puede ser casteado a una lista tipada (List(T))</returns>
             public static object CastToGenericList(Type genericParameterType, IEnumerable<object> list) => typeof(Collections).GetMethod("CastToList").MakeGenericMethod(genericParameterType).Invoke(null, new object[] { list });
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'End tag 'returns' does not match the start tag 'T'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'returns'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag 'T'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
+
 
             
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag 'T'.'
-/// <summary>
-            /// Convierte un listado de objetos a una lista tipada (List<T>)
+
+            /// <summary>
+            /// Convierte un listado de objetos a una lista tipada (List(T))
             /// </summary>
             /// <typeparam name="T">tipo</typeparam>
             /// <param name="list">listado de obejtos</param>
             /// <returns>lista tipada</returns>
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
             public static List<T> CastToList<T>(IEnumerable<object> list) => list.Select(element => (T)element).ToList();
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'End tag 'summary' does not match the start tag 'T'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
+
 
             /// <summary>
             /// Crea una instancia de una clase dinámicamente

@@ -115,8 +115,7 @@
         <member name="M:trifenix.connect.util.Mdm.Common.GetTypeFromIndex(System.Int32,System.Type[])">
             <summary>
             Obtiene un tipo por el índice
-            </summary>
-            <param name="asm">assembly</param>
+            </summary>            
             <param name="index">índice a buscar</param>
             <param name="types">tipos donde buscar</param>
             <returns>Tipo encontrado</returns>
@@ -135,15 +134,95 @@
             <param name="assembly">assembly</param>
             <returns>clase </returns>
         </member>
+        <member name="M:trifenix.connect.util.Mdm.Common.GetEnumerations(System.Reflection.Assembly)">
+            <summary>
+            obtiene todas las enumeraciones de un assembly.
+            </summary>
+            <param name="assembly">modelo trifenix connect</param>
+            <returns>Todas las enumeraciones encontradas</returns>
+        </member>
         <member name="M:trifenix.connect.util.Mdm.GetMdm(System.Reflection.Assembly,System.String,trifenix.versions.model.VersionStructure)">
-            
+            <summary>
+            Obtiene la metadata de un modelo
+            </summary>
+            <param name="assembly">Assembly donde se encuentra el modelo connect</param>
+            <param name="version"></param>
+            <param name="versionStructure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetEnumDescriptions(System.Reflection.Assembly)">
+            <summary>
+            Obtiene las descripciones de enumeraciones encontradas en el modelo.
+            </summary>
+            <param name="assembly">modelo trifenix connect</param>
+            <returns>descripción de enumeraciones</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetEntityWithProcess(System.Reflection.Assembly,trifenix.connect.mdm.ts_model.GlobalFilters,trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.DocFilter[])">
+            <summary>
+            Asigna los procesos (relaciones de filtro) involucrados en cada entidad.
+            Esto permite asignar en la metadata que elementos filtran a otros.
+            y que elementos son filtrados por otros.
+            </summary>
+            <param name="asm">Assembly del modelo</param>
+            <param name="gfc">filtros globales del modelo</param>
+            <param name="entity">metadata de la entidad</param>
+            <param name="docProcess">Documentación de los filtros</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetFilterProcessDocs(System.Reflection.Assembly)">
+            <summary>
+            Obtiene la documentación de filtros desde el assembly.
+            </summary>
+            <param name="assembly">assembly del modelo</param>
+            <returns>Documentación de filtros</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetMainDocumentation(System.Reflection.Assembly,trifenix.connect.mdm.ts_model.EntityMetadata[])">
+            <summary>
+            Obtiene la documentación del modelo, desde el listado de entidades de metadata.
+            </summary>
+            <param name="assembly">Assembly del modelo</param>
+            <param name="entitiesFirstStep">metadata de entidades, despues de pasar por el primer paso.</param>
+            <returns>Documentación del modelo</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetIndexPropertyInfo(trifenix.connect.mdm.resources.IMdmDocumentation,System.Int32[],trifenix.connect.mdm.enums.KindProperty)">
+            <summary>
+            Obtiene una colección con índice e info (documentación) de una colección de propiedades
+            </summary>
+            <param name="mdmDocs">implementación de IMdmDocumentation, donde se obtendrá la documentación</param>
+            <param name="index">índices de la propiedad</param>
+            <param name="kindProp">tipo de propiedad.</param>
+            <returns>Tupla con el índice y la información de la propiedad.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetIndexEntityInfo(trifenix.connect.mdm.resources.IMdmDocumentation,System.Int32[])">
+            <summary>
+            Obtiene una colección con índice e info (documentación) de una colección de propiedades de tipo entidad.
+            </summary>
+            <param name="mdmDocs">implementación de IMdmDocumentation, donde se obtendrá la documentación</param>
+            <param name="index">índices de la propiedad de tipo entidad</param>
+            <returns>colección con índice de la entidad y la documentación.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetMainDocumentation(System.Reflection.Assembly,System.Int32[],System.Int32[],System.Int32[],System.Int32[],System.Int32[],System.Int32[],System.Int32[],System.Int32[])">
+            <summary>
+            Obtiene la documentación desde la implementación de la interface IMdmDocumentation
+            para obtener la documentación del modelo.
+            </summary>
+            <param name="assembly">asembly del modelo.</param>
+            <param name="indexEntities">índices de propiedad de tipo entidad</param>
+            <param name="indexStr">índices de propiedades de tipo string</param>
+            <param name="indexDbl">índices de propiedad de tipo double</param>
+            <param name="indexDt">índices de propiedad de tipo fecha</param>
+            <param name="indexGeo">índices de propiedad de tipo geo</param>
+            <param name="indexbl">índices de propiedad de tipo boolean</param>
+            <param name="indexNum">índices de propiedad de tipo número</param>
+            <param name="indexEnum">índices de propiedad de tipo enumeración</param>
+            <returns>documentación del modelo.</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.GetFirstStepEntityCollection(System.Reflection.Assembly,trifenix.connect.mdm.ts_model.GlobalFilters)">
             <summary>
             Obtiene una colección de metadatos para cada entidad.
             </summary>
             <param name="assembly">assembly donde lo obtendrá.</param>
-            <param name="globalFilters"></param>
+            <param name="globalFilters">filtros globales</param>
             <returns>Colección de metadatos para cada entidad.</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.GetModelInputMetadata(System.Type,System.Type)">
@@ -152,7 +231,7 @@
             </summary>
             <param name="input">tipo input</param>
             <param name="mdl">tipo model</param>
-            <returns></returns>
+            <returns>Colección de inputDetails con la metadata.</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.GetModelMetadata(System.Type,System.Type)">
             <summary>
@@ -169,6 +248,88 @@
             </summary>
             <param name="input">tipo input de entrada</param>
             <param name="globalFilters">para incorporar la propiedad isGlobalFilter</param>
+            <returns>Entidad de metadatos</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.GetIndexesGlobalFilters(trifenix.connect.mdm.ts_model.GlobalFilters)">
+            <summary>
+            obtiene los indecies de las entidades relacionadas con el globalFilter
+            las entidades que tengan el globalFilter serán las que servirán para filtrar el modelo completo.
+            </summary>
+            <param name="globalFilters">filtro glbobal</param>
+            <returns>listado de índices de las entidades que son filtros globales.</returns>
+        </member>
+        <member name="T:trifenix.connect.util.Mdm.Docs">
+            <summary>
+            Operaciones relacionadas con procesos
+            Donde el atributo ToProcess es usado para saltar de una entidad a otra 
+            cada ruta tiene un identificador y un objetivo
+            La información originada es usada en la metadata
+            </summary>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetEntityWithDocumentation(trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.MainDocumentation)">
+            <summary>
+            Asigna la documentación a la entidad, sus propiedades del modelo y sus propiedades de entrada.
+            </summary>
+            <param name="entity">Entidad a documentar</param>
+            <param name="mainDocumentation">Documentación del modelo.</param>
+            <returns>Entidad documentada.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetEntityMetadataMainDoc(trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.MainDocumentation)">
+            <summary>
+            Asigna la documentación de cada entidad en la metadata
+            </summary>
+            <param name="entity">entidad en la metadata</param>
+            <param name="mainDocumentation">documentación del modelo.</param>
+            <returns>Entity Metadata</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetModelDetailsDoc(trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.MainDocumentation)">
+            <summary>
+            Obtiene el detalle del modelo de una entidad, el detalle del modelo se refiere a sus propiedades y sus relaciones.
+            </summary>
+            <param name="entity">Entida de la emtadata</param>
+            <param name="mainDocumentation"></param>
+            <returns>Documentación de propiedades y relaciones de una entidad de metadata</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetModelDetailsDoc(trifenix.connect.mdm.ts_model.MainDocumentation,trifenix.connect.mdm.ts_model.ModelDetails)">
+            <summary>
+            Asigna la documentación al model detail, que viene a ser la metadata de las propiedades.
+            </summary>
+            <param name="mainDocumentation">documentación principal, donde se encuentra la documentación de cada propiedad.</param>
+            <param name="modelDetails"></param>
+            <returns>modelo de propiedades documentadas</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetDisplayInfoProp(trifenix.connect.mdm.ts_model.MainDocumentation,trifenix.connect.mdm.enums.KindProperty,System.Int32)">
+            <summary>
+            Entrega la documentación de acuerdo al tipo de propiedad y su índice.
+            </summary>
+            <param name="mainDoc">Documentación del modelo.</param>
+            <param name="kindProperty">Tipo de propiedad.</param>
+            <param name="index">índice de la propiedad.</param>
+            <returns>Info con la documentación.</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetInputDetailsDoc(trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.MainDocumentation)">
+            <summary>
+            Obtiene el objeto InputDetails (metadata de ls inputs)
+            y le agrega la documentación desde el modelo.
+            </summary>
+            <param name="entity">metadata de la entidad</param>
+            <param name="mainDocumentation">documentación del modelo</param>
+            <returns></returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetInputDetailsDoc(trifenix.connect.mdm.ts_model.MainDocumentation,trifenix.connect.mdm.ts_model.InputDetails)">
+            <summary>
+            Asigna las propieades de documentación al modelo de inputs.
+            </summary>
+            <param name="mainDocumentation">documentación del modelo.</param>
+            <param name="inputDetails">modelo de metadatos para inputs.</param>
+            <returns>InputDetails documentado</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Docs.GetEntityMetadataDicctionaryDocs(trifenix.connect.mdm.ts_model.EntityMetadata,trifenix.connect.mdm.ts_model.MainDocumentation)">
+            <summary>
+            Asigna la documentación al diccionario de propiedades.
+            </summary>
+            <param name="entity">entidad a documentar</param>
+            <param name="mainDocumentation">documentación del modelo.</param>
             <returns></returns>
         </member>
         <member name="T:trifenix.connect.util.Mdm.EntityAttrPaths">
@@ -306,8 +467,7 @@
             para determinarlo, 
             1. si existen dos procesos, que como final tienen uno en común, solo esos serán considerados.
             2. si un target type coincide con starttype.
-            </summary>
-            <param name=""></param>
+            </summary>            
             <returns></returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.GlobalFilter.TargetFilterType(System.ValueTuple{System.Type,trifenix.connect.mdm_attributes.ToProcessAttribute}[])">
@@ -552,8 +712,7 @@
             <summary>
             Recorre una clase y retorna todas sus propiedades y los atributos que esta contenga.
             </summary>
-            <param name="type">Tipo de la clase</param>
-            <param name="visited">interno, hace una busqueda recursiva</param>
+            <param name="type">Tipo de la clase</param>                
             <returns>Colección con la clase, la info de la propiedad y los atributos que esta contenga.</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.Reflection.Attributes.GetAttributeList``1(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Type,System.Reflection.PropertyInfo,System.Attribute[]}})">
@@ -587,8 +746,23 @@
             <param name="list">lista de objetos a convertir</param>
             <returns>array tipado</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.Reflection.Collections.CastToGenericList(System.Type,System.Collections.Generic.IEnumerable{System.Object})" -->
-        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.Reflection.Collections.CastToList``1(System.Collections.Generic.IEnumerable{System.Object})" -->
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CastToGenericList(System.Type,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Convierte una lista de objetos a una colección con generic List(T) de manera dinámica,
+            asignandole el tipo y la lista de objetos a castear.
+            </summary>
+            <param name="genericParameterType">Tipo al que se convertirá</param>
+            <param name="list">listado de objetos a convertir.</param>
+            <returns>objeto que puede ser casteado a una lista tipada (List(T))</returns>
+        </member>
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CastToList``1(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Convierte un listado de objetos a una lista tipada (List(T))
+            </summary>
+            <typeparam name="T">tipo</typeparam>
+            <param name="list">listado de obejtos</param>
+            <returns>lista tipada</returns>
+        </member>
         <member name="M:trifenix.connect.util.Mdm.Reflection.Collections.CreateInstance``1">
             <summary>
             Crea una instancia de una clase dinámicamente
@@ -903,7 +1077,14 @@
             <param name="index">índice de la propiedad</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:trifenix.connect.util.Mdm.Reflection.Entities.Props.CheckImplementsIProperty(System.Type)" -->
+        <member name="M:trifenix.connect.util.Mdm.Reflection.Entities.Props.CheckImplementsIProperty(System.Type)">
+            <summary>
+            Verifica si un tipo es una propiedad (IProperty())
+            </summary>
+            <see cref="T:trifenix.connect.mdm.entity_model.IProperty`1"/>
+            <param name="typeToCheck">tipo a verificar</param>
+            <returns>true, si implementa IProperty</returns>
+        </member>
         <member name="M:trifenix.connect.util.Mdm.Reflection.Entities.Props.CheckImplementsIRelatedId(System.Type)">
             <summary>
             Verifica si un tipo es una propiedad de tipo entidad (IRelatedId)
@@ -931,7 +1112,7 @@
             <typeparam name="T">Tipo de valor de la propiedad que será retornada</typeparam>
             <param name="attribute">tupla con el atributo de la propiedad y el valor de la instancia</param>
             <param name="typeToCast">Tipo de dato a convertir</param>
-            <returns></returns>
+            <returns>Array de propiedades de acuerdo al índice y tipo de dato que tenga la metadata del atributo</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.Reflection.Entities.Props.GetPropertiesObjects``2(trifenix.connect.mdm.enums.KindProperty,System.Collections.Generic.Dictionary{trifenix.connect.mdm_attributes.BaseIndexAttribute,System.Object},System.Func{System.Object,``0})">
             <summary>
@@ -1066,19 +1247,18 @@
             El método ToPathFirstStep crea un ToProcessClass o un ToValue con el primer registro
             Para crear ToValue o ToProcess necesita una función, donde se le entrega el tipo y el atributo ToProcess
             del primer salto de una ruta.
-            </summary>
-            <typeparam name="T">Tipo de enumeración</typeparam>
+            </summary>            
             <param name="atr"></param>
             <returns></returns>
         </member>
-        <member name="M:trifenix.connect.util.Mdm.ToProcess.GetFilterProcess(System.Type[],System.Int32,System.Boolean)">
+        <member name="M:trifenix.connect.util.Mdm.ToProcess.GetFilterProcess(System.Type[],System.Int32,System.Boolean,trifenix.connect.mdm.ts_model.GlobalFilters)">
             <summary>
             Obtiene los procesos del filtro global
-            </summary>
-            <typeparam name="T">enumeración donde asignará la descripción</typeparam>
+            </summary>            
             <param name="types">tipos, debe ser filtrado porque estén en el modelo de datos</param>
-            <param name="index"></param>
+            <param name="index">índice de la documentación</param>
             <param name="isGlobalFilter">Determina si los procesos a obtener corresponden al filtro global</param>
+            <param name="gfc">globalFilter si existe, si se usar este método para generar el GlobalFilter, este valor debe ser nulo.</param>
             <returns>Coleccción con las rutas a la entidad de convergencia (barrack)</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.ToProcess.ToProcessFirstStep(System.Type[],System.ValueTuple{System.Type,trifenix.connect.mdm_attributes.ToProcessAttribute}[])">
@@ -1099,13 +1279,14 @@
             <param name="tup">tuple con el tipo y el atributo</param>
             <returns>desde el atributo a la metadata</returns>
         </member>
-        <member name="M:trifenix.connect.util.Mdm.ToProcess.ToProcessTypes(System.Type[],System.Int32,System.Boolean)">
+        <member name="M:trifenix.connect.util.Mdm.ToProcess.ToProcessTypes(System.Type[],System.Int32,System.Boolean,trifenix.connect.mdm.ts_model.GlobalFilters)">
             <summary>
             Retorna una colección con el tipo y el atributo ToProcessAttribute  encontrado
             </summary>
             <param name="types">colección de tipos a analizar</param>
-            <param name="index"></param>
+            <param name="index">índice en la documentación de filtros</param>
             <param name="globalFilter"></param>
+            <param name="gfc">colección de globalFilters</param>
             <returns>colección con tuplas del tipo encontrado y el objeto ToGlobalFilterValueAttribute</returns>
         </member>
         <member name="M:trifenix.connect.util.Mdm.ToProcess.GetProcessAttr(System.Type,System.Int32)">
